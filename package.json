@@ -1,10 +1,9 @@
 {
-  "name": "@paygate-sdk/project",
+  "name": "paygate-sdk",
   "version": "1.0.0",
-  "description": "PayGate tools",
+  "description": "PayGate JS/TS SDK",
   "homepage": "https://github.com/distributhor/paygate-sdk",
   "license": "MIT",
-  "private": true,
   "keywords": [
     "paygate"
   ],
@@ -28,25 +27,67 @@
     "/dist/types.js.map"
   ],
   "main": "dist/client.js",
-  "workspaces": [
-    "packages/*"
-  ],
   "scripts": {
-    "build": "yarn run-p build:*",
-    "build:api": "yarn workspace @paygate-sdk/api-client build",
-    "build:app": "yarn workspace @paygate-sdk/express-midleware build",
-    "develop": "yarn run-p develop:*",
-    "develop:api": "yarn workspace @paygate-sdk/express-server-impl develop",
-    "develop:app": "yarn workspace @paygate-sdk/frontend-app-impl develop",
-    "lint": "yarn workspaces run lint",
-    "lint:fix": "yarn workspaces run lint:fix",
-    "test": "yarn workspaces run test"
+    "build": "tsc -b --clean && tsc -b",
+    "lint": "yarn lint:check",
+    "lint:check": "eslint '{src,test}/**/*.{js,ts,json}'",
+    "lint:fix": "eslint --fix '{src,test}/**/*.{js,ts,json}'",
+    "lint:format": "yarn prettier:fix",
+    "prettier:fix": "prettier --ignore-path .prettierignore --write '{src,test}/**/*.{js,ts,json,md}'",
+    "prettier:check": "prettier --ignore-path .prettierignore --check '{src,test}/**/*.{js,ts,json,md}'",
+    "integration:test": "jest -c test/jest.integration.config.js",
+    "test": "jest -c test/jest.unit.config.js --passWithNoTests",
+    "doc:html": "typedoc --tsconfig ./tsconfig.json --out docs/html --plugin typedoc-neo-theme --theme ./node_modules/typedoc-neo-theme/bin/default",
+    "doc:markdown": "typedoc --tsconfig ./tsconfig.json --out docs/markdown --readme none --plugin typedoc-plugin-markdown",
+    "doc": "yarn doc:html && yarn doc:markdown"
   },
   "dependencies": {
+    "luxon": "^1.25.0",
+    "md5": "^2.3.0",
+    "qs": "^6.9.4",
+    "superagent": "^6.1.0",
+    "uuid": "^8.1.0",
     "yarn": ">=1.22.0"
   },
   "devDependencies": {
-    "npm-run-all": "4.1.5"
+    "@types/jest": "^26.0.14",
+    "@types/luxon": "^1.25.0",
+    "@types/md5": "^2.2.1",
+    "@types/node": "^14.11.10",
+    "@types/qs": "^6.9.5",
+    "@types/superagent": "^4.1.10",
+    "@types/uuid": "^8.3.0",
+    "@typescript-eslint/eslint-plugin": "^4.4.1",
+    "@typescript-eslint/parser": "^4.4.1",
+    "eslint": "^7.11.0",
+    "eslint-config-prettier": "^6.13.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "husky": "^4.3.0",
+    "jest": "^26.5.3",
+    "lint-staged": "^10.4.2",
+    "prettier": "^2.1.2",
+    "ts-jest": "^26.4.1",
+    "ts-node": "^9.0.0",
+    "typedoc": "^0.19.2",
+    "typedoc-neo-theme": "^1.0.10",
+    "typedoc-plugin-markdown": "^3.0.11",
+    "typescript": "^4.0.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push-with-test": "yarn lint && yarn test",
+      "pre-push": "yarn lint"
+    }
+  },
+  "lint-staged": {
+    "*.{js,json,md,ts,tsx}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "prettier": {
+    "printWidth": 120
   },
   "engines": {
     "node": ">=10.0.0",

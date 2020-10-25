@@ -5,18 +5,28 @@ function initiatePayment(amount) {
     type: "POST",
     url: baseUri + "/paygate/pay",
     data: JSON.stringify({ amount: amount }),
-    success: function(data) {
+    success: function (data) {
       console.log(data);
-      if (data.paygateRedirectUri) {
-        window.location.replace(data.paygateRedirectUri);
+      if (data.redirectUrl) {
+        // window.location = data.redirectUrl;
+        $("#redirect").html(
+          '<form action="' +
+            data.redirectUrl +
+            '" name="redirect-form" method="post" style="display:none;"><input type="text" name="PAY_REQUEST_ID" value="' +
+            data.paymentRef.PAY_REQUEST_ID +
+            '" /><input type="text" name="CHECKSUM" value="' +
+            data.paymentRef.CHECKSUM +
+            '" /></form>'
+        );
+        document.forms["redirect-form"].submit();
       }
     },
-    error: function(error) {
+    error: function (error) {
       console.log(error.status);
       console.log(error.statusText);
     },
     contentType: "application/json",
-    dataType: "json"
+    dataType: "json",
   });
 }
 
@@ -25,7 +35,7 @@ function validateAmount(value) {
     return {
       amount: 0,
       valid: false,
-      message: "Amount is required"
+      message: "Amount is required",
     };
   }
 
@@ -35,20 +45,20 @@ function validateAmount(value) {
     return {
       amount: 0,
       valid: false,
-      message: "Amount is not a number"
+      message: "Amount is not a number",
     };
   }
 
   return {
     amount: amount,
-    valid: true
+    valid: true,
   };
 }
 
-$(document).ready(function() {
+$(document).ready(function () {
   $("#error").hide();
 
-  $("#amount").on("input", function() {
+  $("#amount").on("input", function () {
     const validation = validateAmount($("#amount").val());
     if (!validation.valid) {
       $("#error").text(validation.message);
@@ -59,7 +69,7 @@ $(document).ready(function() {
     $("#error").hide();
   });
 
-  $("#pay").click(function() {
+  $("#pay").click(function () {
     const validation = validateAmount($("#amount").val());
     if (!validation.valid) {
       $("#error").text(validation.message);

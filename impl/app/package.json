@@ -5,11 +5,12 @@
   "private": true,
   "main": "app.js",
   "scripts": {
-    "develop": "node ./bin/www"
+    "develop": "nodemon",
+    "start": "node ./bin/www"
   },
   "devDependencies": {
     "cookie-parser": "^1.4.4",
     "express": "^4.17.1",
-    "morgan": "^1.9.1"
+    "nodemon": "^2.0.6"
   }
 }
