@@ -1,0 +1,35 @@
+
+<div class="py-5 text-center">
+    <h2>Payment Form</h2>
+    <p class="lead">Use the form below to simulate a payment.</p>
+</div>
+
+<div class="row justify-content-md-center">
+    <form>
+        <div class="form-row">
+            <div class="col-md-6">
+                <div class="input-group mb-3">
+                    <input id="email" type="text" class="form-control" placeholder="Email" aria-label="Email">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="input-group mb-3">
+                    <input id="amount" type="text" class="form-control" placeholder="Amount" aria-label="Amount">
+                    <div class="input-group-append">
+                        <span class="input-group-text">ZAR</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-2">
+                <button id="pay" type="button" class="btn btn-primary mb-3">&nbsp; Pay &nbsp;</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="row justify-content-md-center">
+    <span id="error" class="text-danger">Invalid</span>
+</div>
+
+<div id="redirect"></div>

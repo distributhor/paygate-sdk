@@ -1,0 +1,6 @@
+{
+  "ext": "js",
+  "watch": ["proxy.js"],
+  "ignore": ["node_modules"],
+  "exec": "node proxy.js"
+}

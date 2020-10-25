@@ -1,14 +1,17 @@
 const baseUri = "http://localhost:7000";
 
-function initiatePayment(amount) {
+function initiatePayment(amount, email) {
   $.ajax({
     type: "POST",
     url: baseUri + "/paygate/pay",
-    data: JSON.stringify({ amount: amount }),
+    data: JSON.stringify({ amount: amount, email: email }),
+    contentType: "application/json",
+    dataType: "json",
+
     success: function (data) {
       console.log(data);
+
       if (data.redirectUrl) {
-        // window.location = data.redirectUrl;
         $("#redirect").html(
           '<form action="' +
             data.redirectUrl +
@@ -18,15 +21,15 @@ function initiatePayment(amount) {
             data.paymentRef.CHECKSUM +
             '" /></form>'
         );
+
         document.forms["redirect-form"].submit();
       }
     },
+
     error: function (error) {
       console.log(error.status);
       console.log(error.statusText);
     },
-    contentType: "application/json",
-    dataType: "json",
   });
 }
 
@@ -70,6 +73,13 @@ $(document).ready(function () {
   });
 
   $("#pay").click(function () {
+    const email = $("#email").val();
+    if (!email) {
+      $("#error").text("Email is required");
+      $("#error").show();
+      return false;
+    }
+
     const validation = validateAmount($("#amount").val());
     if (!validation.valid) {
       $("#error").text(validation.message);
@@ -79,6 +89,6 @@ $(document).ready(function () {
 
     $("#error").hide();
 
-    initiatePayment(validation.amount);
+    initiatePayment(validation.amount, email);
   });
 });

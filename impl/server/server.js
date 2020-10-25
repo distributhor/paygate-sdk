@@ -1,10 +1,8 @@
-const md5 = require("md5");
 const cors = require("cors");
 const path = require("path");
-const ngrok = require("ngrok");
 const express = require("express");
 const bodyParser = require("body-parser");
-const { DateTime } = require("luxon");
+const superagent = require("superagent");
 
 const { PayGateClient } = require("../../dist/client.js");
 
@@ -14,37 +12,19 @@ const server = express();
 
 server.use(cors());
 server.use(bodyParser.json());
+server.use(bodyParser.urlencoded({ extended: true }));
 
-const paygateId = process.env.PAYGATE_ID;
-const paygateSecret = process.env.PAYGATE_SECRET;
+const client = new PayGateClient(process.env.PAYGATE_ID, process.env.PAYGATE_SECRET);
 
 let returnUrl = "https://www.aquarium.co.za";
 let notifyUrl = "http://localhost:7000";
 
 (async function () {
-  if (process.env.NGROK_URL) {
-    notifyUrl = process.env.NGROK_URL;
-  } else if (process.env.NGROK_AUTH_TOKEN) {
-    notifyUrl = await ngrok.connect({
-      authtoken: process.env.NGROK_AUTH_TOKEN,
-      addr: 7000,
-      region: "eu",
-    });
-
-    // The ngrok and all tunnels will be killed when node process is done. To stop the tunnels use
-    // await ngrok.disconnect(url); // stops one
-    // await ngrok.disconnect(); // stops all
-    // await ngrok.kill(); // kills ngrok process
-  }
-
-  if (notifyUrl !== "http://localhost:7000") {
-    console.log(`Available via ngrok on ${notifyUrl}`);
-  }
+  const response = await superagent.get(`http://localhost:7500/uri-info`);
+  console.log(response.body);
+  returnUrl = response.body.publicAppUri;
+  notifyUrl = response.body.publicServerUri;
 })();
-
-if (!process.env.NODE_ENV || process.env.NODE_ENV !== "production") {
-  //
-}
 
 server.get("/health-check", (req, res) => {
   res.sendStatus(200);
@@ -52,15 +32,14 @@ server.get("/health-check", (req, res) => {
 
 server.post("/paygate/pay", async (req, res) => {
   const paymentRequest = {
-    AMOUNT: "100", // req.body.amount,
-    RETURN_URL: returnUrl,
-    EMAIL: "distributhor@fastmail.com",
+    AMOUNT: req.body.amount,
+    RETURN_URL: `${returnUrl}/hello`,
+    EMAIL: req.body.email,
     NOTIFY_URL: `${notifyUrl}/paygate/notify`,
-    USER1: "wk",
+    USER1: "sdk-test",
   };
 
   try {
-    const client = new PayGateClient(paygateId, paygateSecret);
     const paymentResponse = await client.requestPayment(paymentRequest);
 
     console.log("Express Response");
@@ -78,9 +57,26 @@ server.post("/paygate/notify", (req, res) => {
   try {
     console.log("");
     console.log("POST paygate/notify ...");
-    console.log(req.headers);
     console.log(req.body);
     console.log("");
+
+    // body: {
+    //   PAYGATE_ID: '10011072130',
+    //   PAY_REQUEST_ID: '4C8583D3-4B20-07E1-5033-0A2F93E7BE8C',
+    //   REFERENCE: '4469083e-3265-4248-be22-6e4f05ce2451',
+    //   TRANSACTION_STATUS: '1',
+    //   RESULT_CODE: '990017',
+    //   AUTH_CODE: '8KO7DW',
+    //   CURRENCY: 'ZAR',
+    //   AMOUNT: '2000',
+    //   RESULT_DESC: 'Auth Done',
+    //   TRANSACTION_ID: '218815324',
+    //   RISK_INDICATOR: 'AP',
+    //   PAY_METHOD: 'CC',
+    //   PAY_METHOD_DETAIL: 'Visa',
+    //   USER1: 'sdk-test',
+    //   CHECKSUM: '56b7cd47861008dfe106ca4fb1a86733'
+    // },
     res.send(req.body);
   } catch (e) {
     console.log(e);
@@ -92,7 +88,7 @@ server.get("/paygate/notify", (req, res) => {
   try {
     console.log("");
     console.log("GET paygate/notify ...");
-    console.log(req.headers);
+    console.log(req.text);
     console.log(req.body);
     console.log("");
     res.send(req.body);
