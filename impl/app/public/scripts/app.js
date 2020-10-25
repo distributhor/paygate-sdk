@@ -1,31 +1,28 @@
-const baseUri = "http://localhost:7000";
+function redirect(redirectUri, paymentReqId, checksum) {
+  $("#redirect").html(
+    '<form action="' +
+      redirectUri +
+      '" name="redirect-form" method="post" style="display:none;"><input type="text" name="PAY_REQUEST_ID" value="' +
+      paymentReqId +
+      '" /><input type="text" name="CHECKSUM" value="' +
+      checksum +
+      '" /></form>'
+  );
+  document.forms["redirect-form"].submit();
+}
 
-function initiatePayment(amount, email) {
+function requestPayment(amount, email) {
   $.ajax({
     type: "POST",
-    url: baseUri + "/paygate/pay",
+    url: "http://localhost:7000/payment-request",
     data: JSON.stringify({ amount: amount, email: email }),
     contentType: "application/json",
     dataType: "json",
-
     success: function (data) {
-      console.log(data);
-
-      if (data.redirectUrl) {
-        $("#redirect").html(
-          '<form action="' +
-            data.redirectUrl +
-            '" name="redirect-form" method="post" style="display:none;"><input type="text" name="PAY_REQUEST_ID" value="' +
-            data.paymentRef.PAY_REQUEST_ID +
-            '" /><input type="text" name="CHECKSUM" value="' +
-            data.paymentRef.CHECKSUM +
-            '" /></form>'
-        );
-
-        document.forms["redirect-form"].submit();
+      if (data.redirectUri) {
+        redirect(data.redirectUri, data.paymentRef.PAY_REQUEST_ID, data.paymentRef.CHECKSUM);
       }
     },
-
     error: function (error) {
       console.log(error.status);
       console.log(error.statusText);
@@ -89,6 +86,6 @@ $(document).ready(function () {
 
     $("#error").hide();
 
-    initiatePayment(validation.amount, email);
+    requestPayment(validation.amount, email);
   });
 });

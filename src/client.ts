@@ -1,13 +1,12 @@
-/* eslint-disable no-prototype-builtins */
 import qs from "qs";
 import md5 from "md5";
-import { DateTime } from "luxon";
-import { v4 as uuidv4 } from "uuid";
 import superagent from "superagent";
+import { v4 as uuidv4 } from "uuid";
+import { DateTime } from "luxon";
 import {
   PaymentRequest,
   PaymentResponse,
-  PaymentRequestRef,
+  PaymentReference,
   PayGateErrorCodes,
   UntypedObject,
   ErrorObject,
@@ -30,7 +29,7 @@ const TypeChecks = {
     return x.response && x.response.body && x.response.body.error;
   },
 
-  isPaymentRequestRef: (x: any): x is PaymentRequestRef => {
+  isPaymentReference: (x: any): x is PaymentReference => {
     return x.PAY_REQUEST_ID && x.CHECKSUM;
   },
 };
@@ -231,13 +230,13 @@ export class PayGateClient {
       console.log("PayGate Response");
       console.log(payGateResponse);
 
-      if (!TypeChecks.isPaymentRequestRef(payGateResponse)) {
+      if (!TypeChecks.isPaymentReference(payGateResponse)) {
         throw new PayGateError(payGateResponse, PayGate.UNKNOWN_PAYGATE_RESPONSE);
       }
 
       return {
         paymentRef: payGateResponse,
-        redirectUrl: PayGate.REDIRECT_URI,
+        redirectUri: PayGate.REDIRECT_URI,
         //`${PayGate.REDIRECT_URI}?PAY_REQUEST_ID=${payGateResponse.PAY_REQUEST_ID}&CHECKSUM=${payGateResponse.CHECKSUM}`,
       };
     } catch (e) {

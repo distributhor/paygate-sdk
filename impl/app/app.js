@@ -16,20 +16,14 @@ app.get("/", function (req, res) {
   res.render("index", { title: "Payment" });
 });
 
-app.get("/hello", function (req, res) {
-  res.render("hello", { title: "Hello" });
-});
-
-app.post("/hello", function (req, res) {
-  console.log("HERE");
+app.post("/status", function (req, res) {
   console.log(req.body);
-  //   HERE
-  // [Object: null prototype] {
+  // {
   //   PAY_REQUEST_ID: '664863E9-AD95-43CD-0B40-7D00B7207E56',
   //   TRANSACTION_STATUS: '1',
   //   CHECKSUM: 'eb74f319179dfbfd3bfbd134e5628e2a'
   // }
-  res.render("hello", { title: "Hello" });
+  res.render("status", { title: "Payment Status" });
 });
 
 app.listen(8000, function () {

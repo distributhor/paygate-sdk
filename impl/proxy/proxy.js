@@ -6,20 +6,20 @@ require("dotenv").config({ path: path.join(__dirname, ".env") });
 
 const server = express();
 
-let publicServerUri = null;
-let publicAppUri = null;
+let appUri = null;
+let serverUri = null;
 
 (async function () {
   if (process.env.NGROK_AUTH_TOKEN) {
-    publicServerUri = await ngrok.connect({
+    appUri = await ngrok.connect({
       authtoken: process.env.NGROK_AUTH_TOKEN,
-      addr: 7000,
+      addr: 8000,
       region: "eu",
     });
 
-    publicAppUri = await ngrok.connect({
+    serverUri = await ngrok.connect({
       authtoken: process.env.NGROK_AUTH_TOKEN,
-      addr: 8000,
+      addr: 7000,
       region: "eu",
     });
 
@@ -30,22 +30,14 @@ let publicAppUri = null;
     // await ngrok.kill(); // kills ngrok process
   }
 
-  console.log(`Public server URI: ${publicServerUri}`);
-  console.log(`Public app URI: ${publicAppUri}`);
+  console.log(`Public app URI: ${appUri}`);
+  console.log(`Public server URI: ${serverUri}`);
 })();
 
-server.get("/uri-server", (req, res) => {
-  res.send(publicServerUri);
-});
-
-server.get("/uri-app", (req, res) => {
-  res.send(publicAppUri);
-});
-
-server.get("/uri-info", (req, res) => {
+server.get("/proxy-info", (req, res) => {
   res.send({
-    publicServerUri,
-    publicAppUri,
+    serverUri,
+    appUri,
   });
 });
 
