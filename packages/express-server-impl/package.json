@@ -1,0 +1,24 @@
+{
+  "name": "@paygate-sdk/express-server-impl",
+  "version": "1.0.0",
+  "license": "UNLICENSED",
+  "private": true,
+  "main": "server.js",
+  "scripts": {
+    "develop": "nodemon"
+  },
+  "devDependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "luxon": "^1.25.0",
+    "md5": "^2.3.0",
+    "morgan": "^1.9.1",
+    "ngrok": "^3.3.0",
+    "nodemon": "^2.0.6",
+    "qs": "^6.9.4",
+    "superagent": "^6.1.0",
+    "uuid": "^8.1.0"
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "name": "@paygate-sdk/project",
+  "version": "1.0.0",
+  "description": "PayGate tools",
+  "homepage": "https://github.com/distributhor/paygate-sdk",
+  "license": "MIT",
+  "private": true,
+  "keywords": [
+    "paygate"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/distributhor/paygate-sdk.git"
+  },
+  "contributors": [
+    "WK <distributhor@fastmail.com>"
+  ],
+  "files": [
+    "LICENSE.md",
+    "README.md",
+    "/dist/client.d.ts",
+    "/dist/client.d.ts.map",
+    "/dist/client.js",
+    "/dist/client.js.map",
+    "/dist/types.d.ts",
+    "/dist/types.d.ts.map",
+    "/dist/types.js",
+    "/dist/types.js.map"
+  ],
+  "main": "dist/client.js",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "yarn run-p build:*",
+    "build:api": "yarn workspace @paygate-sdk/api-client build",
+    "build:app": "yarn workspace @paygate-sdk/express-midleware build",
+    "develop": "yarn run-p develop:*",
+    "develop:api": "yarn workspace @paygate-sdk/express-server-impl develop",
+    "develop:app": "yarn workspace @paygate-sdk/frontend-app-impl develop",
+    "lint": "yarn workspaces run lint",
+    "lint:fix": "yarn workspaces run lint:fix",
+    "test": "yarn workspaces run test"
+  },
+  "dependencies": {
+    "yarn": ">=1.22.0"
+  },
+  "devDependencies": {
+    "npm-run-all": "4.1.5"
+  },
+  "engines": {
+    "node": ">=10.0.0",
+    "npm": ">=6.0.0"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "@paygate-sdk/frontend-app-impl",
+  "version": "1.0.0",
+  "license": "UNLICENSED",
+  "private": true,
+  "main": "app.js",
+  "scripts": {
+    "develop": "node ./bin/www"
+  },
+  "devDependencies": {
+    "cookie-parser": "^1.4.4",
+    "express": "^4.17.1",
+    "morgan": "^1.9.1"
+  }
+}
