@@ -1,14 +1,48 @@
-function redirect(redirectUri, paymentReqId, checksum) {
-  $("#redirect").html(
-    '<form action="' +
-      redirectUri +
-      '" name="redirect-form" method="post" style="display:none;"><input type="text" name="PAY_REQUEST_ID" value="' +
-      paymentReqId +
-      '" /><input type="text" name="CHECKSUM" value="' +
-      checksum +
-      '" /></form>'
-  );
-  document.forms["redirect-form"].submit();
+function jqueryRedirect(uri, params) {
+  const form = $("<form></form>");
+
+  form.attr("method", "post");
+  form.attr("action", uri);
+
+  $.each(params, function (key, value) {
+    if (typeof value == "object" || typeof value == "array") {
+      $.each(value, function (subkey, subvalue) {
+        var field = $("<input />");
+        field.attr("type", "hidden");
+        field.attr("name", key + "[]");
+        field.attr("value", subvalue);
+        form.append(field);
+      });
+    } else {
+      var field = $("<input />");
+      field.attr("type", "hidden");
+      field.attr("name", key);
+      field.attr("value", value);
+      form.append(field);
+    }
+  });
+  $(document.body).append(form);
+  form.submit();
+}
+
+function redirect(uri, params) {
+  const form = document.createElement("form");
+  form.method = "post";
+  form.action = uri;
+
+  for (const key in params) {
+    if (params.hasOwnProperty(key)) {
+      const hiddenField = document.createElement("input");
+      hiddenField.type = "hidden";
+      hiddenField.name = key;
+      hiddenField.value = params[key];
+
+      form.appendChild(hiddenField);
+    }
+  }
+
+  document.body.appendChild(form);
+  form.submit();
 }
 
 function requestPayment(amount, email) {
@@ -20,8 +54,28 @@ function requestPayment(amount, email) {
     dataType: "json",
     success: function (data) {
       if (data.redirectUri) {
-        redirect(data.redirectUri, data.paymentRef.PAY_REQUEST_ID, data.paymentRef.CHECKSUM);
+        redirect(data.redirectUri, data.redirectParams);
       }
+    },
+    error: function (error) {
+      console.log(error.status);
+      console.log(error.statusText);
+    },
+  });
+}
+
+function queryPaymentStatus(paymentRef) {
+  $.ajax({
+    type: "GET",
+    url:
+      "http://localhost:7000/payment-status?PAY_REQUEST_ID=" +
+      paymentRef.PAY_REQUEST_ID +
+      "&REFERENCE=" +
+      paymentRef.REFERENCE,
+    contentType: "application/json",
+    dataType: "json",
+    success: function (data) {
+      console.log(data);
     },
     error: function (error) {
       console.log(error.status);
@@ -87,5 +141,9 @@ $(document).ready(function () {
     $("#error").hide();
 
     requestPayment(validation.amount, email);
+  });
+
+  $("#status").click(function () {
+    queryPaymentStatus();
   });
 });

@@ -4,6 +4,7 @@ import superagent from "superagent";
 import { v4 as uuidv4 } from "uuid";
 import { DateTime } from "luxon";
 import {
+  PaymentStatus,
   PaymentRequest,
   PaymentResponse,
   PaymentReference,
@@ -32,6 +33,10 @@ const TypeChecks = {
   isPaymentReference: (x: any): x is PaymentReference => {
     return x.PAY_REQUEST_ID && x.CHECKSUM;
   },
+
+  isPaymentStatus: (x: any): x is PaymentStatus => {
+    return x.TRANSACTION_STATUS && x.RESULT_CODE;
+  },
 };
 
 /** @internal */
@@ -56,6 +61,7 @@ const HttpStatus = {
 const PayGate = {
   INITIATE_URI: "https://secure.paygate.co.za/payweb3/initiate.trans",
   REDIRECT_URI: "https://secure.paygate.co.za/payweb3/process.trans",
+  QUERY_URI: "https://secure.paygate.co.za/payweb3/query.trans",
   UNKNOWN_PAYGATE_RESPONSE: "Unexpected PayGate response",
   UNKNOWN_RESPONSE: "Unknown response",
 
@@ -94,6 +100,22 @@ const PayGate = {
       USER3: data.USER3 || undefined,
       VAULT: data.VAULT || undefined,
       VAULT_ID: data.VAULT_ID || undefined,
+    };
+
+    PayGate.removeAllNonValuedProperties(obj);
+
+    if (payGateSecret) {
+      obj.CHECKSUM = PayGateClient.checksum(obj, payGateSecret);
+    }
+
+    return obj;
+  },
+
+  sanitizePaymentRef: (data: PaymentReference, payGateId?: string, payGateSecret?: string): PaymentReference => {
+    const obj: PaymentReference = {
+      PAYGATE_ID: payGateId || data.PAYGATE_ID,
+      PAY_REQUEST_ID: data.PAY_REQUEST_ID,
+      REFERENCE: data.REFERENCE,
     };
 
     PayGate.removeAllNonValuedProperties(obj);
@@ -206,16 +228,7 @@ export class PayGateClient {
   async requestPayment(paymentRequest: PaymentRequest): Promise<PaymentResponse> {
     try {
       const data = PayGate.sanitizePaymentRequest(paymentRequest, this.payGateId, this.payGateSecret);
-
-      console.log("Payment Request");
-      console.log(data);
-
       const httpResponse = await superagent.post(PayGate.INITIATE_URI).send(qs.stringify(data));
-
-      if (httpResponse.body) {
-        console.log("PayGate HTTP Response Body");
-        console.log(httpResponse.body);
-      }
 
       if (!httpResponse.text) {
         throw new PayGateError(PayGate.UNKNOWN_RESPONSE);
@@ -237,8 +250,36 @@ export class PayGateClient {
       return {
         paymentRef: payGateResponse,
         redirectUri: PayGate.REDIRECT_URI,
-        //`${PayGate.REDIRECT_URI}?PAY_REQUEST_ID=${payGateResponse.PAY_REQUEST_ID}&CHECKSUM=${payGateResponse.CHECKSUM}`,
+        redirectParams: {
+          PAY_REQUEST_ID: payGateResponse.PAY_REQUEST_ID,
+          CHECKSUM: payGateResponse.CHECKSUM,
+        },
       };
+    } catch (e) {
+      throw new PayGateError(e);
+    }
+  }
+
+  async paymentStatus(paymentRef: PaymentReference): Promise<PaymentStatus> {
+    try {
+      const data = PayGate.sanitizePaymentRef(paymentRef, this.payGateId, this.payGateSecret);
+      const httpResponse = await superagent.post(PayGate.QUERY_URI).send(qs.stringify(data));
+
+      if (!httpResponse.text) {
+        throw new PayGateError(PayGate.UNKNOWN_RESPONSE);
+      }
+
+      const payGateResponse = qs.parse(httpResponse.text);
+
+      if (TypeChecks.containsErrorProperty(payGateResponse)) {
+        throw new PayGateError(payGateResponse);
+      }
+
+      if (!TypeChecks.isPaymentStatus(payGateResponse)) {
+        throw new PayGateError(payGateResponse, PayGate.UNKNOWN_PAYGATE_RESPONSE);
+      }
+
+      return payGateResponse;
     } catch (e) {
       throw new PayGateError(e);
     }

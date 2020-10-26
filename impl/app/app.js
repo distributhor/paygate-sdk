@@ -18,12 +18,8 @@ app.get("/", function (req, res) {
 
 app.post("/status", function (req, res) {
   console.log(req.body);
-  // {
-  //   PAY_REQUEST_ID: '664863E9-AD95-43CD-0B40-7D00B7207E56',
-  //   TRANSACTION_STATUS: '1',
-  //   CHECKSUM: 'eb74f319179dfbfd3bfbd134e5628e2a'
-  // }
-  res.render("status", { title: "Payment Status" });
+  const data = Object.assign({ title: "Payment Status" }, req.body);
+  res.render("status", data);
 });
 
 app.listen(8000, function () {

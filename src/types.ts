@@ -136,12 +136,18 @@ export interface PaymentRequest {
 export interface PaymentReference {
   PAYGATE_ID?: string;
   PAY_REQUEST_ID: string;
-  REFERENCE?: string;
+  REFERENCE: string;
   CHECKSUM?: string;
 }
 
+export interface RedirectParams {
+  PAY_REQUEST_ID: string;
+  CHECKSUM: string;
+}
+
 export interface PaymentResponse {
-  paymentRef?: PaymentReference;
+  paymentRef: PaymentReference;
+  redirectParams: RedirectParams;
   redirectUri: string;
 }
 

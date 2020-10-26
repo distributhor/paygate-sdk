@@ -14,16 +14,22 @@ server.use(cors());
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: true }));
 
+const session = {};
+
 const client = new PayGateClient(process.env.PAYGATE_ID, process.env.PAYGATE_SECRET);
 
 let returnUrl = "https://www.aquarium.co.za";
 let notifyUrl = null;
 
 (async function () {
-  const response = await superagent.get(`http://localhost:7500/proxy-info`);
-  console.log(response.body);
-  returnUrl = response.body.appUri;
-  notifyUrl = response.body.serverUri;
+  try {
+    const response = await superagent.get(`http://localhost:7500/proxy-info`);
+    console.log(response.body);
+    returnUrl = response.body.appUri;
+    notifyUrl = response.body.serverUri;
+  } catch (e) {
+    console.log("Proxy server is not running, no public URL's available");
+  }
 })();
 
 server.get("/health-check", (req, res) => {
@@ -41,38 +47,47 @@ server.post("/payment-request", async (req, res) => {
 
   try {
     const paymentResponse = await client.requestPayment(paymentRequest);
-
-    console.log("Express Response");
-    console.log(paymentResponse);
-
     res.send(paymentResponse);
   } catch (e) {
     console.log("Error");
+    console.log(e);
+    res.sendStatus(503);
+  }
+});
+
+server.post("/payment-notification", async (req, res) => {
+  try {
+    if (!req.body || !req.body.PAY_REQUEST_ID) {
+      console.log("Unexpected payment notification data");
+      return res.sendStatus(503);
+    }
+
+    session[req.body.PAY_REQUEST_ID] = req.body;
+
+    res.send("OK");
+  } catch (e) {
     console.log(e);
     return res.sendStatus(503);
   }
 });
 
-server.post("/payment-notification", (req, res) => {
+server.get("/payment-status", async (req, res) => {
   try {
-    // body: {
-    //   PAYGATE_ID: '10011072130',
-    //   PAY_REQUEST_ID: '4C8583D3-4B20-07E1-5033-0A2F93E7BE8C',
-    //   REFERENCE: '4469083e-3265-4248-be22-6e4f05ce2451',
-    //   TRANSACTION_STATUS: '1',
-    //   RESULT_CODE: '990017',
-    //   AUTH_CODE: '8KO7DW',
-    //   CURRENCY: 'ZAR',
-    //   AMOUNT: '2000',
-    //   RESULT_DESC: 'Auth Done',
-    //   TRANSACTION_ID: '218815324',
-    //   RISK_INDICATOR: 'AP',
-    //   PAY_METHOD: 'CC',
-    //   PAY_METHOD_DETAIL: 'Visa',
-    //   USER1: 'sdk-test',
-    //   CHECKSUM: '56b7cd47861008dfe106ca4fb1a86733'
-    // },
-    res.send(req.body);
+    if (req.query.PAY_REQUEST_ID && session[req.query.PAY_REQUEST_ID]) {
+      return res.send(session[req.query.PAY_REQUEST_ID]);
+    }
+
+    if (!req.query.PAY_REQUEST_ID || !req.query.REFERENCE) {
+      return res.sendStatus(400);
+    }
+
+    const paymentStatus = await client.paymentStatus({
+      PAY_REQUEST_ID: req.query.PAY_REQUEST_ID,
+      REFERENCE: req.query.REFERENCE,
+    });
+    console.log("Payment Status");
+    console.log(paymentStatus);
+    res.send(paymentStatus);
   } catch (e) {
     console.log(e);
     return res.sendStatus(503);
