@@ -237,6 +237,7 @@ export class PayGateClient {
   async requestPayment(paymentRequest: PaymentRequest): Promise<PaymentResponse> {
     try {
       const data = PayGate.sanitizePaymentRequest(paymentRequest, this.payGateId, this.payGateSecret);
+      console.log(data);
       const httpResponse = await superagent.post(PayGate.INITIATE_URI).send(qs.stringify(data));
 
       if (!httpResponse.text) {
