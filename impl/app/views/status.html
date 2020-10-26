@@ -1,0 +1,61 @@
+{% extends "layout.html" %}
+
+{% block main %}
+
+<div class="py-5 text-center">
+    <h2>{{ title }}</h2>
+    
+    {% if not isPost %}
+    <p class="lead">
+        Use the form below to check the status of a payment<br/>
+        Go <a href="/">here</a> to make a payment
+    </p>
+    {% endif %}
+
+    {% if isPost %}
+    <p class="lead">
+        Go <a href="/status">here</a> to check a different payment<br/>
+        Go <a href="/">here</a> to make a payment
+    </p>
+    {% endif %}
+</div>
+
+<div class="row justify-content-md-center">
+
+    {% if not isPost %}
+    <form>
+        <div class="form-row">
+            <div class="col-md-5">
+                <div class="input-group mb-3">
+                    <input id="pay_request_id" type="text" class="form-control" placeholder="PAY_REQUEST_ID" aria-label="Payment Request ID">
+                </div>
+            </div>
+
+            <div class="col-md-5">
+                <div class="input-group mb-3">
+                    <input id="payment_reference" type="text" class="form-control" placeholder="REFERENCE" aria-label="Payment Reference">
+                </div>
+            </div>
+            
+            <div class="col-md-2">
+                <button id="status" type="button" class="btn btn-primary mb-3">Check</button>
+            </div>
+        </div>
+    </form>
+    {% endif %}
+
+    {% if isPost %}
+        <ul class="list-group">
+        {% for k, v in paymentStatus %}
+            <li class="list-group-item">{{ k }} : {{ v }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+</div>
+
+<div class="row justify-content-md-center">
+    <span id="error" class="text-danger">Invalid</span>
+</div>
+
+
+{% endblock %}

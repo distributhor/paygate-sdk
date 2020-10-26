@@ -1,5 +1,6 @@
 import qs from "qs";
 import md5 from "md5";
+import currency from "currency.js";
 import superagent from "superagent";
 import { v4 as uuidv4 } from "uuid";
 import { DateTime } from "luxon";
@@ -85,7 +86,7 @@ const PayGate = {
     const obj: PaymentRequest = {
       PAYGATE_ID: payGateId || data.PAYGATE_ID,
       REFERENCE: data.REFERENCE || uuidv4(),
-      AMOUNT: data.AMOUNT,
+      AMOUNT: PayGate.toCentAmount(data.AMOUNT),
       CURRENCY: data.CURRENCY || Currency.ZAR,
       RETURN_URL: data.RETURN_URL,
       TRANSACTION_DATE: data.TRANSACTION_DATE || DateTime.local().setZone("UTC").toISO(),
@@ -125,6 +126,14 @@ const PayGate = {
     }
 
     return obj;
+  },
+
+  toCentAmount(amount: string | number) {
+    //   const strAmount = typeof amount === "number" ? amount.toString() : amount;
+    //   const saneAmount = strAmount.replace(/,/g, "").replace(/ /g, "");
+    //   const centAmount = saneAmount.indexOf(".") === -1 ? saneAmount + "00" : saneAmount.replace(/\./g, "");
+    //   return centAmount;
+    return currency(amount).intValue.toString();
   },
 };
 

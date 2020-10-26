@@ -42,6 +42,7 @@
     "doc": "yarn doc:html && yarn doc:markdown"
   },
   "dependencies": {
+    "currency.js": "^2.0.3",
     "luxon": "^1.25.0",
     "md5": "^2.3.0",
     "qs": "^6.9.4",
