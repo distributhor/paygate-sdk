@@ -6,8 +6,8 @@ require("dotenv").config({ path: path.join(__dirname, ".env") });
 
 const server = express();
 
-let appUri = null;
-let serverUri = null;
+let appUri = undefined;
+let serverUri = undefined;
 
 (async function () {
   if (process.env.NGROK_AUTH_TOKEN) {

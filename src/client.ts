@@ -214,6 +214,7 @@ export class PayGateError extends Error {
 export class PayGateClient {
   private payGateId: string;
   private payGateSecret: string;
+  private session: PaymentStatus[];
 
   private static instance: PayGateClient;
 
@@ -223,7 +224,15 @@ export class PayGateClient {
   }
 
   static getInstance(payGateId?: string, payGateSecret?: string): PayGateClient {
-    if (payGateId && payGateSecret) {
+    // if (PayGateClient.instance) {
+    //   if (payGateId && payGateSecret && (payGateId !=)) {
+    //     return PayGateClient.instance;
+    //   }
+
+    //   if ()
+    // }
+
+    if (!PayGateClient.instance && payGateId && payGateSecret) {
       PayGateClient.instance = new PayGateClient(payGateId, payGateSecret);
     }
 
@@ -237,7 +246,6 @@ export class PayGateClient {
   async requestPayment(paymentRequest: PaymentRequest): Promise<PaymentResponse> {
     try {
       const data = PayGate.sanitizePaymentRequest(paymentRequest, this.payGateId, this.payGateSecret);
-      console.log(data);
       const httpResponse = await superagent.post(PayGate.INITIATE_URI).send(qs.stringify(data));
 
       if (!httpResponse.text) {
@@ -261,8 +269,8 @@ export class PayGateClient {
         paymentRef: payGateResponse,
         redirectUri: PayGate.REDIRECT_URI,
         redirectParams: {
-          PAY_REQUEST_ID: payGateResponse.PAY_REQUEST_ID,
-          CHECKSUM: payGateResponse.CHECKSUM,
+          PAY_REQUEST_ID: payGateResponse.PAY_REQUEST_ID as string,
+          CHECKSUM: payGateResponse.CHECKSUM as string,
         },
       };
     } catch (e) {
@@ -270,7 +278,66 @@ export class PayGateClient {
     }
   }
 
-  async paymentStatus(paymentRef: PaymentReference): Promise<PaymentStatus> {
+  async handlePaymentNotification(paymentStatus: PaymentStatus): Promise<void> {
+    return await this.addPaymentStatusToSession(paymentStatus);
+  }
+
+  private async addPaymentStatusToSession(paymentStatus: PaymentStatus): Promise<void> {
+    if (!paymentStatus.REFERENCE && !paymentStatus.PAY_REQUEST_ID) {
+      return;
+    }
+
+    if (!this.session) {
+      this.session = [];
+    }
+
+    const existingPaymentStatus = await this.findPaymentStatusInSession({
+      REFERENCE: paymentStatus.REFERENCE,
+      PAY_REQUEST_ID: paymentStatus.PAY_REQUEST_ID,
+    });
+
+    if (!existingPaymentStatus) {
+      this.session.push(paymentStatus);
+      return;
+    }
+
+    if (!existingPaymentStatus.RESULT_CODE && paymentStatus.RESULT_CODE) {
+      // the existing payment status is the minimal version sent back after returning
+      // from payment page, and not the full version that is sent by the payment
+      // notification call - replace the minimal version with the full version
+    }
+  }
+
+  private async findPaymentStatusInSession(paymentRef: PaymentReference): Promise<PaymentStatus> {
+    if (!paymentRef.REFERENCE && !paymentRef.PAY_REQUEST_ID) {
+      return undefined;
+    }
+
+    if (this.session && this.session.length > 0) {
+      const existingInMemoryPaymentStatus = this.session.filter((paymentStatus) => {
+        if (paymentRef.REFERENCE && paymentStatus.REFERENCE === paymentRef.REFERENCE) {
+          return true;
+        }
+        if (paymentRef.PAY_REQUEST_ID && paymentStatus.PAY_REQUEST_ID === paymentRef.PAY_REQUEST_ID) {
+          return true;
+        }
+        return false;
+      })[0];
+
+      if (existingInMemoryPaymentStatus) {
+        return existingInMemoryPaymentStatus;
+      }
+    }
+
+    return undefined;
+  }
+
+  async queryPaymentStatus(paymentRef: PaymentReference): Promise<PaymentStatus> {
+    const existingPaymentStatus = await this.findPaymentStatusInSession(paymentRef);
+    if (existingPaymentStatus) {
+      return existingPaymentStatus;
+    }
+
     try {
       const data = PayGate.sanitizePaymentRef(paymentRef, this.payGateId, this.payGateSecret);
       const httpResponse = await superagent.post(PayGate.QUERY_URI).send(qs.stringify(data));
@@ -288,6 +355,8 @@ export class PayGateClient {
       if (!TypeChecks.isPaymentStatus(payGateResponse)) {
         throw new PayGateError(payGateResponse, PayGate.UNKNOWN_PAYGATE_RESPONSE);
       }
+
+      await this.addPaymentStatusToSession(payGateResponse);
 
       return payGateResponse;
     } catch (e) {

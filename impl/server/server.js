@@ -4,7 +4,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const superagent = require("superagent");
 
-const { handlePaymentRequest, handlePaymentNotification, handlePaymentStatus } = require("../../dist/middleware.js");
+const { handlePaymentRequest, handlePaymentNotification, queryPaymentStatus } = require("../../dist/middleware.js");
 
 require("dotenv").config({ path: path.join(__dirname, ".env") });
 
@@ -18,8 +18,7 @@ const paymentMiddlewareConfig = {
   payGateId: process.env.PAYGATE_ID,
   payGateSecret: process.env.PAYGATE_SECRET,
   returnUri: "https://www.aquarium.co.za",
-  notifyUri: notifyUri,
-  session: {},
+  notifyUri: undefined,
 };
 
 (async function () {
@@ -45,7 +44,7 @@ server.post("/payment-notification", handlePaymentNotification(paymentMiddleware
   res.send("OK");
 });
 
-server.get("/payment-status", handlePaymentStatus(paymentMiddlewareConfig), async (req, res) => {
+server.get("/payment-status", queryPaymentStatus(paymentMiddlewareConfig), async (req, res) => {
   res.send(req.paymentStatus);
 });
 

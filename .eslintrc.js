@@ -6,7 +6,7 @@ module.exports = {
     commonjs: true,
   },
   parserOptions: {
-    ecmaVersion: 6,
+    ecmaVersion: 2018,
     sourceType: "module",
   },
   plugins: ["prettier"],

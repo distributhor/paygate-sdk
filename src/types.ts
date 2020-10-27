@@ -135,8 +135,8 @@ export interface PaymentRequest {
 
 export interface PaymentReference {
   PAYGATE_ID?: string;
-  PAY_REQUEST_ID: string;
-  REFERENCE: string;
+  PAY_REQUEST_ID?: string;
+  REFERENCE?: string;
   CHECKSUM?: string;
 }
 

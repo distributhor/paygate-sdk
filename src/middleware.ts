@@ -7,7 +7,6 @@ export interface PaymentMiddlewareConfig {
   payGateSecret: string;
   returnUri: string;
   notifyUri?: string;
-  session?: any;
 }
 
 export interface PaymentResponseHttpRequest extends Request {
@@ -21,7 +20,7 @@ export interface PaymentStatusHttpRequest extends Request {
 export function handlePaymentRequest(options: PaymentMiddlewareConfig) {
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   return async function (req: PaymentResponseHttpRequest, res: Response, next: NextFunction) {
-    const client = new PayGateClient(options.payGateId, options.payGateSecret);
+    const client = PayGateClient.getInstance(options.payGateId, options.payGateSecret);
 
     const paymentRequest = {
       AMOUNT: req.body.amount,
@@ -41,7 +40,7 @@ export function handlePaymentRequest(options: PaymentMiddlewareConfig) {
   };
 }
 
-export function handlePaymentNotification() {
+export function handlePaymentNotification(options: PaymentMiddlewareConfig) {
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   return async function (req: PaymentStatusHttpRequest, res: Response, next: NextFunction) {
     if (!req.body || !req.body.PAY_REQUEST_ID) {
@@ -49,39 +48,30 @@ export function handlePaymentNotification() {
       return res.sendStatus(503);
     }
 
+    PayGateClient.getInstance(options.payGateId, options.payGateSecret).handlePaymentNotification(req.body);
+
     req.paymentStatus = req.body;
 
     next();
   };
 }
 
-export function handlePaymentStatus(options: PaymentMiddlewareConfig) {
+export function queryPaymentStatus(options: PaymentMiddlewareConfig) {
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   return async function (req: PaymentStatusHttpRequest, res: Response, next: NextFunction) {
-    if (req.query.PAY_REQUEST_ID && options && options.session[req.query.PAY_REQUEST_ID as string]) {
-      return res.send(options.session[req.query.PAY_REQUEST_ID as string]);
-    }
-
     if (!req.query.PAY_REQUEST_ID || !req.query.REFERENCE) {
       return res.sendStatus(400);
     }
 
-    const client = new PayGateClient(options.payGateId, options.payGateSecret);
+    const client = PayGateClient.getInstance(options.payGateId, options.payGateSecret);
 
     try {
-      const paymentStatus = await client.paymentStatus({
+      const paymentStatus = await client.queryPaymentStatus({
         PAY_REQUEST_ID: req.query.PAY_REQUEST_ID as string,
         REFERENCE: req.query.REFERENCE as string,
       });
 
       req.paymentStatus = paymentStatus;
-
-      if (req.paymentStatus.PAY_REQUEST_ID) {
-        if (!options.session) {
-          options.session = {};
-        }
-        options.session[req.paymentStatus.PAY_REQUEST_ID] = req.paymentStatus;
-      }
 
       next();
     } catch (e) {
