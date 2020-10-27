@@ -1,6 +1,7 @@
 import qs from "qs";
 import md5 from "md5";
 import currency from "currency.js";
+import NodeCache from "node-cache";
 import superagent from "superagent";
 import { v4 as uuidv4 } from "uuid";
 import { DateTime } from "luxon";
@@ -9,13 +10,23 @@ import {
   PaymentRequest,
   PaymentResponse,
   PaymentReference,
+  PayGateEndpoints,
   PayGateErrorCodes,
+  SuccessIndicator,
   UntypedObject,
   ErrorObject,
   ErrorProperty,
   HttpError,
   Currency,
 } from "./types";
+
+export * from "./types";
+
+/** @internal */
+const Message = {
+  UNKNOWN_PAYGATE_RESPONSE: "Unexpected PayGate response",
+  UNKNOWN_RESPONSE: "Unknown response",
+};
 
 /** @internal */
 const TypeChecks = {
@@ -40,32 +51,25 @@ const TypeChecks = {
   },
 };
 
-/** @internal */
-const HttpStatus = {
-  isSuccess: (r: any): boolean => {
-    return r.status && (r.status === 200 || r.status === 204) ? true : false;
+export const Util = {
+  removeAllNonValuedProperties: (obj: UntypedObject): void => {
+    Object.keys(obj).forEach((key) => {
+      if (obj[key] === undefined) {
+        delete obj[key];
+      }
+    });
   },
 
-  notFound: (r: any): boolean => {
-    return r.status && r.status === 404 ? true : false;
-  },
-
-  isUnauthorized: (e: any): boolean => {
-    if (e.status) {
-      return e.status === 401 ? true : false;
-    }
-    return e.response && e.response.status === 401 ? true : false;
+  toCentAmount(amount: string | number): string {
+    //   const strAmount = typeof amount === "number" ? amount.toString() : amount;
+    //   const saneAmount = strAmount.replace(/,/g, "").replace(/ /g, "");
+    //   const centAmount = saneAmount.indexOf(".") === -1 ? saneAmount + "00" : saneAmount.replace(/\./g, "");
+    //   return centAmount;
+    return currency(amount).intValue.toString();
   },
 };
 
-/** @internal */
-const PayGate = {
-  INITIATE_URI: "https://secure.paygate.co.za/payweb3/initiate.trans",
-  REDIRECT_URI: "https://secure.paygate.co.za/payweb3/process.trans",
-  QUERY_URI: "https://secure.paygate.co.za/payweb3/query.trans",
-  UNKNOWN_PAYGATE_RESPONSE: "Unexpected PayGate response",
-  UNKNOWN_RESPONSE: "Unknown response",
-
+export const PayGateUtil = {
   checksum: (data: UntypedObject, secret: string): string => {
     return md5(
       Object.keys(data)
@@ -74,19 +78,11 @@ const PayGate = {
     );
   },
 
-  removeAllNonValuedProperties: (obj: UntypedObject) => {
-    Object.keys(obj).forEach((key) => {
-      if (obj[key] === undefined) {
-        delete obj[key];
-      }
-    });
-  },
-
   sanitizePaymentRequest: (data: PaymentRequest, payGateId?: string, payGateSecret?: string): PaymentRequest => {
     const obj: PaymentRequest = {
       PAYGATE_ID: payGateId || data.PAYGATE_ID,
       REFERENCE: data.REFERENCE || uuidv4(),
-      AMOUNT: PayGate.toCentAmount(data.AMOUNT),
+      AMOUNT: Util.toCentAmount(data.AMOUNT),
       CURRENCY: data.CURRENCY || Currency.ZAR,
       RETURN_URL: data.RETURN_URL,
       TRANSACTION_DATE: data.TRANSACTION_DATE || DateTime.local().setZone("UTC").toISO(),
@@ -103,7 +99,7 @@ const PayGate = {
       VAULT_ID: data.VAULT_ID || undefined,
     };
 
-    PayGate.removeAllNonValuedProperties(obj);
+    Util.removeAllNonValuedProperties(obj);
 
     if (payGateSecret) {
       obj.CHECKSUM = PayGateClient.checksum(obj, payGateSecret);
@@ -119,21 +115,13 @@ const PayGate = {
       REFERENCE: data.REFERENCE,
     };
 
-    PayGate.removeAllNonValuedProperties(obj);
+    Util.removeAllNonValuedProperties(obj);
 
     if (payGateSecret) {
       obj.CHECKSUM = PayGateClient.checksum(obj, payGateSecret);
     }
 
     return obj;
-  },
-
-  toCentAmount(amount: string | number) {
-    //   const strAmount = typeof amount === "number" ? amount.toString() : amount;
-    //   const saneAmount = strAmount.replace(/,/g, "").replace(/ /g, "");
-    //   const centAmount = saneAmount.indexOf(".") === -1 ? saneAmount + "00" : saneAmount.replace(/\./g, "");
-    //   return centAmount;
-    return currency(amount).intValue.toString();
   },
 };
 
@@ -214,42 +202,57 @@ export class PayGateError extends Error {
 export class PayGateClient {
   private payGateId: string;
   private payGateSecret: string;
-  private session: PaymentStatus[];
+  private paymentStatusCache: NodeCache;
 
   private static instance: PayGateClient;
 
   constructor(payGateId?: string, payGateSecret?: string) {
     this.payGateId = payGateId;
     this.payGateSecret = payGateSecret;
+    this.paymentStatusCache = new NodeCache({ stdTTL: 900, checkperiod: 1000 });
   }
 
   static getInstance(payGateId?: string, payGateSecret?: string): PayGateClient {
-    // if (PayGateClient.instance) {
-    //   if (payGateId && payGateSecret && (payGateId !=)) {
-    //     return PayGateClient.instance;
-    //   }
+    if (PayGateClient.instance) {
+      if (
+        payGateId &&
+        payGateSecret &&
+        payGateId === PayGateClient.instance.payGateId &&
+        payGateSecret === PayGateClient.instance.payGateSecret
+      ) {
+        // Credentials provided, but matches existing instance
+        return PayGateClient.instance;
+      }
 
-    //   if ()
-    // }
+      if (payGateId && payGateSecret) {
+        // Different credentials provided, creating new instance
+        PayGateClient.instance = new PayGateClient(payGateId, payGateSecret);
+        return PayGateClient.instance;
+      }
 
-    if (!PayGateClient.instance && payGateId && payGateSecret) {
-      PayGateClient.instance = new PayGateClient(payGateId, payGateSecret);
+      // Returning existing instance
+      return PayGateClient.instance;
     }
 
-    if (!PayGateClient.instance) {
-      throw new PayGateError("No instance found, and no credentials with which to authenticate");
+    // No instance exists
+
+    if (!payGateId || !payGateSecret) {
+      throw new PayGateError("No instance found, and insufficient credentials with which to authenticate");
     }
+
+    // Create new instance
+    PayGateClient.instance = new PayGateClient(payGateId, payGateSecret);
 
     return PayGateClient.instance;
   }
 
   async requestPayment(paymentRequest: PaymentRequest): Promise<PaymentResponse> {
     try {
-      const data = PayGate.sanitizePaymentRequest(paymentRequest, this.payGateId, this.payGateSecret);
-      const httpResponse = await superagent.post(PayGate.INITIATE_URI).send(qs.stringify(data));
+      const data = PayGateUtil.sanitizePaymentRequest(paymentRequest, this.payGateId, this.payGateSecret);
+      const httpResponse = await superagent.post(PayGateEndpoints.INITIATE_URI).send(qs.stringify(data));
 
       if (!httpResponse.text) {
-        throw new PayGateError(PayGate.UNKNOWN_RESPONSE);
+        throw new PayGateError(Message.UNKNOWN_RESPONSE);
       }
 
       const payGateResponse = qs.parse(httpResponse.text);
@@ -262,12 +265,12 @@ export class PayGateClient {
       console.log(payGateResponse);
 
       if (!TypeChecks.isPaymentReference(payGateResponse)) {
-        throw new PayGateError(payGateResponse, PayGate.UNKNOWN_PAYGATE_RESPONSE);
+        throw new PayGateError(payGateResponse, Message.UNKNOWN_PAYGATE_RESPONSE);
       }
 
       return {
         paymentRef: payGateResponse,
-        redirectUri: PayGate.REDIRECT_URI,
+        redirectUri: PayGateEndpoints.REDIRECT_URI,
         redirectParams: {
           PAY_REQUEST_ID: payGateResponse.PAY_REQUEST_ID as string,
           CHECKSUM: payGateResponse.CHECKSUM as string,
@@ -278,58 +281,8 @@ export class PayGateClient {
     }
   }
 
-  async handlePaymentNotification(paymentStatus: PaymentStatus): Promise<void> {
-    return await this.addPaymentStatusToSession(paymentStatus);
-  }
-
-  private async addPaymentStatusToSession(paymentStatus: PaymentStatus): Promise<void> {
-    if (!paymentStatus.REFERENCE && !paymentStatus.PAY_REQUEST_ID) {
-      return;
-    }
-
-    if (!this.session) {
-      this.session = [];
-    }
-
-    const existingPaymentStatus = await this.findPaymentStatusInSession({
-      REFERENCE: paymentStatus.REFERENCE,
-      PAY_REQUEST_ID: paymentStatus.PAY_REQUEST_ID,
-    });
-
-    if (!existingPaymentStatus) {
-      this.session.push(paymentStatus);
-      return;
-    }
-
-    if (!existingPaymentStatus.RESULT_CODE && paymentStatus.RESULT_CODE) {
-      // the existing payment status is the minimal version sent back after returning
-      // from payment page, and not the full version that is sent by the payment
-      // notification call - replace the minimal version with the full version
-    }
-  }
-
-  private async findPaymentStatusInSession(paymentRef: PaymentReference): Promise<PaymentStatus> {
-    if (!paymentRef.REFERENCE && !paymentRef.PAY_REQUEST_ID) {
-      return undefined;
-    }
-
-    if (this.session && this.session.length > 0) {
-      const existingInMemoryPaymentStatus = this.session.filter((paymentStatus) => {
-        if (paymentRef.REFERENCE && paymentStatus.REFERENCE === paymentRef.REFERENCE) {
-          return true;
-        }
-        if (paymentRef.PAY_REQUEST_ID && paymentStatus.PAY_REQUEST_ID === paymentRef.PAY_REQUEST_ID) {
-          return true;
-        }
-        return false;
-      })[0];
-
-      if (existingInMemoryPaymentStatus) {
-        return existingInMemoryPaymentStatus;
-      }
-    }
-
-    return undefined;
+  async handlePaymentNotification(paymentStatus: PaymentStatus): Promise<SuccessIndicator> {
+    return this.addPaymentStatusToSession(paymentStatus);
   }
 
   async queryPaymentStatus(paymentRef: PaymentReference): Promise<PaymentStatus> {
@@ -339,11 +292,11 @@ export class PayGateClient {
     }
 
     try {
-      const data = PayGate.sanitizePaymentRef(paymentRef, this.payGateId, this.payGateSecret);
-      const httpResponse = await superagent.post(PayGate.QUERY_URI).send(qs.stringify(data));
+      const data = PayGateUtil.sanitizePaymentRef(paymentRef, this.payGateId, this.payGateSecret);
+      const httpResponse = await superagent.post(PayGateEndpoints.QUERY_URI).send(qs.stringify(data));
 
       if (!httpResponse.text) {
-        throw new PayGateError(PayGate.UNKNOWN_RESPONSE);
+        throw new PayGateError(Message.UNKNOWN_RESPONSE);
       }
 
       const payGateResponse = qs.parse(httpResponse.text);
@@ -353,7 +306,7 @@ export class PayGateClient {
       }
 
       if (!TypeChecks.isPaymentStatus(payGateResponse)) {
-        throw new PayGateError(payGateResponse, PayGate.UNKNOWN_PAYGATE_RESPONSE);
+        throw new PayGateError(payGateResponse, Message.UNKNOWN_PAYGATE_RESPONSE);
       }
 
       await this.addPaymentStatusToSession(payGateResponse);
@@ -365,6 +318,103 @@ export class PayGateClient {
   }
 
   static checksum(data: UntypedObject, secret: string): string {
-    return PayGate.checksum(data, secret);
+    return PayGateUtil.checksum(data, secret);
+  }
+
+  private async addPaymentStatusToSession(paymentStatus: PaymentStatus): Promise<SuccessIndicator> {
+    if (!this.paymentStatusCache) {
+      return {
+        success: false,
+        message: "No cache available",
+      };
+    }
+
+    if (!paymentStatus.REFERENCE && !paymentStatus.PAY_REQUEST_ID) {
+      return {
+        success: false,
+        message: "No valid payment reference key found",
+      };
+    }
+
+    const existingPaymentStatus = await this.findPaymentStatusInSession({
+      REFERENCE: paymentStatus.REFERENCE,
+      PAY_REQUEST_ID: paymentStatus.PAY_REQUEST_ID,
+    });
+
+    if (!existingPaymentStatus) {
+      const cacheEntries = Object.keys(paymentStatus)
+        .filter((k) => (k === "REFERENCE" || k === "PAY_REQUEST_ID") && paymentStatus[k])
+        .map((k) => {
+          return { key: k, val: paymentStatus };
+        });
+
+      console.log("Add to session");
+      console.log(cacheEntries);
+      const success = this.paymentStatusCache.mset(cacheEntries);
+
+      return {
+        success: success,
+        message: "Set cache",
+      };
+    }
+
+    if (paymentStatus.RESULT_CODE && !existingPaymentStatus.RESULT_CODE) {
+      // the existing payment status is the minimal version sent back after returning
+      // from payment page, and not the full version that is sent by the payment
+      // notification call - replace the minimal version with the full version
+      const existingCachedKeys = Object.keys(paymentStatus).filter(
+        (k) => (k === "REFERENCE" || k === "PAY_REQUEST_ID") && paymentStatus[k]
+      );
+
+      const newCacheEntries = Object.keys(paymentStatus)
+        .filter((k) => (k === "REFERENCE" || k === "PAY_REQUEST_ID") && paymentStatus[k])
+        .map((k) => {
+          return { key: k, val: paymentStatus };
+        });
+
+      console.log("Update session");
+      console.log(newCacheEntries);
+      this.paymentStatusCache.del(existingCachedKeys);
+      const success = this.paymentStatusCache.mset(newCacheEntries);
+
+      return {
+        success: success,
+        message: "Set cache",
+      };
+    }
+
+    // the existing payment status already has a full version in the cache
+    return {
+      success: true,
+      message: "Already cached",
+    };
+  }
+
+  private async findPaymentStatusInSession(paymentRef: PaymentReference): Promise<PaymentStatus> {
+    if (!this.paymentStatusCache) {
+      return undefined;
+    }
+
+    if (!paymentRef.REFERENCE && !paymentRef.PAY_REQUEST_ID) {
+      return undefined;
+    }
+
+    if (paymentRef.REFERENCE) {
+      const cachedPaymentStatus = this.paymentStatusCache.get(paymentRef.REFERENCE) as PaymentStatus;
+      if (cachedPaymentStatus) {
+        console.log("Returning payment status from cache");
+        return cachedPaymentStatus;
+      }
+    }
+
+    if (paymentRef.PAY_REQUEST_ID) {
+      const cachedPaymentStatus = this.paymentStatusCache.get(paymentRef.PAY_REQUEST_ID) as PaymentStatus;
+      console.log("Returning payment status from cache");
+      if (cachedPaymentStatus) {
+        return cachedPaymentStatus;
+      }
+    }
+
+    return undefined;
   }
 }

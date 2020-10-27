@@ -55,6 +55,12 @@ export type Price = {
   // [index in keyof typeof Currency]?: MonetaryAmount;
 };
 
+export const PayGateEndpoints = {
+  INITIATE_URI: "https://secure.paygate.co.za/payweb3/initiate.trans",
+  REDIRECT_URI: "https://secure.paygate.co.za/payweb3/process.trans",
+  QUERY_URI: "https://secure.paygate.co.za/payweb3/query.trans",
+};
+
 export const PayGateErrorCodes = {
   CNTRY_INVALID: "Country Invalid",
   DATA_AMT_NUM: "Amount is not a number",

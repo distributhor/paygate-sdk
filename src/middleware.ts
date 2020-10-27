@@ -48,7 +48,14 @@ export function handlePaymentNotification(options: PaymentMiddlewareConfig) {
       return res.sendStatus(503);
     }
 
-    PayGateClient.getInstance(options.payGateId, options.payGateSecret).handlePaymentNotification(req.body);
+    const cacheOperation = await PayGateClient.getInstance(
+      options.payGateId,
+      options.payGateSecret
+    ).handlePaymentNotification(req.body);
+
+    if (!cacheOperation || !cacheOperation.success) {
+      console.log("Failed to cache payment status");
+    }
 
     req.paymentStatus = req.body;
 
