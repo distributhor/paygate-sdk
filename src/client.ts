@@ -261,9 +261,6 @@ export class PayGateClient {
         throw new PayGateError(payGateResponse);
       }
 
-      console.log("PayGate Response");
-      console.log(payGateResponse);
-
       if (!TypeChecks.isPaymentReference(payGateResponse)) {
         throw new PayGateError(payGateResponse, Message.UNKNOWN_PAYGATE_RESPONSE);
       }
@@ -345,11 +342,9 @@ export class PayGateClient {
       const cacheEntries = Object.keys(paymentStatus)
         .filter((k) => (k === "REFERENCE" || k === "PAY_REQUEST_ID") && paymentStatus[k])
         .map((k) => {
-          return { key: k, val: paymentStatus };
+          return { key: paymentStatus[k], val: paymentStatus };
         });
 
-      console.log("Add to session");
-      console.log(cacheEntries);
       const success = this.paymentStatusCache.mset(cacheEntries);
 
       return {
@@ -369,11 +364,9 @@ export class PayGateClient {
       const newCacheEntries = Object.keys(paymentStatus)
         .filter((k) => (k === "REFERENCE" || k === "PAY_REQUEST_ID") && paymentStatus[k])
         .map((k) => {
-          return { key: k, val: paymentStatus };
+          return { key: paymentStatus[k], val: paymentStatus };
         });
 
-      console.log("Update session");
-      console.log(newCacheEntries);
       this.paymentStatusCache.del(existingCachedKeys);
       const success = this.paymentStatusCache.mset(newCacheEntries);
 
@@ -402,14 +395,12 @@ export class PayGateClient {
     if (paymentRef.REFERENCE) {
       const cachedPaymentStatus = this.paymentStatusCache.get(paymentRef.REFERENCE) as PaymentStatus;
       if (cachedPaymentStatus) {
-        console.log("Returning payment status from cache");
         return cachedPaymentStatus;
       }
     }
 
     if (paymentRef.PAY_REQUEST_ID) {
       const cachedPaymentStatus = this.paymentStatusCache.get(paymentRef.PAY_REQUEST_ID) as PaymentStatus;
-      console.log("Returning payment status from cache");
       if (cachedPaymentStatus) {
         return cachedPaymentStatus;
       }

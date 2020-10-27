@@ -1,6 +1,6 @@
 {
   "name": "paygate-sdk",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "PayGate JS/TS SDK",
   "homepage": "https://github.com/distributhor/paygate-sdk",
   "license": "MIT",
@@ -21,6 +21,10 @@
     "/dist/client.d.ts.map",
     "/dist/client.js",
     "/dist/client.js.map",
+    "/dist/index.d.ts",
+    "/dist/index.d.ts.map",
+    "/dist/index.js",
+    "/dist/index.js.map",
     "/dist/middleware.d.ts",
     "/dist/middleware.d.ts.map",
     "/dist/middleware.js",
@@ -30,7 +34,7 @@
     "/dist/types.js",
     "/dist/types.js.map"
   ],
-  "main": "dist/client.js",
+  "main": "dist/index.js",
   "scripts": {
     "build": "tsc -b --clean && tsc -b",
     "lint": "yarn lint:check",

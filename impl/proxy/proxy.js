@@ -30,17 +30,23 @@ let serverUri = undefined;
     // await ngrok.kill(); // kills ngrok process
   }
 
-  console.log(`Public app URI: ${appUri}`);
-  console.log(`Public server URI: ${serverUri}`);
-})();
+  const response = {};
 
-server.get("/proxy-info", (req, res) => {
-  res.send({
-    serverUri,
-    appUri,
+  if (appUri) {
+    response.appUri = appUri;
+  }
+
+  if (serverUri) {
+    response.serverUri = serverUri;
+  }
+
+  console.log(response);
+
+  server.get("/proxy-info", (req, res) => {
+    res.send(response);
   });
-});
 
-server.listen(7500, function () {
-  console.log(`Ngrok proxy server running on http://localhost:7500`);
-});
+  server.listen(7500, function () {
+    console.log(`Ngrok proxy server running on http://localhost:7500`);
+  });
+})();
