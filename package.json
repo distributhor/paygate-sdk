@@ -45,7 +45,8 @@
     "prettier:check": "prettier --ignore-path .prettierignore --check '{src,test}/**/*.{js,ts,json,md}'",
     "doc:html": "typedoc --tsconfig ./tsconfig.json --out docs/html --plugin typedoc-neo-theme --theme ./node_modules/typedoc-neo-theme/bin/default",
     "doc:markdown": "typedoc --tsconfig ./tsconfig.json --out docs/markdown --readme none --plugin typedoc-plugin-markdown",
-    "doc": "yarn doc:html && yarn doc:markdown"
+    "doc": "yarn doc:html && yarn doc:markdown",
+    "test": "jest --passWithNoTests"
   },
   "dependencies": {
     "currency.js": "^2.0.3",
