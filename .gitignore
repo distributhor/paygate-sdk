@@ -1,6 +1,8 @@
 script.ts
 .env
+.cache
 /dist
+/browser
 /archive
 node_modules
 

@@ -4,10 +4,10 @@
     "outDir": "dist",
     "target": "es6",
     "lib": ["es6"],
-    "module": "umd", // commonjs
+    "module": "commonjs",
     "moduleResolution": "node",
     "esModuleInterop": true,
-    "resolveJsonModule": false,
+    "resolveJsonModule": true,
     "allowJs": true,
     "declaration": true,
     "declarationMap": true,

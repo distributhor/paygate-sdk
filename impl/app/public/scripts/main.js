@@ -1,53 +1,3 @@
-// import { PayGateClient } from "paygate-sdk";
-// console.log(PayGateClient);
-
-function jqueryRedirect(uri, params) {
-  const form = $("<form></form>");
-
-  form.attr("method", "post");
-  form.attr("action", uri);
-
-  $.each(params, function (key, value) {
-    if (typeof value == "object" || typeof value == "array") {
-      $.each(value, function (subkey, subvalue) {
-        var field = $("<input />");
-        field.attr("type", "hidden");
-        field.attr("name", key + "[]");
-        field.attr("value", subvalue);
-        form.append(field);
-      });
-    } else {
-      var field = $("<input />");
-      field.attr("type", "hidden");
-      field.attr("name", key);
-      field.attr("value", value);
-      form.append(field);
-    }
-  });
-  $(document.body).append(form);
-  form.submit();
-}
-
-function redirect(uri, params) {
-  const form = document.createElement("form");
-  form.method = "post";
-  form.action = uri;
-
-  for (const key in params) {
-    if (params.hasOwnProperty(key)) {
-      const hiddenField = document.createElement("input");
-      hiddenField.type = "hidden";
-      hiddenField.name = key;
-      hiddenField.value = params[key];
-
-      form.appendChild(hiddenField);
-    }
-  }
-
-  document.body.appendChild(form);
-  form.submit();
-}
-
 function requestPayment(amount, email) {
   $.ajax({
     type: "POST",
@@ -57,7 +7,7 @@ function requestPayment(amount, email) {
     dataType: "json",
     success: function (data) {
       if (data.redirectUri) {
-        redirect(data.redirectUri, data.redirectParams);
+        paygate.util.redirect(data.redirectUri, data.redirectParams);
       }
     },
     error: function (error) {
@@ -80,7 +30,7 @@ function queryPaymentStatus(paymentRef) {
     dataType: "json",
     success: function (data) {
       NProgress.done();
-      redirect("/status", data);
+      paygate.util.redirect("/status", data);
     },
     error: function (error) {
       NProgress.done();

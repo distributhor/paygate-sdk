@@ -1,7 +1,5 @@
 import qs from "qs";
-import md5 from "md5";
 import Debug from "debug";
-import currency from "currency.js";
 import NodeCache from "node-cache";
 import superagent from "superagent";
 import { v4 as uuidv4 } from "uuid";
@@ -15,13 +13,12 @@ import {
   PayGateErrorCodes,
   SuccessIndicator,
   UntypedObject,
-  ErrorObject,
   ErrorProperty,
+  ErrorObject,
   HttpError,
   Currency,
 } from "./types";
-
-export * from "./types";
+import * as util from "./util";
 
 const debugError = Debug("paygate-sdk:error");
 const debugCache = Debug("paygate-sdk:cache");
@@ -59,38 +56,13 @@ const TypeChecks = {
   },
 };
 
-export const Util = {
-  removeAllNonValuedProperties: (obj: UntypedObject): void => {
-    Object.keys(obj).forEach((key) => {
-      if (obj[key] === undefined) {
-        delete obj[key];
-      }
-    });
-  },
-
-  toCentAmount(amount: string | number): string {
-    //   const strAmount = typeof amount === "number" ? amount.toString() : amount;
-    //   const saneAmount = strAmount.replace(/,/g, "").replace(/ /g, "");
-    //   const centAmount = saneAmount.indexOf(".") === -1 ? saneAmount + "00" : saneAmount.replace(/\./g, "");
-    //   return centAmount;
-    return currency(amount).intValue.toString();
-  },
-};
-
-export const PayGateUtil = {
-  checksum: (data: UntypedObject, secret: string): string => {
-    return md5(
-      Object.keys(data)
-        .map((key) => data[key])
-        .join("") + secret
-    );
-  },
-
+/** @internal */
+const PayGateData = {
   sanitizePaymentRequest: (data: PaymentRequest, payGateId?: string, payGateSecret?: string): PaymentRequest => {
     const obj: PaymentRequest = {
       PAYGATE_ID: payGateId || data.PAYGATE_ID,
       REFERENCE: data.REFERENCE || uuidv4(),
-      AMOUNT: Util.toCentAmount(data.AMOUNT),
+      AMOUNT: util.toCentAmount(data.AMOUNT),
       CURRENCY: data.CURRENCY || Currency.ZAR,
       RETURN_URL: data.RETURN_URL,
       TRANSACTION_DATE: data.TRANSACTION_DATE || DateTime.local().setZone("UTC").toISO(),
@@ -107,7 +79,7 @@ export const PayGateUtil = {
       VAULT_ID: data.VAULT_ID || undefined,
     };
 
-    Util.removeAllNonValuedProperties(obj);
+    util.removeAllNonValuedProperties(obj);
 
     if (payGateSecret) {
       obj.CHECKSUM = PayGateClient.checksum(obj, payGateSecret);
@@ -123,7 +95,7 @@ export const PayGateUtil = {
       REFERENCE: data.REFERENCE,
     };
 
-    Util.removeAllNonValuedProperties(obj);
+    util.removeAllNonValuedProperties(obj);
 
     if (payGateSecret) {
       obj.CHECKSUM = PayGateClient.checksum(obj, payGateSecret);
@@ -258,7 +230,7 @@ export class PayGateClient {
 
   async requestPayment(paymentRequest: PaymentRequest): Promise<PaymentResponse> {
     try {
-      const request = PayGateUtil.sanitizePaymentRequest(paymentRequest, this.payGateId, this.payGateSecret);
+      const request = PayGateData.sanitizePaymentRequest(paymentRequest, this.payGateId, this.payGateSecret);
       const payload = qs.stringify(request);
 
       debugPaymentRequest("Payment request");
@@ -315,7 +287,7 @@ export class PayGateClient {
     }
 
     try {
-      const request = PayGateUtil.sanitizePaymentRef(paymentRef, this.payGateId, this.payGateSecret);
+      const request = PayGateData.sanitizePaymentRef(paymentRef, this.payGateId, this.payGateSecret);
       const payload = qs.stringify(request);
 
       debugPaymentStatus("Payment status query");
@@ -353,7 +325,7 @@ export class PayGateClient {
   }
 
   static checksum(data: UntypedObject, secret: string): string {
-    return PayGateUtil.checksum(data, secret);
+    return util.toPayGateChecksum(data, secret);
   }
 
   private async addPaymentStatusToSession(paymentStatus: PaymentStatus): Promise<SuccessIndicator> {
