@@ -33,7 +33,6 @@ interface ExpressRequestWithPaymentStatus extends Request {
   paygate: PayGateMiddlewarePaymentStatus;
 }
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function paymentRequestHandler(options: PayGateMiddlewareConfig) {
   return async function (req: ExpressRequestWithPaymentResult, res: Response, next: NextFunction): Promise<void> {
     if (!req.body || !req.body.amount || !req.body.email) {
@@ -71,7 +70,6 @@ export function paymentRequestHandler(options: PayGateMiddlewareConfig) {
   };
 }
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function paymentNotificationHandler(options: PayGateMiddlewareConfig) {
   return async function (req: ExpressRequestWithPaymentStatus, res: Response, next: NextFunction): Promise<void> {
     if (!req.body || !req.body.PAY_REQUEST_ID) {
@@ -104,7 +102,6 @@ export function paymentNotificationHandler(options: PayGateMiddlewareConfig) {
   };
 }
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function paymentStatusHandler(options: PayGateMiddlewareConfig) {
   return async function (req: ExpressRequestWithPaymentStatus, res: Response, next: NextFunction): Promise<void> {
     if (!req.query || !req.query.PAY_REQUEST_ID || !req.query.REFERENCE) {
