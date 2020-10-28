@@ -3,6 +3,7 @@ const path = require("path");
 const express = require("express");
 const bodyParser = require("body-parser");
 const superagent = require("superagent");
+const debug = require("debug")("paygate-sdk:server");
 
 const { paymentRequestHandler, paymentNotificationHandler, paymentStatusHandler } = require("../../dist/index.js");
 
@@ -33,7 +34,7 @@ const middlewareConfig = {
       middlewareConfig.notifyUri = `${response.body.serverUri}/payment-notification`;
     }
   } catch (e) {
-    console.log("Proxy server is not running, no public URL's available");
+    debug("Proxy server is not running, no public URL's available");
   }
 
   server.get("/health-check", (req, res) => {
@@ -41,20 +42,46 @@ const middlewareConfig = {
   });
 
   server.post("/payment-request", paymentRequestHandler(middlewareConfig), async (req, res) => {
-    res.send(req.paymentResponse);
+    if (req.paygate.badRequest) {
+      return res.sendStatus(400);
+    }
+
+    if (req.paygate.serviceError) {
+      return res.sendStatus(500);
+    }
+
+    res.send(req.paygate.paymentResponse);
   });
 
   server.post("/payment-notification", paymentNotificationHandler(middlewareConfig), async (req, res) => {
+    if (req.paygate.badRequest) {
+      return res.sendStatus(400);
+    }
+
+    if (req.paygate.serviceError) {
+      return res.sendStatus(500);
+    }
+
+    // persist or handle the payment status available on req.paygate.paymentStatus
+
     res.send("OK");
   });
 
   server.get("/payment-status", paymentStatusHandler(middlewareConfig), async (req, res) => {
-    res.send(req.paymentStatus);
+    if (req.paygate.badRequest) {
+      return res.sendStatus(400);
+    }
+
+    if (req.paygate.serviceError) {
+      return res.sendStatus(500);
+    }
+
+    res.send(req.paygate.paymentStatus);
   });
 
   server.listen(7000, function () {
-    console.log(`PayGate test server running on http://localhost:7000`);
-    console.log("Payment Middleware Config");
-    console.log(middlewareConfig);
+    debug(`PayGate test server running on http://localhost:7000`);
+    debug("Payment Middleware Config");
+    debug(middlewareConfig);
   });
 })();

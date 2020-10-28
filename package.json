@@ -50,6 +50,7 @@
   },
   "dependencies": {
     "currency.js": "^2.0.3",
+    "debug": "^4.2.0",
     "luxon": "^1.25.0",
     "md5": "^2.3.0",
     "node-cache": "^5.1.2",
@@ -59,6 +60,7 @@
     "yarn": ">=1.22.0"
   },
   "devDependencies": {
+    "@types/debug": "^4.1.5",
     "@types/express": "^4.17.8",
     "@types/jest": "^26.0.14",
     "@types/luxon": "^1.25.0",

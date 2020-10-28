@@ -7,21 +7,41 @@ export interface PayGateMiddlewareConfig {
   payGateSecret: string;
   returnUri: string;
   notifyUri?: string;
+  defaultCurrency?: string;
+  defaultCountry?: string;
+  defaultLocale?: string;
 }
 
-export interface PaymentResponseHttpRequest extends Request {
-  paymentResponse: PaymentResponse;
+export interface PayGateMiddlewareResult {
+  badRequest?: string;
+  serviceError?: any;
 }
 
-export interface PaymentStatusHttpRequest extends Request {
-  paymentStatus: PaymentStatus;
+export interface PayGateMiddlewarePaymentResult extends PayGateMiddlewareResult {
+  paymentResponse?: PaymentResponse;
+}
+
+export interface PayGateMiddlewarePaymentStatus extends PayGateMiddlewareResult {
+  paymentStatus?: PaymentStatus;
+}
+
+interface ExpressRequestWithPaymentResult extends Request {
+  paygate: PayGateMiddlewarePaymentResult;
+}
+
+interface ExpressRequestWithPaymentStatus extends Request {
+  paygate: PayGateMiddlewarePaymentStatus;
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function paymentRequestHandler(options: PayGateMiddlewareConfig) {
-  return async function (req: PaymentResponseHttpRequest, res: Response, next: NextFunction): Promise<Response> {
+  return async function (req: ExpressRequestWithPaymentResult, res: Response, next: NextFunction): Promise<void> {
     if (!req.body || !req.body.amount || !req.body.email) {
-      return res.sendStatus(400);
+      req.paygate = {
+        badRequest: "Invalid payment request received",
+      };
+
+      return next();
     }
 
     const paymentRequest = {
@@ -36,50 +56,63 @@ export function paymentRequestHandler(options: PayGateMiddlewareConfig) {
         paymentRequest
       );
 
-      req.paymentResponse = paymentResponse;
+      req.paygate = {
+        paymentResponse,
+      };
 
-      next();
+      return next();
     } catch (e) {
-      console.log("Error on handlePaymentRequest");
-      console.log(e);
-      res.sendStatus(503);
+      req.paygate = {
+        serviceError: e,
+      };
+
+      return next();
     }
   };
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function paymentNotificationHandler(options: PayGateMiddlewareConfig) {
-  return async function (req: PaymentStatusHttpRequest, res: Response, next: NextFunction): Promise<Response> {
+  return async function (req: ExpressRequestWithPaymentStatus, res: Response, next: NextFunction): Promise<void> {
     if (!req.body || !req.body.PAY_REQUEST_ID) {
-      return res.sendStatus(400);
+      req.paygate = {
+        badRequest: "Invalid payment notification received",
+      };
+
+      return next();
     }
 
     try {
-      const cacheOperation = await PayGateClient.getInstance(
-        options.payGateId,
-        options.payGateSecret
-      ).handlePaymentNotification(req.body);
+      await PayGateClient.getInstance(options.payGateId, options.payGateSecret).handlePaymentNotification(req.body);
 
-      if (!cacheOperation || !cacheOperation.success) {
-        console.log("Failed to cache payment status");
-      }
+      // if (!cacheOperation || !cacheOperation.success) {
+      //   console.log("Failed to cache payment status");
+      // }
 
-      req.paymentStatus = req.body;
+      req.paygate = {
+        paymentStatus: req.body,
+      };
 
-      next();
+      return next();
     } catch (e) {
-      console.log("Error on handlePaymentNotification");
-      console.log(e);
-      return res.sendStatus(503);
+      req.paygate = {
+        serviceError: e,
+      };
+
+      return next();
     }
   };
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function paymentStatusHandler(options: PayGateMiddlewareConfig) {
-  return async function (req: PaymentStatusHttpRequest, res: Response, next: NextFunction): Promise<Response> {
+  return async function (req: ExpressRequestWithPaymentStatus, res: Response, next: NextFunction): Promise<void> {
     if (!req.query || !req.query.PAY_REQUEST_ID || !req.query.REFERENCE) {
-      return res.sendStatus(400);
+      req.paygate = {
+        badRequest: "Invalid payment reference received",
+      };
+
+      return next();
     }
 
     try {
@@ -91,13 +124,17 @@ export function paymentStatusHandler(options: PayGateMiddlewareConfig) {
         REFERENCE: req.query.REFERENCE as string,
       });
 
-      req.paymentStatus = paymentStatus;
+      req.paygate = {
+        paymentStatus,
+      };
 
-      next();
+      return next();
     } catch (e) {
-      console.log("Error on queryPaymentStatus");
-      console.log(e);
-      return res.sendStatus(503);
+      req.paygate = {
+        serviceError: e,
+      };
+
+      return next();
     }
   };
 }

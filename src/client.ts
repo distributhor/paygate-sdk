@@ -1,5 +1,6 @@
 import qs from "qs";
 import md5 from "md5";
+import Debug from "debug";
 import currency from "currency.js";
 import NodeCache from "node-cache";
 import superagent from "superagent";
@@ -21,6 +22,13 @@ import {
 } from "./types";
 
 export * from "./types";
+
+const debugError = Debug("paygate-sdk:error");
+const debugCache = Debug("paygate-sdk:cache");
+const debugSingleton = Debug("paygate-sdk:singleton");
+const debugPaymentStatus = Debug("paygate-sdk:payment:status");
+const debugPaymentRequest = Debug("paygate-sdk:payment:request");
+const debugPaymentNotification = Debug("paygate-sdk:payment:notification");
 
 /** @internal */
 const Message = {
@@ -143,6 +151,8 @@ export class PayGateError extends Error {
     if (Error.captureStackTrace) {
       Error.captureStackTrace(this, PayGateError);
     }
+
+    debugError(e);
   }
 
   private static parseMessage(cause: any, message?: string): string {
@@ -202,14 +212,14 @@ export class PayGateError extends Error {
 export class PayGateClient {
   private payGateId: string;
   private payGateSecret: string;
-  private paymentStatusCache: NodeCache;
+  private paymentCache: NodeCache;
 
   private static instance: PayGateClient;
 
   constructor(payGateId?: string, payGateSecret?: string) {
     this.payGateId = payGateId;
     this.payGateSecret = payGateSecret;
-    this.paymentStatusCache = new NodeCache({ stdTTL: 900, checkperiod: 1000 });
+    this.paymentCache = new NodeCache({ stdTTL: 900, checkperiod: 1000 });
   }
 
   static getInstance(payGateId?: string, payGateSecret?: string): PayGateClient {
@@ -220,27 +230,27 @@ export class PayGateClient {
         payGateId === PayGateClient.instance.payGateId &&
         payGateSecret === PayGateClient.instance.payGateSecret
       ) {
-        // Credentials provided, but matches existing instance
+        debugSingleton("Returning existing instance, credentials provided and matches current");
         return PayGateClient.instance;
       }
 
       if (payGateId && payGateSecret) {
-        // Different credentials provided, creating new instance
+        debugSingleton("Creating new instance, credentials provided and differs from current");
         PayGateClient.instance = new PayGateClient(payGateId, payGateSecret);
         return PayGateClient.instance;
       }
 
-      // Returning existing instance
+      debugSingleton("Returning existing instance");
       return PayGateClient.instance;
     }
 
-    // No instance exists
+    debugSingleton("No instance exists");
 
     if (!payGateId || !payGateSecret) {
       throw new PayGateError("No instance found, and insufficient credentials with which to authenticate");
     }
 
-    // Create new instance
+    debugSingleton("Creating new instance");
     PayGateClient.instance = new PayGateClient(payGateId, payGateSecret);
 
     return PayGateClient.instance;
@@ -248,68 +258,96 @@ export class PayGateClient {
 
   async requestPayment(paymentRequest: PaymentRequest): Promise<PaymentResponse> {
     try {
-      const data = PayGateUtil.sanitizePaymentRequest(paymentRequest, this.payGateId, this.payGateSecret);
-      const httpResponse = await superagent.post(PayGateEndpoints.INITIATE_URI).send(qs.stringify(data));
+      const request = PayGateUtil.sanitizePaymentRequest(paymentRequest, this.payGateId, this.payGateSecret);
+      const payload = qs.stringify(request);
+
+      debugPaymentRequest("Payment request");
+      debugPaymentRequest(payload);
+      debugPaymentRequest(request);
+
+      const httpResponse = await superagent.post(PayGateEndpoints.INITIATE_URI).send(payload);
+
+      debugPaymentRequest("Payment response");
+      debugPaymentRequest(httpResponse.text);
 
       if (!httpResponse.text) {
         throw new PayGateError(Message.UNKNOWN_RESPONSE);
       }
 
-      const payGateResponse = qs.parse(httpResponse.text);
+      const paymentReference = qs.parse(httpResponse.text);
 
-      if (TypeChecks.containsErrorProperty(payGateResponse)) {
-        throw new PayGateError(payGateResponse);
+      if (TypeChecks.containsErrorProperty(paymentReference)) {
+        throw new PayGateError(paymentReference);
       }
 
-      if (!TypeChecks.isPaymentReference(payGateResponse)) {
-        throw new PayGateError(payGateResponse, Message.UNKNOWN_PAYGATE_RESPONSE);
+      if (!TypeChecks.isPaymentReference(paymentReference)) {
+        throw new PayGateError(paymentReference, Message.UNKNOWN_PAYGATE_RESPONSE);
       }
 
-      return {
-        paymentRef: payGateResponse,
+      const paymentResponse = {
+        paymentRef: paymentReference,
         redirectUri: PayGateEndpoints.REDIRECT_URI,
         redirectParams: {
-          PAY_REQUEST_ID: payGateResponse.PAY_REQUEST_ID as string,
-          CHECKSUM: payGateResponse.CHECKSUM as string,
+          PAY_REQUEST_ID: paymentReference.PAY_REQUEST_ID as string,
+          CHECKSUM: paymentReference.CHECKSUM as string,
         },
       };
+
+      debugPaymentRequest(paymentResponse);
+
+      return paymentResponse;
     } catch (e) {
+      debugPaymentRequest("Error on requestPayment");
       throw new PayGateError(e);
     }
   }
 
   async handlePaymentNotification(paymentStatus: PaymentStatus): Promise<SuccessIndicator> {
+    debugPaymentNotification("handlePaymentNotification");
     return this.addPaymentStatusToSession(paymentStatus);
   }
 
   async queryPaymentStatus(paymentRef: PaymentReference): Promise<PaymentStatus> {
     const existingPaymentStatus = await this.findPaymentStatusInSession(paymentRef);
     if (existingPaymentStatus) {
+      debugPaymentStatus("Payment status returned from cache");
       return existingPaymentStatus;
     }
 
     try {
-      const data = PayGateUtil.sanitizePaymentRef(paymentRef, this.payGateId, this.payGateSecret);
-      const httpResponse = await superagent.post(PayGateEndpoints.QUERY_URI).send(qs.stringify(data));
+      const request = PayGateUtil.sanitizePaymentRef(paymentRef, this.payGateId, this.payGateSecret);
+      const payload = qs.stringify(request);
+
+      debugPaymentStatus("Payment status query");
+      debugPaymentStatus(payload);
+      debugPaymentStatus(request);
+
+      const httpResponse = await superagent.post(PayGateEndpoints.QUERY_URI).send(payload);
+
+      debugPaymentStatus("Payment status response");
+      debugPaymentStatus(httpResponse.text);
 
       if (!httpResponse.text) {
         throw new PayGateError(Message.UNKNOWN_RESPONSE);
       }
 
-      const payGateResponse = qs.parse(httpResponse.text);
+      const paymentStatus = qs.parse(httpResponse.text);
 
-      if (TypeChecks.containsErrorProperty(payGateResponse)) {
-        throw new PayGateError(payGateResponse);
+      if (TypeChecks.containsErrorProperty(paymentStatus)) {
+        throw new PayGateError(paymentStatus);
       }
 
-      if (!TypeChecks.isPaymentStatus(payGateResponse)) {
-        throw new PayGateError(payGateResponse, Message.UNKNOWN_PAYGATE_RESPONSE);
+      if (!TypeChecks.isPaymentStatus(paymentStatus)) {
+        throw new PayGateError(paymentStatus, Message.UNKNOWN_PAYGATE_RESPONSE);
       }
 
-      await this.addPaymentStatusToSession(payGateResponse);
+      await this.addPaymentStatusToSession(paymentStatus);
 
-      return payGateResponse;
+      debugPaymentStatus(paymentStatus);
+
+      return paymentStatus;
     } catch (e) {
+      debugPaymentStatus("Error on queryPaymentStatus");
       throw new PayGateError(e);
     }
   }
@@ -319,17 +357,21 @@ export class PayGateClient {
   }
 
   private async addPaymentStatusToSession(paymentStatus: PaymentStatus): Promise<SuccessIndicator> {
-    if (!this.paymentStatusCache) {
+    if (!this.paymentCache) {
+      const message = "No cache available";
+      debugCache(message);
       return {
         success: false,
-        message: "No cache available",
+        message,
       };
     }
 
     if (!paymentStatus.REFERENCE && !paymentStatus.PAY_REQUEST_ID) {
+      const message = "Cannot add payment status to cache, no valid payment reference found";
+      debugCache(message);
       return {
         success: false,
-        message: "No valid payment reference key found",
+        message,
       };
     }
 
@@ -345,11 +387,14 @@ export class PayGateClient {
           return { key: paymentStatus[k], val: paymentStatus };
         });
 
-      const success = this.paymentStatusCache.mset(cacheEntries);
+      debugCache("Adding cache entry");
+      debugCache(cacheEntries);
+
+      const success = this.paymentCache.mset(cacheEntries);
 
       return {
         success: success,
-        message: "Set cache",
+        message: "Cache entry set",
       };
     }
 
@@ -357,6 +402,7 @@ export class PayGateClient {
       // the existing payment status is the minimal version sent back after returning
       // from payment page, and not the full version that is sent by the payment
       // notification call - replace the minimal version with the full version
+
       const existingCachedKeys = Object.keys(paymentStatus).filter(
         (k) => (k === "REFERENCE" || k === "PAY_REQUEST_ID") && paymentStatus[k]
       );
@@ -367,44 +413,55 @@ export class PayGateClient {
           return { key: paymentStatus[k], val: paymentStatus };
         });
 
-      this.paymentStatusCache.del(existingCachedKeys);
-      const success = this.paymentStatusCache.mset(newCacheEntries);
+      debugCache("Updating cache entry with new version");
+      debugCache(existingCachedKeys);
+      debugCache(newCacheEntries);
+
+      this.paymentCache.del(existingCachedKeys);
+      const success = this.paymentCache.mset(newCacheEntries);
 
       return {
         success: success,
-        message: "Set cache",
+        message: "Cache entry updated",
       };
     }
 
-    // the existing payment status already has a full version in the cache
+    debugCache("Cache entry already exits");
+
     return {
       success: true,
-      message: "Already cached",
+      message: "Cache entry exits",
     };
   }
 
   private async findPaymentStatusInSession(paymentRef: PaymentReference): Promise<PaymentStatus> {
-    if (!this.paymentStatusCache) {
+    if (!this.paymentCache) {
+      debugCache("No cache available");
       return undefined;
     }
 
     if (!paymentRef.REFERENCE && !paymentRef.PAY_REQUEST_ID) {
+      debugCache("Cannot query cache for payment status, no valid payment reference found");
       return undefined;
     }
 
     if (paymentRef.REFERENCE) {
-      const cachedPaymentStatus = this.paymentStatusCache.get(paymentRef.REFERENCE) as PaymentStatus;
+      const cachedPaymentStatus = this.paymentCache.get(paymentRef.REFERENCE) as PaymentStatus;
       if (cachedPaymentStatus) {
+        debugCache("Cache entry found for key type REFERENCE");
         return cachedPaymentStatus;
       }
     }
 
     if (paymentRef.PAY_REQUEST_ID) {
-      const cachedPaymentStatus = this.paymentStatusCache.get(paymentRef.PAY_REQUEST_ID) as PaymentStatus;
+      const cachedPaymentStatus = this.paymentCache.get(paymentRef.PAY_REQUEST_ID) as PaymentStatus;
       if (cachedPaymentStatus) {
+        debugCache("Cache entry found for key type PAY_REQUEST_ID");
         return cachedPaymentStatus;
       }
     }
+
+    debugCache("No cache entry found");
 
     return undefined;
   }
