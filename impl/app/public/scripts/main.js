@@ -1,5 +1,5 @@
-import { PayGateClient } from "paygate-sdk";
-console.log(PayGateClient);
+// import { PayGateClient } from "paygate-sdk";
+// console.log(PayGateClient);
 
 function jqueryRedirect(uri, params) {
   const form = $("<form></form>");
