@@ -1,6 +1,6 @@
 {
   "name": "paygate-sdk",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "PayGate JS/TS SDK",
   "homepage": "https://github.com/distributhor/paygate-sdk",
   "license": "MIT",
@@ -88,14 +88,14 @@
     "jest": "^26.5.3",
     "lint-staged": "^10.4.2",
     "prettier": "^2.1.2",
+    "rollup": "^2.32.1",
     "rollup-plugin-typescript2": "^0.28.0",
     "ts-jest": "^26.4.1",
     "ts-node": "^9.0.0",
     "typedoc": "^0.19.2",
     "typedoc-neo-theme": "^1.0.10",
     "typedoc-plugin-markdown": "^3.0.11",
-    "typescript": "^4.0.3",
-    "rollup": "^2.32.1"
+    "typescript": "^4.0.3"
   },
   "husky": {
     "hooks": {
