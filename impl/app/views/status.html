@@ -2,7 +2,7 @@
 
 {% block main %}
 
-<div class="py-5 text-center">
+<div class="py-3 text-center">
     <h2>{{ title }}</h2>
     
     {% if not isPost %}
@@ -19,6 +19,14 @@
     </p>
     {% endif %}
 </div>
+
+{% if isPost %}
+<div class="row justify-content-md-center">
+    <h5>Status: <span class="{{ transactionStatusStyle }}">{{ transactionDescription.status }}</span></h5>
+    {% if transactionDescription.detail %} Details: {% endif %} {{ transactionDescription.detail }} <br/>
+    &nbsp; <br/> &nbsp;
+</div>
+{% endif %}
 
 <div class="row justify-content-md-center">
 

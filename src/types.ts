@@ -129,9 +129,9 @@ export const TransactionStatus = {
   "7": "Settlement Voided",
 };
 
-export interface TransactionSummary {
-  summary: string;
-  reason?: string;
+export interface TransactionDescription {
+  status: string;
+  detail?: string;
 }
 
 export const PaymentMethod = {

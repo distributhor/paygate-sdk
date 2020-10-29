@@ -4,9 +4,9 @@ import {
   UntypedObject,
   PaymentStatus,
   TransactionStatus,
-  TransactionSummary,
-  CreditCardCodes,
+  TransactionDescription,
   CommunicationAndDataErrors,
+  CreditCardCodes,
 } from "./types";
 
 export function removeAllNonValuedProperties(obj: UntypedObject): void {
@@ -55,10 +55,10 @@ export function redirect(uri: string, params: any): void {
   form.submit();
 }
 
-export function getTransactionSummary(paymentStatus: PaymentStatus): TransactionSummary {
+export function toTransactionDescription(paymentStatus: PaymentStatus): TransactionDescription {
   if (!paymentStatus || paymentStatus.TRANSACTION_STATUS == undefined) {
     return {
-      summary: "No transaction status found",
+      status: "No transaction status found",
     };
   }
 
@@ -67,38 +67,38 @@ export function getTransactionSummary(paymentStatus: PaymentStatus): Transaction
 
   if (status && !code) {
     return {
-      summary: TransactionStatus[status],
+      status: TransactionStatus[status],
     };
   }
 
   if (status === "1") {
     return {
-      summary: TransactionStatus[status],
+      status: TransactionStatus[status],
     };
   }
 
   if (status === "0") {
     return {
-      summary: "Transaction not done, due to communication or internal data error",
-      reason: CommunicationAndDataErrors[status] ? CommunicationAndDataErrors[status] : undefined,
+      status: "Transaction not done, due to communication or internal data error",
+      detail: CommunicationAndDataErrors[status] ? CommunicationAndDataErrors[status] : undefined,
     };
   }
 
   if (status === "2") {
     return {
-      summary: "Transaction declined due to credit card error",
-      reason: CreditCardCodes[status] ? CreditCardCodes[status] : undefined,
+      status: "Transaction declined due to credit card error",
+      detail: CreditCardCodes[status] ? CreditCardCodes[status] : undefined,
     };
   }
 
   if (status === "3" || status === "4") {
     return {
-      summary: "Transaction cancelled",
-      reason: CommunicationAndDataErrors[status] ? CommunicationAndDataErrors[status] : undefined,
+      status: "Transaction cancelled",
+      detail: CommunicationAndDataErrors[status] ? CommunicationAndDataErrors[status] : undefined,
     };
   }
 
   return {
-    summary: paymentStatus.TRANSACTION_STATUS,
+    status: paymentStatus.TRANSACTION_STATUS,
   };
 }
