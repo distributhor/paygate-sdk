@@ -18,14 +18,27 @@ function requestPayment(amount, email) {
 }
 
 function queryPaymentStatus(paymentRef) {
+  $("#error").hide();
+
+  let params = undefined;
+
+  if (paymentRef.PAY_REQUEST_ID) {
+    params = "PAY_REQUEST_ID=" + paymentRef.PAY_REQUEST_ID;
+  }
+
+  if (paymentRef.REFERENCE) {
+    if (params) {
+      params = params + "&REFERENCE=" + paymentRef.REFERENCE;
+    } else {
+      params = "REFERENCE=" + paymentRef.REFERENCE;
+    }
+  }
+
   NProgress.start();
+
   $.ajax({
     type: "GET",
-    url:
-      "http://localhost:7000/payment-status?PAY_REQUEST_ID=" +
-      paymentRef.PAY_REQUEST_ID +
-      "&REFERENCE=" +
-      paymentRef.REFERENCE,
+    url: "http://localhost:7000/payment-status?" + params,
     contentType: "application/json",
     dataType: "json",
     success: function (data) {
@@ -34,8 +47,10 @@ function queryPaymentStatus(paymentRef) {
     },
     error: function (error) {
       NProgress.done();
-      console.log(error.status);
-      console.log(error.statusText);
+      if (error.status === 400 && error.responseJSON) {
+        $("#error").text(error.responseJSON.message);
+        $("#error").show();
+      }
     },
   });
 }

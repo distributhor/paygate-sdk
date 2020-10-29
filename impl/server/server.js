@@ -43,7 +43,7 @@ const middlewareConfig = {
 
   server.post("/payment-request", paymentRequestHandler(middlewareConfig), async (req, res) => {
     if (req.paygate.badRequest) {
-      return res.sendStatus(400);
+      return res.status(400).send({ message: req.paygate.badRequest });
     }
 
     if (req.paygate.serviceError) {
@@ -55,7 +55,7 @@ const middlewareConfig = {
 
   server.post("/payment-notification", paymentNotificationHandler(middlewareConfig), async (req, res) => {
     if (req.paygate.badRequest) {
-      return res.sendStatus(400);
+      return res.status(400).send({ message: req.paygate.badRequest });
     }
 
     if (req.paygate.serviceError) {
@@ -69,7 +69,7 @@ const middlewareConfig = {
 
   server.get("/payment-status", paymentStatusHandler(middlewareConfig), async (req, res) => {
     if (req.paygate.badRequest) {
-      return res.sendStatus(400);
+      return res.status(400).send({ message: req.paygate.badRequest });
     }
 
     if (req.paygate.serviceError) {

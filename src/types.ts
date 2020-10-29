@@ -1,39 +1,32 @@
-import { Response } from "superagent";
-
-export interface UntypedObject {
-  [key: string]: any;
+/** @internal */
+interface SuperAgentResponse {
+  headers?: any;
+  body?: any;
+  text?: string;
+  status: number;
+  error?: false | string | Error;
 }
 
 export interface ErrorObject {
   message: string;
 }
 
-/** @internal */
 export interface ErrorProperty {
   ERROR?: string;
   error?: string;
 }
 
-/** @internal */
-interface HttpResponse extends Response {
-  body: any;
-  status: number;
-}
-
-/** @internal */
-interface HttpErrorResponse extends HttpResponse {
-  body: ErrorProperty;
-  error: any;
-}
-
-/** @internal */
-export interface HttpError {
-  response: HttpErrorResponse;
+export interface HttpResponse {
+  response: SuperAgentResponse;
 }
 
 export interface SuccessIndicator {
   success: boolean;
   message?: string;
+}
+
+export interface UntypedObject {
+  [key: string]: any;
 }
 
 type CurrencyCode = "ZAR" | "USD" | "EUR";
@@ -89,17 +82,59 @@ export const PayGateErrorCodes = {
   VAULT_NOT_ACCEPTED: "Card types enabled on terminal not available for vaulting",
 };
 
-export const PayGateTxStatus = {
-  "1": "Not Done",
-  "2": "Approved",
-  "3": "Decline",
-  "4": "Cancelled",
-  "5": "User Cancelled",
-  "6": "Received by PayGate",
+export const CreditCardCodes = {
+  "900001": "Call for approval",
+  "900002": "Card expired",
+  "900003": "Insufficient funds",
+  "900004": "Invalid card number",
+  "900005": "Bank interface timeout",
+  "900006": "Invalid card",
+  "900007": "Declined",
+  "900009": "Lost card",
+  "900010": "Invalid card length",
+  "900011": "Suspected fraud",
+  "900012": "Card reported as stolen",
+  "900013": "Restricted card",
+  "900014": "Excessive card usage",
+  "900015": "Card blacklisted",
+  "900017": "Auth done",
+  "900207": "Declined; authentication failed (incorrect verification code)",
+  "990020": "Auth declined",
+  "900210": "3D Secure lookup timeout",
+  "991001": "Invalid expiry date",
+  "991002": "Invalid amount",
+};
+
+export const CommunicationAndDataErrors = {
+  "900205": "Unexpected authentication result (phase 1)",
+  "900206": "Unexpected authentication result (phase 2)",
+  "900001": "Could not insert into DB",
+  "990022": "Bank not available",
+  "990053": "Error processing transaction",
+  "900209": "Transaction verification failed (phase 2) (verification data altered)",
+  "900210": "Authentication already complete; transaction must be restarted (verification done more than once)",
+  "900019": "Invalid PayVault scope",
+  "990013": "Error processing a batch transaction",
+  "990024": "Duplicate transaction detected",
+  "990028": "Transaction cancelled",
+};
+
+export const TransactionStatus = {
+  "0": "Not Done",
+  "1": "Approved",
+  "2": "Declined",
+  "3": "Cancelled",
+  "4": "User Cancelled",
+  "5": "Received by PayGate",
   "7": "Settlement Voided",
 };
 
-export const PayGatePaymentMethods = {
+export interface TransactionSummary {
+  summary: string;
+  reason?: string;
+}
+
+export const PaymentMethod = {
   CC: "Credit Card",
   DC: "Debit Card",
   EW: "E-Wallet",
@@ -108,10 +143,9 @@ export const PayGatePaymentMethods = {
   PC: "Pre-Paid Card",
 };
 
-export const PayGateLocaleCodes = {
+export const PayGateLocale = {
   af: "Afrikaans",
   en: "Enblish",
-  "en-za": "English (South Africa)",
   sx: "Sutu",
   tn: "Tswana",
   ve: "Venda",
@@ -161,7 +195,7 @@ export interface PaymentStatus {
   PAYGATE_ID: string;
   PAY_REQUEST_ID: string;
   REFERENCE: string;
-  TRANSACTION_STATUS: number;
+  TRANSACTION_STATUS: string;
   RESULT_CODE: string;
   AUTH_CODE: string;
   CURRENCY: string;

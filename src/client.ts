@@ -15,17 +15,16 @@ import {
   UntypedObject,
   ErrorProperty,
   ErrorObject,
-  HttpError,
   Currency,
 } from "./types";
 import * as util from "./util";
 
 const debugError = Debug("paygate-sdk:error");
+const debugStack = Debug("paygate-sdk:stack");
 const debugCache = Debug("paygate-sdk:cache");
 const debugSingleton = Debug("paygate-sdk:singleton");
 const debugPaymentStatus = Debug("paygate-sdk:payment:status");
 const debugPaymentRequest = Debug("paygate-sdk:payment:request");
-const debugPaymentNotification = Debug("paygate-sdk:payment:notification");
 
 /** @internal */
 const Message = {
@@ -43,8 +42,16 @@ const TypeChecks = {
     return x.message;
   },
 
-  isHttpError: (x: any): x is HttpError => {
-    return x.response && x.response.body && x.response.body.error;
+  isHttpError: (x: any) => {
+    return x.response && x.response.error;
+  },
+
+  isPayGateResponse: (x: any) => {
+    return x.text;
+  },
+
+  isPayGateErrorResponse: (x: any) => {
+    return TypeChecks.containsErrorProperty(x);
   },
 
   isPaymentReference: (x: any): x is PaymentReference => {
@@ -109,8 +116,8 @@ export class PayGateError extends Error {
   public httpStatus?: number;
   public cause?: ErrorObject | UntypedObject;
 
-  constructor(cause: any, message?: string, httpStatus?: number) {
-    const e = PayGateError.parse(cause, message, httpStatus);
+  constructor(cause: any, message?: string) {
+    const e = PayGateError.parse(cause, message);
 
     super(e.message);
 
@@ -124,7 +131,8 @@ export class PayGateError extends Error {
       Error.captureStackTrace(this, PayGateError);
     }
 
-    debugError(e);
+    debugError(`${this.name}: ${e.message}`);
+    debugStack(this);
   }
 
   private static parseMessage(cause: any, message?: string): string {
@@ -137,7 +145,7 @@ export class PayGateError extends Error {
     }
 
     if (TypeChecks.isHttpError(cause)) {
-      return cause.response.body.error;
+      return cause.response.error.message;
     }
 
     if (TypeChecks.containsErrorProperty(cause)) {
@@ -156,11 +164,7 @@ export class PayGateError extends Error {
     return "Unknown Error";
   }
 
-  private static parseHttpStatus(cause: any, httpStatus?: number): number | undefined {
-    if (httpStatus) {
-      return httpStatus;
-    }
-
+  private static parseHttpStatus(cause: any): number | undefined {
     if (TypeChecks.isHttpError(cause)) {
       return cause.response.status;
     }
@@ -172,12 +176,19 @@ export class PayGateError extends Error {
     return typeof cause !== "string" ? cause : undefined;
   }
 
-  private static parse(cause: any, message?: string, httpStatus?: number) {
+  private static parse(cause: any, message?: string) {
     return {
       message: PayGateError.parseMessage(cause, message),
-      httpStatus: PayGateError.parseHttpStatus(cause, httpStatus),
+      httpStatus: PayGateError.parseHttpStatus(cause),
       error: PayGateError.parseErrorObject(cause),
     };
+  }
+}
+
+export class InvalidRequest extends PayGateError {
+  constructor(cause: any, message?: string) {
+    super(cause, message);
+    this.name = "InvalidRequest";
   }
 }
 
@@ -242,26 +253,26 @@ export class PayGateClient {
       debugPaymentRequest("Payment response");
       debugPaymentRequest(httpResponse.text);
 
-      if (!httpResponse.text) {
+      if (!TypeChecks.isPayGateResponse(httpResponse)) {
         throw new PayGateError(Message.UNKNOWN_RESPONSE);
       }
 
-      const paymentReference = qs.parse(httpResponse.text);
+      const payGateResponse = qs.parse(httpResponse.text);
 
-      if (TypeChecks.containsErrorProperty(paymentReference)) {
-        throw new PayGateError(paymentReference);
+      if (TypeChecks.isPayGateErrorResponse(payGateResponse)) {
+        throw new PayGateError(payGateResponse);
       }
 
-      if (!TypeChecks.isPaymentReference(paymentReference)) {
-        throw new PayGateError(paymentReference, Message.UNKNOWN_PAYGATE_RESPONSE);
+      if (!TypeChecks.isPaymentReference(payGateResponse)) {
+        throw new PayGateError(payGateResponse, Message.UNKNOWN_PAYGATE_RESPONSE);
       }
 
       const paymentResponse = {
-        paymentRef: paymentReference,
+        paymentRef: payGateResponse,
         redirectUri: PayGateEndpoints.REDIRECT_URI,
         redirectParams: {
-          PAY_REQUEST_ID: paymentReference.PAY_REQUEST_ID as string,
-          CHECKSUM: paymentReference.CHECKSUM as string,
+          PAY_REQUEST_ID: payGateResponse.PAY_REQUEST_ID as string,
+          CHECKSUM: payGateResponse.CHECKSUM as string,
         },
       };
 
@@ -270,12 +281,11 @@ export class PayGateClient {
       return paymentResponse;
     } catch (e) {
       debugPaymentRequest("Error on requestPayment");
-      throw new PayGateError(e);
+      throw e instanceof PayGateError ? e : new PayGateError(e);
     }
   }
 
   async handlePaymentNotification(paymentStatus: PaymentStatus): Promise<SuccessIndicator> {
-    debugPaymentNotification("handlePaymentNotification");
     return this.addPaymentStatusToSession(paymentStatus);
   }
 
@@ -288,6 +298,13 @@ export class PayGateClient {
 
     try {
       const request = PayGateData.sanitizePaymentRef(paymentRef, this.payGateId, this.payGateSecret);
+
+      if (!request.REFERENCE || !request.PAY_REQUEST_ID) {
+        throw new InvalidRequest(
+          "No payment status found in cache, and both REFERENCE and PAY_REQUEST_ID is required for directly querying PayGate"
+        );
+      }
+
       const payload = qs.stringify(request);
 
       debugPaymentStatus("Payment status query");
@@ -299,28 +316,28 @@ export class PayGateClient {
       debugPaymentStatus("Payment status response");
       debugPaymentStatus(httpResponse.text);
 
-      if (!httpResponse.text) {
+      if (!TypeChecks.isPayGateResponse(httpResponse)) {
         throw new PayGateError(Message.UNKNOWN_RESPONSE);
       }
 
-      const paymentStatus = qs.parse(httpResponse.text);
+      const payGateResponse = qs.parse(httpResponse.text);
 
-      if (TypeChecks.containsErrorProperty(paymentStatus)) {
-        throw new PayGateError(paymentStatus);
+      if (TypeChecks.isPayGateErrorResponse(payGateResponse)) {
+        throw new PayGateError(payGateResponse);
       }
 
-      if (!TypeChecks.isPaymentStatus(paymentStatus)) {
-        throw new PayGateError(paymentStatus, Message.UNKNOWN_PAYGATE_RESPONSE);
+      if (!TypeChecks.isPaymentStatus(payGateResponse)) {
+        throw new PayGateError(payGateResponse, Message.UNKNOWN_PAYGATE_RESPONSE);
       }
 
-      await this.addPaymentStatusToSession(paymentStatus);
+      await this.addPaymentStatusToSession(payGateResponse);
 
-      debugPaymentStatus(paymentStatus);
+      debugPaymentStatus(payGateResponse);
 
-      return paymentStatus;
+      return payGateResponse;
     } catch (e) {
       debugPaymentStatus("Error on queryPaymentStatus");
-      throw new PayGateError(e);
+      throw e instanceof PayGateError ? e : new PayGateError(e);
     }
   }
 

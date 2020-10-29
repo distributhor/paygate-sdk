@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { PaymentResponse, PaymentStatus } from "./types";
-import { PayGateClient } from "./client";
+import { PayGateClient, InvalidRequest } from "./client";
 
 export interface PayGateMiddlewareConfig {
   payGateId: string;
@@ -61,9 +61,15 @@ export function paymentRequestHandler(options: PayGateMiddlewareConfig) {
 
       return next();
     } catch (e) {
-      req.paygate = {
-        serviceError: e,
-      };
+      if (e instanceof InvalidRequest) {
+        req.paygate = {
+          badRequest: e.message,
+        };
+      } else {
+        req.paygate = {
+          serviceError: e,
+        };
+      }
 
       return next();
     }
@@ -93,9 +99,15 @@ export function paymentNotificationHandler(options: PayGateMiddlewareConfig) {
 
       return next();
     } catch (e) {
-      req.paygate = {
-        serviceError: e,
-      };
+      if (e instanceof InvalidRequest) {
+        req.paygate = {
+          badRequest: e.message,
+        };
+      } else {
+        req.paygate = {
+          serviceError: e,
+        };
+      }
 
       return next();
     }
@@ -104,7 +116,7 @@ export function paymentNotificationHandler(options: PayGateMiddlewareConfig) {
 
 export function paymentStatusHandler(options: PayGateMiddlewareConfig) {
   return async function (req: ExpressRequestWithPaymentStatus, res: Response, next: NextFunction): Promise<void> {
-    if (!req.query || !req.query.PAY_REQUEST_ID || !req.query.REFERENCE) {
+    if (!req.query || (!req.query.PAY_REQUEST_ID && !req.query.REFERENCE)) {
       req.paygate = {
         badRequest: "Invalid payment reference received",
       };
@@ -117,8 +129,8 @@ export function paymentStatusHandler(options: PayGateMiddlewareConfig) {
         options.payGateId,
         options.payGateSecret
       ).queryPaymentStatus({
-        PAY_REQUEST_ID: req.query.PAY_REQUEST_ID as string,
-        REFERENCE: req.query.REFERENCE as string,
+        PAY_REQUEST_ID: req.query.PAY_REQUEST_ID ? (req.query.PAY_REQUEST_ID as string) : undefined,
+        REFERENCE: req.query.REFERENCE ? (req.query.REFERENCE as string) : undefined,
       });
 
       req.paygate = {
@@ -127,9 +139,15 @@ export function paymentStatusHandler(options: PayGateMiddlewareConfig) {
 
       return next();
     } catch (e) {
-      req.paygate = {
-        serviceError: e,
-      };
+      if (e instanceof InvalidRequest) {
+        req.paygate = {
+          badRequest: e.message,
+        };
+      } else {
+        req.paygate = {
+          serviceError: e,
+        };
+      }
 
       return next();
     }
