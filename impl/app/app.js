@@ -2,6 +2,8 @@ const path = require("path");
 const express = require("express");
 const nunjucks = require("nunjucks");
 const cookieParser = require("cookie-parser");
+// const paygate = require("paygate-sdk");
+// console.log(paygate);
 
 const app = express();
 
@@ -20,7 +22,6 @@ app.get("/", function (req, res) {
 });
 
 app.post("/status", function (req, res) {
-  console.log(req.body);
   const data = {
     isPost: true,
     title: "Payment Status",
