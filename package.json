@@ -1,6 +1,6 @@
 {
   "name": "paygate-sdk",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "PayGate JS/TS SDK",
   "homepage": "https://github.com/distributhor/paygate-sdk",
   "license": "MIT",
