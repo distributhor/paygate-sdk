@@ -9,6 +9,7 @@ import {
   TransactionCode,
   PaymentMethod,
   PayGateTestCards,
+  TransactionResultCodes,
 } from "./types";
 
 export * as util from "./util";
@@ -22,4 +23,5 @@ export { PayGateLocaleName as localeName };
 export { TransactionCode as transactionCode };
 export { PaymentMethodCode as paymentMethodCode };
 export { TransactionStatus as transactionStatus };
+export { TransactionResultCodes as resultCodes };
 export { PayGateTestCards as testCards };

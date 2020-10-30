@@ -5,8 +5,7 @@ import {
   PaymentStatus,
   TransactionStatus,
   TransactionDescription,
-  CommunicationAndDataErrors,
-  CreditCardCodes,
+  TransactionResultCodes,
   TransactionCode,
   PayGateTestCards,
   CreditCard,
@@ -56,22 +55,22 @@ export function getTransactionDescription(paymentStatus: PaymentStatus): Transac
 
   if (status === TransactionCode.NOT_DONE) {
     return {
-      status: "Transaction not done, due to communication or internal data error",
-      detail: CommunicationAndDataErrors[code] ? CommunicationAndDataErrors[code] : undefined,
+      status: "Transaction not done (communication or data error)",
+      detail: TransactionResultCodes[code] ? TransactionResultCodes[code] : undefined,
     };
   }
 
   if (status === TransactionCode.DECLINED) {
     return {
-      status: "Transaction declined due to credit card error",
-      detail: CreditCardCodes[code] ? CreditCardCodes[code] : undefined,
+      status: "Transaction declined",
+      detail: TransactionResultCodes[code] ? TransactionResultCodes[code] : undefined,
     };
   }
 
-  if (status === TransactionCode.DECLINED || status === TransactionCode.USER_CANCELLED) {
+  if (status === TransactionCode.CANCELLED || status === TransactionCode.USER_CANCELLED) {
     return {
       status: "Transaction cancelled",
-      detail: CommunicationAndDataErrors[code] ? CommunicationAndDataErrors[code] : undefined,
+      detail: TransactionResultCodes[code] ? TransactionResultCodes[code] : undefined,
     };
   }
 

@@ -77,7 +77,7 @@ export const PayGateErrorCodes = {
   VAULT_NOT_ACCEPTED: "Card types enabled on terminal not available for vaulting",
 };
 
-export const CreditCardCodes = {
+export const CreditCardResultCodes = {
   "900001": "Call for approval",
   "900002": "Card expired",
   "900003": "Insufficient funds",
@@ -100,10 +100,10 @@ export const CreditCardCodes = {
   "991002": "Invalid amount",
 };
 
-export const CommunicationAndDataErrors = {
+export const CommunicationAndDataResultCodes = {
   "900205": "Unexpected authentication result (phase 1)",
   "900206": "Unexpected authentication result (phase 2)",
-  "900001": "Could not insert into DB",
+  "990001": "Could not insert into DB",
   "990022": "Bank not available",
   "990053": "Error processing transaction",
   "900209": "Transaction verification failed (phase 2) (verification data altered)",
@@ -113,6 +113,8 @@ export const CommunicationAndDataErrors = {
   "990024": "Duplicate transaction detected",
   "990028": "Transaction cancelled",
 };
+
+export const TransactionResultCodes = Object.assign(CommunicationAndDataResultCodes, CreditCardResultCodes);
 
 export const TransactionStatus = {
   "0": "Not Done",
