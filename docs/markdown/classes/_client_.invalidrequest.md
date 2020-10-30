@@ -32,7 +32,7 @@
 
 _Overrides [PayGateError](_client_.paygateerror.md).[constructor](_client_.paygateerror.md#constructor)_
 
-_Defined in [src/client.ts:199](https://github.com/distributhor/paygate-sdk/blob/3d3a525/src/client.ts#L199)_
+_Defined in [src/client.ts:199](https://github.com/distributhor/paygate-sdk/blob/09aaeab/src/client.ts#L199)_
 
 #### Parameters:
 
@@ -51,7 +51,7 @@ _Defined in [src/client.ts:199](https://github.com/distributhor/paygate-sdk/blob
 
 _Inherited from [PayGateError](_client_.paygateerror.md).[cause](_client_.paygateerror.md#cause)_
 
-_Defined in [src/client.ts:128](https://github.com/distributhor/paygate-sdk/blob/3d3a525/src/client.ts#L128)_
+_Defined in [src/client.ts:128](https://github.com/distributhor/paygate-sdk/blob/09aaeab/src/client.ts#L128)_
 
 ---
 
@@ -61,7 +61,7 @@ _Defined in [src/client.ts:128](https://github.com/distributhor/paygate-sdk/blob
 
 _Inherited from [PayGateError](_client_.paygateerror.md).[httpStatus](_client_.paygateerror.md#httpstatus)_
 
-_Defined in [src/client.ts:127](https://github.com/distributhor/paygate-sdk/blob/3d3a525/src/client.ts#L127)_
+_Defined in [src/client.ts:127](https://github.com/distributhor/paygate-sdk/blob/09aaeab/src/client.ts#L127)_
 
 ---
 

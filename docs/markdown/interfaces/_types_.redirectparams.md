@@ -21,7 +21,7 @@
 
 • **CHECKSUM**: string
 
-_Defined in [src/types.ts:228](https://github.com/distributhor/paygate-sdk/blob/3d3a525/src/types.ts#L228)_
+_Defined in [src/types.ts:230](https://github.com/distributhor/paygate-sdk/blob/09aaeab/src/types.ts#L230)_
 
 ---
 
@@ -29,4 +29,4 @@ _Defined in [src/types.ts:228](https://github.com/distributhor/paygate-sdk/blob/
 
 • **PAY_REQUEST_ID**: string
 
-_Defined in [src/types.ts:227](https://github.com/distributhor/paygate-sdk/blob/3d3a525/src/types.ts#L227)_
+_Defined in [src/types.ts:229](https://github.com/distributhor/paygate-sdk/blob/09aaeab/src/types.ts#L229)_
