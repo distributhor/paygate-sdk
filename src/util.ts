@@ -13,7 +13,7 @@ import {
 
 export function removeAllNonValuedProperties(obj: UntypedObject): void {
   Object.keys(obj).forEach((key) => {
-    if (obj[key] === undefined) {
+    if (obj[key] === null || obj[key] === undefined || obj[key] === "") {
       delete obj[key];
     }
   });
@@ -102,7 +102,7 @@ export function redirectBrowser(uri: string, params: any): void {
 }
 
 /** @internal */
-function splitCamelCaseString(s: string): string {
+export function splitCamelCaseString(s: string): string {
   // /([a-z0-9])([A-Z])/ for numbers counting as lowercase characters
   return s.replace(/([a-z])([A-Z])/g, "$1 $2");
 }
