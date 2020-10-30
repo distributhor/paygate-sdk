@@ -26,7 +26,7 @@ To follow
 
 ## Reference Implementation
 
-In addition to the above, there is also a reference implementation available under the `impl` folder. It consist of an ExpressJS backend that exposes endpoints via the middleware functions, and a very simple frontend with which to test payments. It should demonstrate the ease with which to set things up. You can get the reference implementation running on your own machine in only a few simple steps:
+In addition to the above, there is also a reference implementation available under the `impl` folder. It consists of an ExpressJS backend that exposes endpoints via the middleware functions (which in turn uses the TS/JS API client), and a very simple frontend with which to test payments. It should demonstrate how to use these components in your own project. The reference implementation can run in your local development environment in only a few easy steps.
 
 ### Ngrok Token
 
