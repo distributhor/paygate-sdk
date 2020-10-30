@@ -47,6 +47,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc -b --clean && tsc -b && rollup -c rollup.config.js",
+    "test": "jest -c test/jest.config.js --passWithNoTests",
     "lint": "yarn lint:check",
     "lint:check": "eslint '{src,test}/**/*.{js,ts,json}'",
     "lint:fix": "eslint --fix '{src,test}/**/*.{js,ts,json}'",
@@ -55,8 +56,7 @@
     "prettier:check": "prettier --ignore-path .prettierignore --check '{src,test}/**/*.{js,ts,json,md}'",
     "doc:html": "typedoc --tsconfig ./tsconfig.json --out docs/html --plugin typedoc-neo-theme --theme ./node_modules/typedoc-neo-theme/bin/default",
     "doc:markdown": "typedoc --tsconfig ./tsconfig.json --out docs/markdown --readme none --plugin typedoc-plugin-markdown",
-    "doc": "yarn doc:html && yarn doc:markdown",
-    "test": "jest --passWithNoTests"
+    "doc": "yarn doc:html && yarn doc:markdown"
   },
   "dependencies": {
     "currency.js": "^2.0.3",
@@ -104,8 +104,7 @@
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged",
-      "pre-push-with-test": "yarn lint && yarn test",
-      "pre-push": "yarn lint"
+      "pre-push": "yarn lint && yarn test"
     }
   },
   "lint-staged": {
