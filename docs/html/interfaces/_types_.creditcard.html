@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>HttpResponse | SDK Reference Docs</title>
+	<title>CreditCard | SDK Reference Docs</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -58,7 +58,7 @@
 					<a href="../modules/_types_.html">types</a>
 				</li>
 				<li>
-					<a href="_types_.httpresponse.html">HttpResponse</a>
+					<a href="_types_.creditcard.html">CreditCard</a>
 				</li>
 			</ul>
 		</div>
@@ -94,12 +94,12 @@
 			</nav>
 		</div>
 		<div class="col-7 offset-3 col-content">
-			<h1>Interface HttpResponse</h1>
+			<h1>Interface CreditCard</h1>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">HttpResponse</span>
+						<span class="target">CreditCard</span>
 					</li>
 				</ul>
 			</section>
@@ -109,7 +109,11 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_types_.httpresponse.html#response" class="tsd-kind-icon">response</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_types_.creditcard.html#cardholdername" class="tsd-kind-icon">cardHolderName</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_types_.creditcard.html#ccv" class="tsd-kind-icon">ccv</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_types_.creditcard.html#number" class="tsd-kind-icon">number</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_types_.creditcard.html#transactiontype" class="tsd-kind-icon">transactionType</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_types_.creditcard.html#vendor" class="tsd-kind-icon">vendor</a></li>
 							</ul>
 						</section>
 					</div>
@@ -118,12 +122,52 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="response" class="tsd-anchor"></a>
-					<h3>response</h3>
-					<div class="tsd-signature tsd-kind-icon">response<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">SuperAgentResponse</span></div>
+					<a name="cardholdername" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> card<wbr>Holder<wbr>Name</h3>
+					<div class="tsd-signature tsd-kind-icon">card<wbr>Holder<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/types.ts:20</li>
+							<li>Defined in src/types.ts:40</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="ccv" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> ccv</h3>
+					<div class="tsd-signature tsd-kind-icon">ccv<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/types.ts:43</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="number" class="tsd-anchor"></a>
+					<h3>number</h3>
+					<div class="tsd-signature tsd-kind-icon">number<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/types.ts:42</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="transactiontype" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> transaction<wbr>Type</h3>
+					<div class="tsd-signature tsd-kind-icon">transaction<wbr>Type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/types.ts:39</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="vendor" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> vendor</h3>
+					<div class="tsd-signature tsd-kind-icon">vendor<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/types.ts:41</li>
 						</ul>
 					</aside>
 				</section>
@@ -145,27 +189,39 @@
 					<li class=" tsd-kind-enum tsd-parent-kind-module root">
 						<a href="../enums/_types_.transactioncode.html" class="tsd-kind-icon">Transaction<wbr>Code</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module root">
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-interface tsd-parent-kind-module root">
 						<a href="_types_.creditcard.html" class="tsd-kind-icon">Credit<wbr>Card</a>
+						<ul>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_types_.creditcard.html#cardholdername" class="tsd-kind-icon">card<wbr>Holder<wbr>Name</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_types_.creditcard.html#ccv" class="tsd-kind-icon">ccv</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_types_.creditcard.html#number" class="tsd-kind-icon">number</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_types_.creditcard.html#transactiontype" class="tsd-kind-icon">transaction<wbr>Type</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_types_.creditcard.html#vendor" class="tsd-kind-icon">vendor</a>
+							</li>
+						</ul>
 					</li>
+				</ul>
+				<ul class="after-current">
 					<li class=" tsd-kind-interface tsd-parent-kind-module root">
 						<a href="_types_.errorobject.html" class="tsd-kind-icon">Error<wbr>Object</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module root">
 						<a href="_types_.errorproperty.html" class="tsd-kind-icon">Error<wbr>Property</a>
 					</li>
-				</ul>
-				<ul class="current">
-					<li class="current tsd-kind-interface tsd-parent-kind-module root">
+					<li class=" tsd-kind-interface tsd-parent-kind-module root">
 						<a href="_types_.httpresponse.html" class="tsd-kind-icon">Http<wbr>Response</a>
-						<ul>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_types_.httpresponse.html#response" class="tsd-kind-icon">response</a>
-							</li>
-						</ul>
 					</li>
-				</ul>
-				<ul class="after-current">
 					<li class=" tsd-kind-interface tsd-parent-kind-module root">
 						<a href="_types_.paymentreference.html" class="tsd-kind-icon">Payment<wbr>Reference</a>
 					</li>

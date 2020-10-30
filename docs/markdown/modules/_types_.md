@@ -15,6 +15,7 @@
 
 ### Interfaces
 
+- [CreditCard](../interfaces/_types_.creditcard.md)
 - [ErrorObject](../interfaces/_types_.errorobject.md)
 - [ErrorProperty](../interfaces/_types_.errorproperty.md)
 - [HttpResponse](../interfaces/_types_.httpresponse.md)
@@ -34,6 +35,7 @@
 - [PayGateEndpoints](_types_.md#paygateendpoints)
 - [PayGateErrorCodes](_types_.md#paygateerrorcodes)
 - [PayGateLocaleName](_types_.md#paygatelocalename)
+- [PayGateTestCards](_types_.md#paygatetestcards)
 - [PaymentMethod](_types_.md#paymentmethod)
 - [TransactionStatus](_types_.md#transactionstatus)
 
@@ -43,7 +45,7 @@
 
 ▪ `Const` **CommunicationAndDataErrors**: object
 
-_Defined in [src/types.ts:95](https://github.com/distributhor/paygate-sdk/blob/66ae948/src/types.ts#L95)_
+_Defined in [src/types.ts:103](https://github.com/distributhor/paygate-sdk/blob/836401c/src/types.ts#L103)_
 
 #### Properties:
 
@@ -67,7 +69,7 @@ _Defined in [src/types.ts:95](https://github.com/distributhor/paygate-sdk/blob/6
 
 ▪ `Const` **CreditCardCodes**: object
 
-_Defined in [src/types.ts:72](https://github.com/distributhor/paygate-sdk/blob/66ae948/src/types.ts#L72)_
+_Defined in [src/types.ts:80](https://github.com/distributhor/paygate-sdk/blob/836401c/src/types.ts#L80)_
 
 #### Properties:
 
@@ -100,7 +102,7 @@ _Defined in [src/types.ts:72](https://github.com/distributhor/paygate-sdk/blob/6
 
 ▪ `Const` **PayGateEndpoints**: object
 
-_Defined in [src/types.ts:38](https://github.com/distributhor/paygate-sdk/blob/66ae948/src/types.ts#L38)_
+_Defined in [src/types.ts:46](https://github.com/distributhor/paygate-sdk/blob/836401c/src/types.ts#L46)_
 
 #### Properties:
 
@@ -116,7 +118,7 @@ _Defined in [src/types.ts:38](https://github.com/distributhor/paygate-sdk/blob/6
 
 ▪ `Const` **PayGateErrorCodes**: object
 
-_Defined in [src/types.ts:44](https://github.com/distributhor/paygate-sdk/blob/66ae948/src/types.ts#L44)_
+_Defined in [src/types.ts:52](https://github.com/distributhor/paygate-sdk/blob/836401c/src/types.ts#L52)_
 
 #### Properties:
 
@@ -154,7 +156,7 @@ _Defined in [src/types.ts:44](https://github.com/distributhor/paygate-sdk/blob/6
 
 ▪ `Const` **PayGateLocaleName**: object
 
-_Defined in [src/types.ts:161](https://github.com/distributhor/paygate-sdk/blob/66ae948/src/types.ts#L161)_
+_Defined in [src/types.ts:169](https://github.com/distributhor/paygate-sdk/blob/836401c/src/types.ts#L169)_
 
 #### Properties:
 
@@ -169,11 +171,28 @@ _Defined in [src/types.ts:161](https://github.com/distributhor/paygate-sdk/blob/
 
 ---
 
+### PayGateTestCards
+
+▪ `Const` **PayGateTestCards**: object
+
+_Defined in [src/types.ts:178](https://github.com/distributhor/paygate-sdk/blob/836401c/src/types.ts#L178)_
+
+#### Properties:
+
+| Name                | Type   | Value                                                                          |
+| ------------------- | ------ | ------------------------------------------------------------------------------ |
+| `Approved`          | object | { MasterCard: string = "5200000000000015"; Visa: string = "4000000000000002" } |
+| `Declined`          | object | { MasterCard: string = "4000000000000036"; Visa: string = "5200000000000049" } |
+| `InsufficientFunds` | object | { MasterCard: string = "5200000000000023"; Visa: string = "4000000000000028" } |
+| `NotProcessed`      | object | { MasterCard: string = "5200000000000064" }                                    |
+
+---
+
 ### PaymentMethod
 
 ▪ `Const` **PaymentMethod**: object
 
-_Defined in [src/types.ts:134](https://github.com/distributhor/paygate-sdk/blob/66ae948/src/types.ts#L134)_
+_Defined in [src/types.ts:142](https://github.com/distributhor/paygate-sdk/blob/836401c/src/types.ts#L142)_
 
 #### Properties:
 
@@ -192,7 +211,7 @@ _Defined in [src/types.ts:134](https://github.com/distributhor/paygate-sdk/blob/
 
 ▪ `Const` **TransactionStatus**: object
 
-_Defined in [src/types.ts:109](https://github.com/distributhor/paygate-sdk/blob/66ae948/src/types.ts#L109)_
+_Defined in [src/types.ts:117](https://github.com/distributhor/paygate-sdk/blob/836401c/src/types.ts#L117)_
 
 #### Properties:
 

@@ -15,6 +15,7 @@
 - [localeName](_browser_.md#localename)
 - [paymentMethod](_browser_.md#paymentmethod)
 - [paymentMethodCode](_browser_.md#paymentmethodcode)
+- [testCards](_browser_.md#testcards)
 - [transactionCode](_browser_.md#transactioncode)
 - [transactionStatus](_browser_.md#transactionstatus)
 - [util](_browser_.md#util)
@@ -60,6 +61,12 @@ Renames and re-exports: [PaymentMethod](_types_.md#paymentmethod)
 ### paymentMethodCode
 
 Renames and re-exports: [PaymentMethodCode](../enums/_types_.paymentmethodcode.md)
+
+---
+
+### testCards
+
+Renames and re-exports: [PayGateTestCards](_types_.md#paygatetestcards)
 
 ---
 

@@ -9,6 +9,7 @@
 ### References
 
 - [CommunicationAndDataErrors](_index_.md#communicationanddataerrors)
+- [CreditCard](_index_.md#creditcard)
 - [CreditCardCodes](_index_.md#creditcardcodes)
 - [Currency](_index_.md#currency)
 - [ErrorObject](_index_.md#errorobject)
@@ -25,6 +26,7 @@
 - [PayGateMiddlewarePaymentResult](_index_.md#paygatemiddlewarepaymentresult)
 - [PayGateMiddlewarePaymentStatus](_index_.md#paygatemiddlewarepaymentstatus)
 - [PayGateMiddlewareResult](_index_.md#paygatemiddlewareresult)
+- [PayGateTestCards](_index_.md#paygatetestcards)
 - [PaymentMethod](_index_.md#paymentmethod)
 - [PaymentMethodCode](_index_.md#paymentmethodcode)
 - [PaymentReference](_index_.md#paymentreference)
@@ -47,6 +49,12 @@
 ### CommunicationAndDataErrors
 
 Re-exports: [CommunicationAndDataErrors](_types_.md#communicationanddataerrors)
+
+---
+
+### CreditCard
+
+Re-exports: [CreditCard](../interfaces/_types_.creditcard.md)
 
 ---
 
@@ -143,6 +151,12 @@ Re-exports: [PayGateMiddlewarePaymentStatus](../interfaces/_middleware_.paygatem
 ### PayGateMiddlewareResult
 
 Re-exports: [PayGateMiddlewareResult](../interfaces/_middleware_.paygatemiddlewareresult.md)
+
+---
+
+### PayGateTestCards
+
+Re-exports: [PayGateTestCards](_types_.md#paygatetestcards)
 
 ---
 
