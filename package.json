@@ -1,6 +1,6 @@
 {
   "name": "paygate-sdk",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "TS/JS client and utilities to aid with PayGate integration. Optional ExpressJS middleware to simplify custom payment endpoints.",
   "homepage": "https://github.com/distributhor/paygate-sdk",
   "license": "MIT",
