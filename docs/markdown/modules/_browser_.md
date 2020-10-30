@@ -15,6 +15,7 @@
 - [localeName](_browser_.md#localename)
 - [paymentMethod](_browser_.md#paymentmethod)
 - [paymentMethodCode](_browser_.md#paymentmethodcode)
+- [resultCodes](_browser_.md#resultcodes)
 - [testCards](_browser_.md#testcards)
 - [transactionCode](_browser_.md#transactioncode)
 - [transactionStatus](_browser_.md#transactionstatus)
@@ -61,6 +62,12 @@ Renames and re-exports: [PaymentMethod](_types_.md#paymentmethod)
 ### paymentMethodCode
 
 Renames and re-exports: [PaymentMethodCode](../enums/_types_.paymentmethodcode.md)
+
+---
+
+### resultCodes
+
+Renames and re-exports: [TransactionResultCodes](_types_.md#transactionresultcodes)
 
 ---
 

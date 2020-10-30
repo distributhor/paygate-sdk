@@ -26,7 +26,7 @@
 
 _Inherited from [PayGateMiddlewareResult](_middleware_.paygatemiddlewareresult.md).[badRequest](_middleware_.paygatemiddlewareresult.md#badrequest)_
 
-_Defined in [src/middleware.ts:16](https://github.com/distributhor/paygate-sdk/blob/836401c/src/middleware.ts#L16)_
+_Defined in [src/middleware.ts:16](https://github.com/distributhor/paygate-sdk/blob/3d3a525/src/middleware.ts#L16)_
 
 ---
 
@@ -34,7 +34,7 @@ _Defined in [src/middleware.ts:16](https://github.com/distributhor/paygate-sdk/b
 
 • `Optional` **paymentStatus**: [PaymentStatus](_types_.paymentstatus.md)
 
-_Defined in [src/middleware.ts:25](https://github.com/distributhor/paygate-sdk/blob/836401c/src/middleware.ts#L25)_
+_Defined in [src/middleware.ts:25](https://github.com/distributhor/paygate-sdk/blob/3d3a525/src/middleware.ts#L25)_
 
 ---
 
@@ -44,4 +44,4 @@ _Defined in [src/middleware.ts:25](https://github.com/distributhor/paygate-sdk/b
 
 _Inherited from [PayGateMiddlewareResult](_middleware_.paygatemiddlewareresult.md).[serviceError](_middleware_.paygatemiddlewareresult.md#serviceerror)_
 
-_Defined in [src/middleware.ts:17](https://github.com/distributhor/paygate-sdk/blob/836401c/src/middleware.ts#L17)_
+_Defined in [src/middleware.ts:17](https://github.com/distributhor/paygate-sdk/blob/3d3a525/src/middleware.ts#L17)_

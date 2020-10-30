@@ -22,7 +22,7 @@
 
 ▸ **generatePayGateChecksum**(`data`: [UntypedObject](../interfaces/_types_.untypedobject.md), `secret`: string): string
 
-_Defined in [src/util.ts:27](https://github.com/distributhor/paygate-sdk/blob/836401c/src/util.ts#L27)_
+_Defined in [src/util.ts:26](https://github.com/distributhor/paygate-sdk/blob/3d3a525/src/util.ts#L26)_
 
 #### Parameters:
 
@@ -39,7 +39,7 @@ _Defined in [src/util.ts:27](https://github.com/distributhor/paygate-sdk/blob/83
 
 ▸ **getTestCards**(): [CreditCard](../interfaces/_types_.creditcard.md)[]
 
-_Defined in [src/util.ts:111](https://github.com/distributhor/paygate-sdk/blob/836401c/src/util.ts#L111)_
+_Defined in [src/util.ts:110](https://github.com/distributhor/paygate-sdk/blob/3d3a525/src/util.ts#L110)_
 
 **Returns:** [CreditCard](../interfaces/_types_.creditcard.md)[]
 
@@ -49,7 +49,7 @@ _Defined in [src/util.ts:111](https://github.com/distributhor/paygate-sdk/blob/8
 
 ▸ **getTestCardsByTransactionType**(): [CreditCard](../interfaces/_types_.creditcard.md)[]
 
-_Defined in [src/util.ts:128](https://github.com/distributhor/paygate-sdk/blob/836401c/src/util.ts#L128)_
+_Defined in [src/util.ts:127](https://github.com/distributhor/paygate-sdk/blob/3d3a525/src/util.ts#L127)_
 
 **Returns:** [CreditCard](../interfaces/_types_.creditcard.md)[]
 
@@ -59,7 +59,7 @@ _Defined in [src/util.ts:128](https://github.com/distributhor/paygate-sdk/blob/8
 
 ▸ **getTransactionDescription**(`paymentStatus`: [PaymentStatus](../interfaces/_types_.paymentstatus.md)): [TransactionDescription](../interfaces/_types_.transactiondescription.md)
 
-_Defined in [src/util.ts:35](https://github.com/distributhor/paygate-sdk/blob/836401c/src/util.ts#L35)_
+_Defined in [src/util.ts:34](https://github.com/distributhor/paygate-sdk/blob/3d3a525/src/util.ts#L34)_
 
 #### Parameters:
 
@@ -75,7 +75,7 @@ _Defined in [src/util.ts:35](https://github.com/distributhor/paygate-sdk/blob/83
 
 ▸ **redirectBrowser**(`uri`: string, `params`: any): void
 
-_Defined in [src/util.ts:83](https://github.com/distributhor/paygate-sdk/blob/836401c/src/util.ts#L83)_
+_Defined in [src/util.ts:82](https://github.com/distributhor/paygate-sdk/blob/3d3a525/src/util.ts#L82)_
 
 #### Parameters:
 
@@ -92,7 +92,7 @@ _Defined in [src/util.ts:83](https://github.com/distributhor/paygate-sdk/blob/83
 
 ▸ **removeAllNonValuedProperties**(`obj`: [UntypedObject](../interfaces/_types_.untypedobject.md)): void
 
-_Defined in [src/util.ts:15](https://github.com/distributhor/paygate-sdk/blob/836401c/src/util.ts#L15)_
+_Defined in [src/util.ts:14](https://github.com/distributhor/paygate-sdk/blob/3d3a525/src/util.ts#L14)_
 
 #### Parameters:
 
@@ -108,7 +108,7 @@ _Defined in [src/util.ts:15](https://github.com/distributhor/paygate-sdk/blob/83
 
 ▸ **toCentAmount**(`amount`: string \| number): string
 
-_Defined in [src/util.ts:23](https://github.com/distributhor/paygate-sdk/blob/836401c/src/util.ts#L23)_
+_Defined in [src/util.ts:22](https://github.com/distributhor/paygate-sdk/blob/3d3a525/src/util.ts#L22)_
 
 #### Parameters:
 

@@ -8,9 +8,9 @@
 
 ### References
 
-- [CommunicationAndDataErrors](_index_.md#communicationanddataerrors)
+- [CommunicationAndDataResultCodes](_index_.md#communicationanddataresultcodes)
 - [CreditCard](_index_.md#creditcard)
-- [CreditCardCodes](_index_.md#creditcardcodes)
+- [CreditCardResultCodes](_index_.md#creditcardresultcodes)
 - [Currency](_index_.md#currency)
 - [ErrorObject](_index_.md#errorobject)
 - [ErrorProperty](_index_.md#errorproperty)
@@ -37,6 +37,7 @@
 - [SuccessIndicator](_index_.md#successindicator)
 - [TransactionCode](_index_.md#transactioncode)
 - [TransactionDescription](_index_.md#transactiondescription)
+- [TransactionResultCodes](_index_.md#transactionresultcodes)
 - [TransactionStatus](_index_.md#transactionstatus)
 - [UntypedObject](_index_.md#untypedobject)
 - [paymentNotificationHandler](_index_.md#paymentnotificationhandler)
@@ -46,9 +47,9 @@
 
 ## References
 
-### CommunicationAndDataErrors
+### CommunicationAndDataResultCodes
 
-Re-exports: [CommunicationAndDataErrors](_types_.md#communicationanddataerrors)
+Re-exports: [CommunicationAndDataResultCodes](_types_.md#communicationanddataresultcodes)
 
 ---
 
@@ -58,9 +59,9 @@ Re-exports: [CreditCard](../interfaces/_types_.creditcard.md)
 
 ---
 
-### CreditCardCodes
+### CreditCardResultCodes
 
-Re-exports: [CreditCardCodes](_types_.md#creditcardcodes)
+Re-exports: [CreditCardResultCodes](_types_.md#creditcardresultcodes)
 
 ---
 
@@ -217,6 +218,12 @@ Re-exports: [TransactionCode](../enums/_types_.transactioncode.md)
 ### TransactionDescription
 
 Re-exports: [TransactionDescription](../interfaces/_types_.transactiondescription.md)
+
+---
+
+### TransactionResultCodes
+
+Re-exports: [TransactionResultCodes](_types_.md#transactionresultcodes)
 
 ---
 

@@ -24,7 +24,7 @@
 
 • `Optional` **cardHolderName**: string
 
-_Defined in [src/types.ts:40](https://github.com/distributhor/paygate-sdk/blob/836401c/src/types.ts#L40)_
+_Defined in [src/types.ts:40](https://github.com/distributhor/paygate-sdk/blob/3d3a525/src/types.ts#L40)_
 
 ---
 
@@ -32,7 +32,7 @@ _Defined in [src/types.ts:40](https://github.com/distributhor/paygate-sdk/blob/8
 
 • `Optional` **ccv**: number
 
-_Defined in [src/types.ts:43](https://github.com/distributhor/paygate-sdk/blob/836401c/src/types.ts#L43)_
+_Defined in [src/types.ts:43](https://github.com/distributhor/paygate-sdk/blob/3d3a525/src/types.ts#L43)_
 
 ---
 
@@ -40,7 +40,7 @@ _Defined in [src/types.ts:43](https://github.com/distributhor/paygate-sdk/blob/8
 
 • **number**: string
 
-_Defined in [src/types.ts:42](https://github.com/distributhor/paygate-sdk/blob/836401c/src/types.ts#L42)_
+_Defined in [src/types.ts:42](https://github.com/distributhor/paygate-sdk/blob/3d3a525/src/types.ts#L42)_
 
 ---
 
@@ -48,7 +48,7 @@ _Defined in [src/types.ts:42](https://github.com/distributhor/paygate-sdk/blob/8
 
 • `Optional` **transactionType**: string
 
-_Defined in [src/types.ts:39](https://github.com/distributhor/paygate-sdk/blob/836401c/src/types.ts#L39)_
+_Defined in [src/types.ts:39](https://github.com/distributhor/paygate-sdk/blob/3d3a525/src/types.ts#L39)_
 
 ---
 
@@ -56,4 +56,4 @@ _Defined in [src/types.ts:39](https://github.com/distributhor/paygate-sdk/blob/8
 
 • `Optional` **vendor**: string
 
-_Defined in [src/types.ts:41](https://github.com/distributhor/paygate-sdk/blob/836401c/src/types.ts#L41)_
+_Defined in [src/types.ts:41](https://github.com/distributhor/paygate-sdk/blob/3d3a525/src/types.ts#L41)_
