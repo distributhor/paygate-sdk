@@ -21,7 +21,7 @@
 
 • **BANK_TRANSFER**: = "BT"
 
-_Defined in [src/types.ts:147](https://github.com/distributhor/paygate-sdk/blob/2d6e3c8/src/types.ts#L147)_
+_Defined in [src/types.ts:147](https://github.com/distributhor/paygate-sdk/blob/66ae948/src/types.ts#L147)_
 
 ---
 
@@ -29,7 +29,7 @@ _Defined in [src/types.ts:147](https://github.com/distributhor/paygate-sdk/blob/
 
 • **CASH_VOUCHER**: = "CV"
 
-_Defined in [src/types.ts:148](https://github.com/distributhor/paygate-sdk/blob/2d6e3c8/src/types.ts#L148)_
+_Defined in [src/types.ts:148](https://github.com/distributhor/paygate-sdk/blob/66ae948/src/types.ts#L148)_
 
 ---
 
@@ -37,7 +37,7 @@ _Defined in [src/types.ts:148](https://github.com/distributhor/paygate-sdk/blob/
 
 • **CREDIT_CARD**: = "CC"
 
-_Defined in [src/types.ts:144](https://github.com/distributhor/paygate-sdk/blob/2d6e3c8/src/types.ts#L144)_
+_Defined in [src/types.ts:144](https://github.com/distributhor/paygate-sdk/blob/66ae948/src/types.ts#L144)_
 
 ---
 
@@ -45,7 +45,7 @@ _Defined in [src/types.ts:144](https://github.com/distributhor/paygate-sdk/blob/
 
 • **DEBIT_CARD**: = "DC"
 
-_Defined in [src/types.ts:145](https://github.com/distributhor/paygate-sdk/blob/2d6e3c8/src/types.ts#L145)_
+_Defined in [src/types.ts:145](https://github.com/distributhor/paygate-sdk/blob/66ae948/src/types.ts#L145)_
 
 ---
 
@@ -53,7 +53,7 @@ _Defined in [src/types.ts:145](https://github.com/distributhor/paygate-sdk/blob/
 
 • **E_WALLET**: = "EW"
 
-_Defined in [src/types.ts:146](https://github.com/distributhor/paygate-sdk/blob/2d6e3c8/src/types.ts#L146)_
+_Defined in [src/types.ts:146](https://github.com/distributhor/paygate-sdk/blob/66ae948/src/types.ts#L146)_
 
 ---
 
@@ -61,4 +61,4 @@ _Defined in [src/types.ts:146](https://github.com/distributhor/paygate-sdk/blob/
 
 • **PREPAID_CARD**: = "PC"
 
-_Defined in [src/types.ts:149](https://github.com/distributhor/paygate-sdk/blob/2d6e3c8/src/types.ts#L149)_
+_Defined in [src/types.ts:149](https://github.com/distributhor/paygate-sdk/blob/66ae948/src/types.ts#L149)_

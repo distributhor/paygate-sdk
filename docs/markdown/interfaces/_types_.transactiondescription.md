@@ -21,7 +21,7 @@
 
 • `Optional` **detail**: string
 
-_Defined in [src/types.ts:131](https://github.com/distributhor/paygate-sdk/blob/2d6e3c8/src/types.ts#L131)_
+_Defined in [src/types.ts:131](https://github.com/distributhor/paygate-sdk/blob/66ae948/src/types.ts#L131)_
 
 ---
 
@@ -29,4 +29,4 @@ _Defined in [src/types.ts:131](https://github.com/distributhor/paygate-sdk/blob/
 
 • **status**: string
 
-_Defined in [src/types.ts:130](https://github.com/distributhor/paygate-sdk/blob/2d6e3c8/src/types.ts#L130)_
+_Defined in [src/types.ts:130](https://github.com/distributhor/paygate-sdk/blob/66ae948/src/types.ts#L130)_

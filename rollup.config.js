@@ -12,7 +12,7 @@ export default [
       typescript({
         tsconfigOverride: {
           compilerOptions: {
-            outDir: "browser",
+            outDir: "lib",
             module: "es2015",
           },
         },
@@ -20,7 +20,7 @@ export default [
     ],
     input: "src/browser.ts",
     output: {
-      file: "browser/paygate.js",
+      file: "lib/paygate.js",
       name: "paygate",
       format: "iife",
     },

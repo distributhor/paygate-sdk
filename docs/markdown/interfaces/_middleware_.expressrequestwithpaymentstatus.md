@@ -406,7 +406,7 @@ Short-hand for `url.parse(req.url).pathname`.
 
 • **paygate**: [PayGateMiddlewarePaymentStatus](_middleware_.paygatemiddlewarepaymentstatus.md)
 
-_Defined in [src/middleware.ts:33](https://github.com/distributhor/paygate-sdk/blob/2d6e3c8/src/middleware.ts#L33)_
+_Defined in [src/middleware.ts:33](https://github.com/distributhor/paygate-sdk/blob/66ae948/src/middleware.ts#L33)_
 
 ---
 

@@ -20,7 +20,7 @@
 
 ▸ **generatePayGateChecksum**(`data`: [UntypedObject](../interfaces/_types_.untypedobject.md), `secret`: string): string
 
-_Defined in [src/util.ts:25](https://github.com/distributhor/paygate-sdk/blob/2d6e3c8/src/util.ts#L25)_
+_Defined in [src/util.ts:25](https://github.com/distributhor/paygate-sdk/blob/66ae948/src/util.ts#L25)_
 
 #### Parameters:
 
@@ -37,7 +37,7 @@ _Defined in [src/util.ts:25](https://github.com/distributhor/paygate-sdk/blob/2d
 
 ▸ **getTransactionDescription**(`paymentStatus`: [PaymentStatus](../interfaces/_types_.paymentstatus.md)): [TransactionDescription](../interfaces/_types_.transactiondescription.md)
 
-_Defined in [src/util.ts:33](https://github.com/distributhor/paygate-sdk/blob/2d6e3c8/src/util.ts#L33)_
+_Defined in [src/util.ts:33](https://github.com/distributhor/paygate-sdk/blob/66ae948/src/util.ts#L33)_
 
 #### Parameters:
 
@@ -53,7 +53,7 @@ _Defined in [src/util.ts:33](https://github.com/distributhor/paygate-sdk/blob/2d
 
 ▸ **redirectBrowser**(`uri`: string, `params`: any): void
 
-_Defined in [src/util.ts:81](https://github.com/distributhor/paygate-sdk/blob/2d6e3c8/src/util.ts#L81)_
+_Defined in [src/util.ts:81](https://github.com/distributhor/paygate-sdk/blob/66ae948/src/util.ts#L81)_
 
 #### Parameters:
 
@@ -70,7 +70,7 @@ _Defined in [src/util.ts:81](https://github.com/distributhor/paygate-sdk/blob/2d
 
 ▸ **removeAllNonValuedProperties**(`obj`: [UntypedObject](../interfaces/_types_.untypedobject.md)): void
 
-_Defined in [src/util.ts:13](https://github.com/distributhor/paygate-sdk/blob/2d6e3c8/src/util.ts#L13)_
+_Defined in [src/util.ts:13](https://github.com/distributhor/paygate-sdk/blob/66ae948/src/util.ts#L13)_
 
 #### Parameters:
 
@@ -86,7 +86,7 @@ _Defined in [src/util.ts:13](https://github.com/distributhor/paygate-sdk/blob/2d
 
 ▸ **toCentAmount**(`amount`: string \| number): string
 
-_Defined in [src/util.ts:21](https://github.com/distributhor/paygate-sdk/blob/2d6e3c8/src/util.ts#L21)_
+_Defined in [src/util.ts:21](https://github.com/distributhor/paygate-sdk/blob/66ae948/src/util.ts#L21)_
 
 #### Parameters:
 

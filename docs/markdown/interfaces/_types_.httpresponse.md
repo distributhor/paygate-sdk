@@ -20,4 +20,4 @@
 
 • **response**: SuperAgentResponse
 
-_Defined in [src/types.ts:20](https://github.com/distributhor/paygate-sdk/blob/2d6e3c8/src/types.ts#L20)_
+_Defined in [src/types.ts:20](https://github.com/distributhor/paygate-sdk/blob/66ae948/src/types.ts#L20)_

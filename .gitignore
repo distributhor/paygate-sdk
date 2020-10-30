@@ -2,7 +2,7 @@ script.ts
 .env
 .cache
 /dist
-/browser
+/lib
 /archive
 node_modules
 

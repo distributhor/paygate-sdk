@@ -23,7 +23,7 @@
 
 • `Optional` **CHECKSUM**: string
 
-_Defined in [src/types.ts:195](https://github.com/distributhor/paygate-sdk/blob/2d6e3c8/src/types.ts#L195)_
+_Defined in [src/types.ts:195](https://github.com/distributhor/paygate-sdk/blob/66ae948/src/types.ts#L195)_
 
 ---
 
@@ -31,7 +31,7 @@ _Defined in [src/types.ts:195](https://github.com/distributhor/paygate-sdk/blob/
 
 • `Optional` **PAYGATE_ID**: string
 
-_Defined in [src/types.ts:192](https://github.com/distributhor/paygate-sdk/blob/2d6e3c8/src/types.ts#L192)_
+_Defined in [src/types.ts:192](https://github.com/distributhor/paygate-sdk/blob/66ae948/src/types.ts#L192)_
 
 ---
 
@@ -39,7 +39,7 @@ _Defined in [src/types.ts:192](https://github.com/distributhor/paygate-sdk/blob/
 
 • `Optional` **PAY_REQUEST_ID**: string
 
-_Defined in [src/types.ts:193](https://github.com/distributhor/paygate-sdk/blob/2d6e3c8/src/types.ts#L193)_
+_Defined in [src/types.ts:193](https://github.com/distributhor/paygate-sdk/blob/66ae948/src/types.ts#L193)_
 
 ---
 
@@ -47,4 +47,4 @@ _Defined in [src/types.ts:193](https://github.com/distributhor/paygate-sdk/blob/
 
 • `Optional` **REFERENCE**: string
 
-_Defined in [src/types.ts:194](https://github.com/distributhor/paygate-sdk/blob/2d6e3c8/src/types.ts#L194)_
+_Defined in [src/types.ts:194](https://github.com/distributhor/paygate-sdk/blob/66ae948/src/types.ts#L194)_
