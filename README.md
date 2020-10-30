@@ -16,7 +16,11 @@ These components can be used in isolation, or in combination, so you only have t
 
 Currently this project is in development, but already quite usable. Basic reference documentation can be found in the docs folder, and more detailed information will be made available in this README shortly.
 
-## API Client Usage & Typescript Typings
+## Typescript Typings
+
+To follow
+
+## API Client Usage
 
 To follow
 
@@ -24,9 +28,9 @@ To follow
 
 To follow
 
-## General Utily Functions
+## General Utility Functions
 
-To follow ...
+In progress ...
 
 ```javascript
 generatePayGateChecksum();
