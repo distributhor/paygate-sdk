@@ -3,6 +3,7 @@
 [![GitHub Release][ico-release]][link-github-release]
 [![License][ico-license]](LICENSE)
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/distributhor/paygate-sdk.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/distributhor/paygate-sdk/alerts/)
+[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/distributhor/paygate-sdk.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/distributhor/paygate-sdk/context:javascript)
 
 This project contains a few parts which can be used seperately or in combination, to aid with integration to the payment provider PayGate (https://www.paygate.co.za).
 
