@@ -1,0 +1,10 @@
+path_classifiers:
+  test:
+    - test
+  docs:
+    - docs
+extraction:
+  javascript:
+    index:
+      exclude:
+        - impl
