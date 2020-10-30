@@ -17,7 +17,7 @@ server.use(bodyParser.urlencoded({ extended: true }));
 
 const middlewareConfig = {
   payGateId: process.env.PAYGATE_ID,
-  payGateSecret: process.env.PAYGATE_SECRET,
+  payGateKey: process.env.PAYGATE_SECRET,
   returnUri: "https://www.aquarium.co.za",
   notifyUri: "https://www.aquarium.co.za",
 };

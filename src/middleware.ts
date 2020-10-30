@@ -4,7 +4,7 @@ import { PayGateClient, InvalidRequest } from "./client";
 
 export interface PayGateMiddlewareConfig {
   payGateId: string;
-  payGateSecret: string;
+  payGateKey: string;
   returnUri: string;
   notifyUri?: string;
   defaultCurrency?: string;
@@ -51,7 +51,7 @@ export function paymentRequestHandler(options: PayGateMiddlewareConfig) {
     };
 
     try {
-      const paymentResponse = await PayGateClient.getInstance(options.payGateId, options.payGateSecret).requestPayment(
+      const paymentResponse = await PayGateClient.getInstance(options.payGateId, options.payGateKey).requestPayment(
         paymentRequest
       );
 
@@ -87,7 +87,7 @@ export function paymentNotificationHandler(options: PayGateMiddlewareConfig) {
     }
 
     try {
-      await PayGateClient.getInstance(options.payGateId, options.payGateSecret).handlePaymentNotification(req.body);
+      await PayGateClient.getInstance(options.payGateId, options.payGateKey).handlePaymentNotification(req.body);
 
       // if (!cacheOperation || !cacheOperation.success) {
       //   console.log("Failed to cache payment status");
@@ -125,10 +125,7 @@ export function paymentStatusHandler(options: PayGateMiddlewareConfig) {
     }
 
     try {
-      const paymentStatus = await PayGateClient.getInstance(
-        options.payGateId,
-        options.payGateSecret
-      ).queryPaymentStatus({
+      const paymentStatus = await PayGateClient.getInstance(options.payGateId, options.payGateKey).queryPaymentStatus({
         PAY_REQUEST_ID: req.query.PAY_REQUEST_ID ? (req.query.PAY_REQUEST_ID as string) : undefined,
         REFERENCE: req.query.REFERENCE ? (req.query.REFERENCE as string) : undefined,
       });

@@ -76,7 +76,7 @@ const TypeChecks = {
 
 /** @internal */
 const PayGateData = {
-  sanitizePaymentRequest: (data: PaymentRequest, payGateId?: string, payGateSecret?: string): PaymentRequest => {
+  sanitizePaymentRequest: (data: PaymentRequest, payGateId?: string, payGateKey?: string): PaymentRequest => {
     const obj: PaymentRequest = {
       PAYGATE_ID: payGateId || data.PAYGATE_ID,
       REFERENCE: data.REFERENCE || uuidv4(),
@@ -99,14 +99,14 @@ const PayGateData = {
 
     util.removeAllNonValuedProperties(obj);
 
-    if (payGateSecret) {
-      obj.CHECKSUM = PayGateClient.generateChecksum(obj, payGateSecret);
+    if (payGateKey) {
+      obj.CHECKSUM = PayGateClient.generateChecksum(obj, payGateKey);
     }
 
     return obj;
   },
 
-  sanitizePaymentRef: (data: PaymentReference, payGateId?: string, payGateSecret?: string): PaymentReference => {
+  sanitizePaymentRef: (data: PaymentReference, payGateId?: string, payGateKey?: string): PaymentReference => {
     const obj: PaymentReference = {
       PAYGATE_ID: payGateId || data.PAYGATE_ID,
       PAY_REQUEST_ID: data.PAY_REQUEST_ID,
@@ -115,8 +115,8 @@ const PayGateData = {
 
     util.removeAllNonValuedProperties(obj);
 
-    if (payGateSecret) {
-      obj.CHECKSUM = PayGateClient.generateChecksum(obj, payGateSecret);
+    if (payGateKey) {
+      obj.CHECKSUM = PayGateClient.generateChecksum(obj, payGateKey);
     }
 
     return obj;
@@ -205,32 +205,32 @@ export class InvalidRequest extends PayGateError {
 
 export class PayGateClient {
   private payGateId: string;
-  private payGateSecret: string;
+  private payGateKey: string;
   private paymentCache: NodeCache;
 
   private static instance: PayGateClient;
 
-  constructor(payGateId?: string, payGateSecret?: string) {
+  constructor(payGateId?: string, payGateKey?: string) {
     this.payGateId = payGateId;
-    this.payGateSecret = payGateSecret;
+    this.payGateKey = payGateKey;
     this.paymentCache = new NodeCache({ stdTTL: 900, checkperiod: 1000 });
   }
 
-  static getInstance(payGateId?: string, payGateSecret?: string): PayGateClient {
+  static getInstance(payGateId?: string, payGateKey?: string): PayGateClient {
     if (PayGateClient.instance) {
       if (
         payGateId &&
-        payGateSecret &&
+        payGateKey &&
         payGateId === PayGateClient.instance.payGateId &&
-        payGateSecret === PayGateClient.instance.payGateSecret
+        payGateKey === PayGateClient.instance.payGateKey
       ) {
         debugSingleton("Returning existing instance, credentials provided and matches current");
         return PayGateClient.instance;
       }
 
-      if (payGateId && payGateSecret) {
+      if (payGateId && payGateKey) {
         debugSingleton("Creating new instance, credentials provided and differs from current");
-        PayGateClient.instance = new PayGateClient(payGateId, payGateSecret);
+        PayGateClient.instance = new PayGateClient(payGateId, payGateKey);
         return PayGateClient.instance;
       }
 
@@ -240,19 +240,19 @@ export class PayGateClient {
 
     debugSingleton("No instance exists");
 
-    if (!payGateId || !payGateSecret) {
+    if (!payGateId || !payGateKey) {
       throw new PayGateError("No instance found, and insufficient credentials with which to authenticate");
     }
 
     debugSingleton("Creating new instance");
-    PayGateClient.instance = new PayGateClient(payGateId, payGateSecret);
+    PayGateClient.instance = new PayGateClient(payGateId, payGateKey);
 
     return PayGateClient.instance;
   }
 
   async requestPayment(paymentRequest: PaymentRequest): Promise<PaymentResponse> {
     try {
-      const request = PayGateData.sanitizePaymentRequest(paymentRequest, this.payGateId, this.payGateSecret);
+      const request = PayGateData.sanitizePaymentRequest(paymentRequest, this.payGateId, this.payGateKey);
       const payload = qs.stringify(request);
 
       debugPaymentRequest("Payment request");
@@ -308,7 +308,7 @@ export class PayGateClient {
     }
 
     try {
-      const request = PayGateData.sanitizePaymentRef(paymentRef, this.payGateId, this.payGateSecret);
+      const request = PayGateData.sanitizePaymentRef(paymentRef, this.payGateId, this.payGateKey);
 
       if (!request.REFERENCE || !request.PAY_REQUEST_ID) {
         throw new InvalidRequest(
@@ -352,8 +352,8 @@ export class PayGateClient {
     }
   }
 
-  static generateChecksum(data: UntypedObject, secret: string): string {
-    return util.generatePayGateChecksum(data, secret);
+  static generateChecksum(data: UntypedObject, encryptionKey: string): string {
+    return util.generatePayGateChecksum(data, encryptionKey);
   }
 
   private async addPaymentStatusToSession(paymentStatus: PaymentStatus): Promise<SuccessIndicator> {

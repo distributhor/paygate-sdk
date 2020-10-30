@@ -23,11 +23,11 @@ export function toCentAmount(amount: string | number): string {
   return currency(amount).intValue.toString();
 }
 
-export function generatePayGateChecksum(data: UntypedObject, secret: string): string {
+export function generatePayGateChecksum(data: UntypedObject, encryptionKey: string): string {
   return md5(
     Object.keys(data)
       .map((key) => data[key])
-      .join("") + secret
+      .join("") + encryptionKey
   );
 }
 
