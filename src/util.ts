@@ -25,7 +25,7 @@ export function toCentAmount(amount: string | number): string {
 
 export function generatePayGateChecksum(data: UntypedObject, encryptionKey: string): string {
   return md5(
-    Object.keys(data)
+    Object.keys(data) // lgtm [js/weak-cryptographic-algorithm]
       .map((key) => data[key])
       .join("") + encryptionKey
   );
