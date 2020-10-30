@@ -8,6 +8,8 @@ import {
   CommunicationAndDataErrors,
   CreditCardCodes,
   TransactionCode,
+  PayGateTestCards,
+  CreditCard,
 } from "./types";
 
 export function removeAllNonValuedProperties(obj: UntypedObject): void {
@@ -98,4 +100,52 @@ export function redirectBrowser(uri: string, params: any): void {
   document.body.appendChild(form);
 
   form.submit();
+}
+
+/** @internal */
+function splitCamelCaseString(s: string): string {
+  // /([a-z0-9])([A-Z])/ for numbers counting as lowercase characters
+  return s.replace(/([a-z])([A-Z])/g, "$1 $2");
+}
+
+export function getTestCards(): CreditCard[] {
+  const cards = [];
+
+  for (const transactionType of Object.keys(PayGateTestCards)) {
+    for (const cardVendor of Object.keys(PayGateTestCards[transactionType])) {
+      cards.push({
+        transactionType: splitCamelCaseString(transactionType),
+        vendor: splitCamelCaseString(cardVendor),
+        number: PayGateTestCards[transactionType][cardVendor],
+        ccv: 123,
+      });
+    }
+  }
+
+  return cards;
+}
+
+export function getTestCardsByTransactionType(): CreditCard[] {
+  const cards = [];
+
+  for (const transactionType of Object.keys(PayGateTestCards)) {
+    const type = {
+      type: transactionType,
+      name: splitCamelCaseString(transactionType),
+      cards: [],
+    };
+
+    for (const cardVendor of Object.keys(PayGateTestCards[transactionType])) {
+      type.cards.push({
+        transactionType: splitCamelCaseString(transactionType),
+        vendor: splitCamelCaseString(cardVendor),
+        number: PayGateTestCards[transactionType][cardVendor],
+        ccv: 123,
+      });
+    }
+
+    cards.push(type);
+  }
+
+  return cards;
 }

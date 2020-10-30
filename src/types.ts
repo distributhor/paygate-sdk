@@ -35,6 +35,14 @@ export const enum Currency {
   EUR = "EUR",
 }
 
+export interface CreditCard {
+  transactionType?: string;
+  cardHolderName?: string;
+  vendor?: string;
+  number: string;
+  ccv?: number;
+}
+
 export const PayGateEndpoints = {
   INITIATE_URI: "https://secure.paygate.co.za/payweb3/initiate.trans",
   REDIRECT_URI: "https://secure.paygate.co.za/payweb3/process.trans",
@@ -165,6 +173,24 @@ export const PayGateLocaleName = {
   tn: "Tswana",
   ve: "Venda",
   zu: "Zulu",
+};
+
+export const PayGateTestCards = {
+  Approved: {
+    MasterCard: "5200000000000015",
+    Visa: "4000000000000002",
+  },
+  InsufficientFunds: {
+    MasterCard: "5200000000000023",
+    Visa: "4000000000000028",
+  },
+  Declined: {
+    MasterCard: "4000000000000036",
+    Visa: "5200000000000049",
+  },
+  NotProcessed: {
+    MasterCard: "5200000000000064",
+  },
 };
 
 export interface PaymentRequest {
