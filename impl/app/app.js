@@ -17,14 +17,17 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
 app.get("/", function (req, res) {
-  res.render("index.html", { title: "Payment Request" });
+  res.render("index.html", {
+    title: "Payment Request",
+    testCards: paygate.util.getTestCards(),
+  });
 });
 
 app.post("/status", function (req, res) {
   const paymentStatus = req.body;
   const transactionDescription = paygate.util.getTransactionDescription(paymentStatus);
   const transactionStatusStyle = transactionDescription.status == "Approved" ? "text-success" : "text-danger";
-
+  console.log(transactionDescription);
   const data = {
     isPost: true,
     title: "Payment Status",

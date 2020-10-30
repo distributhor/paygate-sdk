@@ -57,21 +57,21 @@ export function getTransactionDescription(paymentStatus: PaymentStatus): Transac
   if (status === TransactionCode.NOT_DONE) {
     return {
       status: "Transaction not done, due to communication or internal data error",
-      detail: CommunicationAndDataErrors[status] ? CommunicationAndDataErrors[status] : undefined,
+      detail: CommunicationAndDataErrors[code] ? CommunicationAndDataErrors[code] : undefined,
     };
   }
 
   if (status === TransactionCode.DECLINED) {
     return {
       status: "Transaction declined due to credit card error",
-      detail: CreditCardCodes[status] ? CreditCardCodes[status] : undefined,
+      detail: CreditCardCodes[code] ? CreditCardCodes[code] : undefined,
     };
   }
 
   if (status === TransactionCode.DECLINED || status === TransactionCode.USER_CANCELLED) {
     return {
       status: "Transaction cancelled",
-      detail: CommunicationAndDataErrors[status] ? CommunicationAndDataErrors[status] : undefined,
+      detail: CommunicationAndDataErrors[code] ? CommunicationAndDataErrors[code] : undefined,
     };
   }
 

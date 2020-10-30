@@ -39,4 +39,35 @@
     <span id="error" class="text-danger">Invalid</span>
 </div>
 
+<hr/>
+
+<div class="py-3 text-center">
+    <h4>Test Cards</h4>
+    <p class="lead">
+        Use any of the cards below on the payment page<br/>
+        Cardholder name and CCV code can be anything
+    </p>
+</div>
+
+<div class="row justify-content-md-center">
+    <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Tx Type</th>
+            <th scope="col">Vendor</th>
+            <th scope="col">Card Number</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for card in testCards %}
+          <tr>
+            <td>{{ card.transactionType }}</td>
+            <td>{{ card.vendor }}</td>
+            <td>{{ card.number }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+</div>
+
 {% endblock %}
