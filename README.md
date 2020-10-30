@@ -16,7 +16,7 @@ These components can be used in isolation, or in combination, so you only have t
 
 Currently this project is in development, but already quite usable. Basic reference documentation can be found in the docs folder, and more detailed information will be made available in this README shortly.
 
-## API Client Usage
+## API Client Usage & Typescript Typings
 
 To follow
 
@@ -24,13 +24,33 @@ To follow
 
 To follow
 
+## General Utily Functions
+
+To follow ...
+
+```javascript
+generatePayGateChecksum();
+getTransactionDescription();
+getTestCards();
+toCentAmount();
+redirectBrowser();
+PayGateLocale;
+PayGateEndpoints;
+PayGateErrorCodes;
+PaymentMethod;
+TransactionCode;
+TransactionStatus;
+TransactionResultCodes;
+PayGateTestCards;
+```
+
 ## Reference Implementation
 
 In addition to the above, there is also a reference implementation available under the `impl` folder. It consists of an ExpressJS backend that exposes endpoints via the middleware functions (which in turn uses the TS/JS API client), and a very simple frontend with which to test payments. It should demonstrate how to use these components in your own project. The reference implementation can run in your local development environment in only a few easy steps.
 
 ### Ngrok Token
 
-In order to run the reference implementation locally, you will need to have an account with Ngrok https://ngrok.com/. A basic account is free and quick to set up. Ngrok, if you don't already know, is a service that can make your local development server available on a public URL via a secure tunnel. This is needed because when doing a test payment, PayGate needs to return to a URL that is publically available. So we use Ngrok to expose the frontend app to the web.
+In order to run the reference implementation locally, you will need to have an account with Ngrok https://ngrok.com/. A basic account is free and quick to set up. Ngrok, if you don't already know, is a service that can make your local development server available on a public URL via a secure tunnel. This is needed because PayGate needs to return to a URL that is publically available, after processing a payment. So we use Ngrok to expose the frontend app to the web.
 
 Once you have an Ngrok authentication token, copy the file `impl/proxy/.env.sample` to `impl/proxy/.env` and replace the fake value with your authentication token. This is all that will be required to configure the tunelling environment.
 
