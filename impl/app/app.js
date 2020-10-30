@@ -27,7 +27,7 @@ app.post("/status", function (req, res) {
   const paymentStatus = req.body;
   const transactionDescription = paygate.util.getTransactionDescription(paymentStatus);
   const transactionStatusStyle = transactionDescription.status == "Approved" ? "text-success" : "text-danger";
-  console.log(transactionDescription);
+
   const data = {
     isPost: true,
     title: "Payment Status",

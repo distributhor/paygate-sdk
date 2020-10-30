@@ -44,18 +44,19 @@
 <div class="py-3 text-center">
     <h4>Test Cards</h4>
     <p class="lead">
-        Use any of the cards below on the payment page<br/>
-        Cardholder name and CCV code can be anything
+        Use any of the cards below on the payment page <br/> 
+        Cardholder name, expiry date and CCV can be anything
     </p>
 </div>
 
 <div class="row justify-content-md-center">
-    <table class="table">
+    <table class="table" style="width: 80%;">
         <thead class="thead-dark">
           <tr>
             <th scope="col">Tx Type</th>
             <th scope="col">Vendor</th>
             <th scope="col">Card Number</th>
+            <th scope="col">CCV</th>
           </tr>
         </thead>
         <tbody>
@@ -64,6 +65,7 @@
             <td>{{ card.transactionType }}</td>
             <td>{{ card.vendor }}</td>
             <td>{{ card.number }}</td>
+            <td>{{ card.ccv }}</td>
           </tr>
           {% endfor %}
         </tbody>

@@ -40,7 +40,9 @@ export interface CreditCard {
   cardHolderName?: string;
   vendor?: string;
   number: string;
-  ccv?: number;
+  expireMonth?: string;
+  expireYear?: string;
+  ccv?: string;
 }
 
 export const PayGateEndpoints = {

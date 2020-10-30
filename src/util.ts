@@ -116,7 +116,9 @@ export function getTestCards(): CreditCard[] {
         transactionType: splitCamelCaseString(transactionType),
         vendor: splitCamelCaseString(cardVendor),
         number: PayGateTestCards[transactionType][cardVendor],
-        ccv: 123,
+        expireMonth: "05",
+        expireYear: "2024",
+        ccv: "123",
       });
     }
   }
@@ -139,7 +141,9 @@ export function getTestCardsByTransactionType(): CreditCard[] {
         transactionType: splitCamelCaseString(transactionType),
         vendor: splitCamelCaseString(cardVendor),
         number: PayGateTestCards[transactionType][cardVendor],
-        ccv: 123,
+        expireMonth: "05",
+        expireYear: "2024",
+        ccv: "123",
       });
     }
 
