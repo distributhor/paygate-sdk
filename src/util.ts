@@ -7,6 +7,7 @@ import {
   TransactionDescription,
   CommunicationAndDataErrors,
   CreditCardCodes,
+  TransactionCode,
 } from "./types";
 
 export function removeAllNonValuedProperties(obj: UntypedObject): void {
@@ -18,14 +19,10 @@ export function removeAllNonValuedProperties(obj: UntypedObject): void {
 }
 
 export function toCentAmount(amount: string | number): string {
-  //   const strAmount = typeof amount === "number" ? amount.toString() : amount;
-  //   const saneAmount = strAmount.replace(/,/g, "").replace(/ /g, "");
-  //   const centAmount = saneAmount.indexOf(".") === -1 ? saneAmount + "00" : saneAmount.replace(/\./g, "");
-  //   return centAmount;
   return currency(amount).intValue.toString();
 }
 
-export function toPayGateChecksum(data: UntypedObject, secret: string): string {
+export function generatePayGateChecksum(data: UntypedObject, secret: string): string {
   return md5(
     Object.keys(data)
       .map((key) => data[key])
@@ -33,7 +30,55 @@ export function toPayGateChecksum(data: UntypedObject, secret: string): string {
   );
 }
 
-export function redirect(uri: string, params: any): void {
+export function getTransactionDescription(paymentStatus: PaymentStatus): TransactionDescription {
+  if (!paymentStatus || paymentStatus.TRANSACTION_STATUS == undefined) {
+    return {
+      status: "No transaction status found",
+    };
+  }
+
+  const status = paymentStatus.TRANSACTION_STATUS.toString();
+  const code = paymentStatus.RESULT_CODE ? paymentStatus.RESULT_CODE.toString() : undefined;
+
+  if (status && !code) {
+    return {
+      status: TransactionStatus[status],
+    };
+  }
+
+  if (status === TransactionCode.APPROVED) {
+    return {
+      status: TransactionStatus[status],
+    };
+  }
+
+  if (status === TransactionCode.NOT_DONE) {
+    return {
+      status: "Transaction not done, due to communication or internal data error",
+      detail: CommunicationAndDataErrors[status] ? CommunicationAndDataErrors[status] : undefined,
+    };
+  }
+
+  if (status === TransactionCode.DECLINED) {
+    return {
+      status: "Transaction declined due to credit card error",
+      detail: CreditCardCodes[status] ? CreditCardCodes[status] : undefined,
+    };
+  }
+
+  if (status === TransactionCode.DECLINED || status === TransactionCode.USER_CANCELLED) {
+    return {
+      status: "Transaction cancelled",
+      detail: CommunicationAndDataErrors[status] ? CommunicationAndDataErrors[status] : undefined,
+    };
+  }
+
+  return {
+    status: paymentStatus.TRANSACTION_STATUS,
+  };
+}
+
+export function redirectBrowser(uri: string, params: any): void {
   const form = document.createElement("form");
   form.method = "post";
   form.action = uri;
@@ -53,52 +98,4 @@ export function redirect(uri: string, params: any): void {
   document.body.appendChild(form);
 
   form.submit();
-}
-
-export function toTransactionDescription(paymentStatus: PaymentStatus): TransactionDescription {
-  if (!paymentStatus || paymentStatus.TRANSACTION_STATUS == undefined) {
-    return {
-      status: "No transaction status found",
-    };
-  }
-
-  const status = paymentStatus.TRANSACTION_STATUS.toString();
-  const code = paymentStatus.RESULT_CODE ? paymentStatus.RESULT_CODE.toString() : undefined;
-
-  if (status && !code) {
-    return {
-      status: TransactionStatus[status],
-    };
-  }
-
-  if (status === "1") {
-    return {
-      status: TransactionStatus[status],
-    };
-  }
-
-  if (status === "0") {
-    return {
-      status: "Transaction not done, due to communication or internal data error",
-      detail: CommunicationAndDataErrors[status] ? CommunicationAndDataErrors[status] : undefined,
-    };
-  }
-
-  if (status === "2") {
-    return {
-      status: "Transaction declined due to credit card error",
-      detail: CreditCardCodes[status] ? CreditCardCodes[status] : undefined,
-    };
-  }
-
-  if (status === "3" || status === "4") {
-    return {
-      status: "Transaction cancelled",
-      detail: CommunicationAndDataErrors[status] ? CommunicationAndDataErrors[status] : undefined,
-    };
-  }
-
-  return {
-    status: paymentStatus.TRANSACTION_STATUS,
-  };
 }

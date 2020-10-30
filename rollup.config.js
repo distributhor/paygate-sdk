@@ -12,7 +12,7 @@ export default [
       typescript({
         tsconfigOverride: {
           compilerOptions: {
-            outDir: "web",
+            outDir: "browser",
             module: "es2015",
           },
         },

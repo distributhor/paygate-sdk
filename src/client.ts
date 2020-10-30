@@ -19,11 +19,22 @@ import {
 } from "./types";
 import * as util from "./util";
 
+/** @internal */
 const debugError = Debug("paygate-sdk:error");
+
+/** @internal */
 const debugStack = Debug("paygate-sdk:stack");
+
+/** @internal */
 const debugCache = Debug("paygate-sdk:cache");
+
+/** @internal */
 const debugSingleton = Debug("paygate-sdk:singleton");
+
+/** @internal */
 const debugPaymentStatus = Debug("paygate-sdk:payment:status");
+
+/** @internal */
 const debugPaymentRequest = Debug("paygate-sdk:payment:request");
 
 /** @internal */
@@ -89,7 +100,7 @@ const PayGateData = {
     util.removeAllNonValuedProperties(obj);
 
     if (payGateSecret) {
-      obj.CHECKSUM = PayGateClient.checksum(obj, payGateSecret);
+      obj.CHECKSUM = PayGateClient.generateChecksum(obj, payGateSecret);
     }
 
     return obj;
@@ -105,7 +116,7 @@ const PayGateData = {
     util.removeAllNonValuedProperties(obj);
 
     if (payGateSecret) {
-      obj.CHECKSUM = PayGateClient.checksum(obj, payGateSecret);
+      obj.CHECKSUM = PayGateClient.generateChecksum(obj, payGateSecret);
     }
 
     return obj;
@@ -341,8 +352,8 @@ export class PayGateClient {
     }
   }
 
-  static checksum(data: UntypedObject, secret: string): string {
-    return util.toPayGateChecksum(data, secret);
+  static generateChecksum(data: UntypedObject, secret: string): string {
+    return util.generatePayGateChecksum(data, secret);
   }
 
   private async addPaymentStatusToSession(paymentStatus: PaymentStatus): Promise<SuccessIndicator> {

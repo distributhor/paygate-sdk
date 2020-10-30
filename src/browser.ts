@@ -1,17 +1,23 @@
 import {
   Currency,
+  PayGateLocale,
+  PayGateLocaleName,
   PayGateEndpoints,
   PayGateErrorCodes,
-  PayGateLocale,
-  PaymentMethod,
+  PaymentMethodCode,
   TransactionStatus,
+  TransactionCode,
+  PaymentMethod,
 } from "./types";
 
 export * as util from "./util";
 
 export { Currency as currency };
+export { PayGateLocale as locale };
 export { PayGateEndpoints as endpoint };
 export { PayGateErrorCodes as errorCode };
-export { PayGateLocale as locale };
 export { PaymentMethod as paymentMethod };
+export { PayGateLocaleName as localeName };
+export { TransactionCode as transactionCode };
+export { PaymentMethodCode as paymentMethodCode };
 export { TransactionStatus as transactionStatus };

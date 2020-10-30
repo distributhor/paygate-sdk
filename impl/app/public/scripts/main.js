@@ -7,7 +7,7 @@ function requestPayment(amount, email) {
     dataType: "json",
     success: function (data) {
       if (data.redirectUri) {
-        paygate.util.redirect(data.redirectUri, data.redirectParams);
+        paygate.util.redirectBrowser(data.redirectUri, data.redirectParams);
       }
     },
     error: function (error) {
@@ -43,7 +43,7 @@ function queryPaymentStatus(paymentRef) {
     dataType: "json",
     success: function (data) {
       NProgress.done();
-      paygate.util.redirect("/status", data);
+      paygate.util.redirectBrowser("/status", data);
     },
     error: function (error) {
       NProgress.done();

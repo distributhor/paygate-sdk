@@ -22,7 +22,7 @@ app.get("/", function (req, res) {
 
 app.post("/status", function (req, res) {
   const paymentStatus = req.body;
-  const transactionDescription = paygate.util.toTransactionDescription(paymentStatus);
+  const transactionDescription = paygate.util.getTransactionDescription(paymentStatus);
   const transactionStatusStyle = transactionDescription.status == "Approved" ? "text-success" : "text-danger";
 
   const data = {

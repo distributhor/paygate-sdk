@@ -29,24 +29,11 @@ export interface UntypedObject {
   [key: string]: any;
 }
 
-type CurrencyCode = "ZAR" | "USD" | "EUR";
-
-export enum Currency {
+export const enum Currency {
   ZAR = "ZAR",
   USD = "USD",
   EUR = "EUR",
 }
-
-export interface MonetaryAmount {
-  currencyCode?: CurrencyCode;
-  centAmount: number;
-}
-
-export type Price = {
-  // [key: string]: MonetaryAmount;
-  [T in CurrencyCode]?: MonetaryAmount;
-  // [index in keyof typeof Currency]?: MonetaryAmount;
-};
 
 export const PayGateEndpoints = {
   INITIATE_URI: "https://secure.paygate.co.za/payweb3/initiate.trans",
@@ -129,6 +116,16 @@ export const TransactionStatus = {
   "7": "Settlement Voided",
 };
 
+export const enum TransactionCode {
+  NOT_DONE = "0",
+  APPROVED = "1",
+  DECLINED = "2",
+  CANCELLED = "3",
+  USER_CANCELLED = "4",
+  RECEIVED_BY_PAYGATE = "5",
+  SETTLEMENT_VOIDED = "7",
+}
+
 export interface TransactionDescription {
   status: string;
   detail?: string;
@@ -143,7 +140,25 @@ export const PaymentMethod = {
   PC: "Pre-Paid Card",
 };
 
-export const PayGateLocale = {
+export const enum PaymentMethodCode {
+  CREDIT_CARD = "CC",
+  DEBIT_CARD = "DC",
+  E_WALLET = "EW",
+  BANK_TRANSFER = "BT",
+  CASH_VOUCHER = "CV",
+  PREPAID_CARD = "PC",
+}
+
+export const enum PayGateLocale {
+  AFRIKAANS = "af",
+  ENGLISH = "en",
+  SUTU = "sx",
+  TSWANA = "tn",
+  VENDA = "vn",
+  ZULU = "zu",
+}
+
+export const PayGateLocaleName = {
   af: "Afrikaans",
   en: "Enblish",
   sx: "Sutu",

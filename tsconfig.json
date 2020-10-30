@@ -15,7 +15,7 @@
   },
   "typedocOptions": {
     "mode": "modules",
-    "name": "API Reference Docs",
+    "name": "SDK Reference Docs",
     "includeVersion": false,
     "excludePrivate": true,
     "stripInternal": true,
