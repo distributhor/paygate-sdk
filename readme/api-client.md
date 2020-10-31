@@ -1,4 +1,4 @@
-In progress ...
+Documentation in progress ...
 
 ### Constructor
 
@@ -6,17 +6,15 @@ In progress ...
 
 ### Methods
 
-▸ **handlePaymentNotification**(`paymentStatus`: [PaymentStatus](../interfaces/_types_.paymentstatus.md)): Promise\<[SuccessIndicator](../interfaces/_types_.successindicator.md)>
+\+ **handlePaymentNotification**(`paymentStatus`: [PaymentStatus](../interfaces/_types_.paymentstatus.md)): Promise\<[SuccessIndicator](../interfaces/_types_.successindicator.md)>
 
-**Returns:** Promise\<[SuccessIndicator](../interfaces/_types_.successindicator.md)>
+▸ **Returns:** Promise\<[SuccessIndicator](../interfaces/_types_.successindicator.md)>
 
 ▸ **queryPaymentStatus**(`paymentRef`: [PaymentReference](../interfaces/_types_.paymentreference.md)): Promise\<[PaymentStatus](../interfaces/_types_.paymentstatus.md)>
 
 **Returns:** Promise\<[PaymentStatus](../interfaces/_types_.paymentstatus.md)>
 
 ▸ **requestPayment**(`paymentRequest`: [PaymentRequest](../interfaces/_types_.paymentrequest.md)): Promise\<[PaymentResponse](../interfaces/_types_.paymentresponse.md)>
-
-_Defined in [src/client.ts:253](https://github.com/distributhor/paygate-sdk/blob/c181cfd/src/client.ts#L253)_
 
 **Returns:** Promise\<[PaymentResponse](../interfaces/_types_.paymentresponse.md)>
 

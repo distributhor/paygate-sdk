@@ -42,7 +42,7 @@ Once they are all up and running, navigate to http://localhost:8000 to test paym
 
 ## API Client Usage
 
-In progress ...
+Documentation in progress ...
 
 ### Constructor
 
@@ -50,17 +50,15 @@ In progress ...
 
 ### Methods
 
-▸ **handlePaymentNotification**(`paymentStatus`: [PaymentStatus](../interfaces/_types_.paymentstatus.md)): Promise\<[SuccessIndicator](../interfaces/_types_.successindicator.md)>
+\+ **handlePaymentNotification**(`paymentStatus`: [PaymentStatus](../interfaces/_types_.paymentstatus.md)): Promise\<[SuccessIndicator](../interfaces/_types_.successindicator.md)>
 
-**Returns:** Promise\<[SuccessIndicator](../interfaces/_types_.successindicator.md)>
+▸ **Returns:** Promise\<[SuccessIndicator](../interfaces/_types_.successindicator.md)>
 
 ▸ **queryPaymentStatus**(`paymentRef`: [PaymentReference](../interfaces/_types_.paymentreference.md)): Promise\<[PaymentStatus](../interfaces/_types_.paymentstatus.md)>
 
 **Returns:** Promise\<[PaymentStatus](../interfaces/_types_.paymentstatus.md)>
 
 ▸ **requestPayment**(`paymentRequest`: [PaymentRequest](../interfaces/_types_.paymentrequest.md)): Promise\<[PaymentResponse](../interfaces/_types_.paymentresponse.md)>
-
-_Defined in [src/client.ts:253](https://github.com/distributhor/paygate-sdk/blob/c181cfd/src/client.ts#L253)_
 
 **Returns:** Promise\<[PaymentResponse](../interfaces/_types_.paymentresponse.md)>
 
@@ -74,7 +72,7 @@ _Defined in [src/client.ts:253](https://github.com/distributhor/paygate-sdk/blob
 
 ## ExpressJS Middleware Usage
 
-In progress ...
+Documentation in progress ...
 
 ### Interfaces
 
@@ -99,7 +97,7 @@ In progress ...
 
 ## General Utility Functions
 
-In progress ...
+Documentation in progress ...
 
 ```javascript
 generatePayGateChecksum();
@@ -149,7 +147,7 @@ PayGateTestCards;
 
 ## Types
 
-In progress ...
+Documentation in progress ...
 
 ### Enumerations
 
@@ -173,13 +171,9 @@ In progress ...
 - [TransactionDescription](../interfaces/_types_.transactiondescription.md)
 - [UntypedObject](../interfaces/_types_.untypedobject.md)
 
-### Variables
-
-- [TransactionResultCodes](_types_.md#transactionresultcodes)
-
 ### Object literals
 
-### CommunicationAndDataResultCodes
+#### CommunicationAndDataResultCodes
 
 ▪ `Const` **CommunicationAndDataResultCodes**: object
 
@@ -199,7 +193,7 @@ In progress ...
 | `990028` | string | "Transaction cancelled"                                                                             |
 | `990053` | string | "Error processing transaction"                                                                      |
 
-### CreditCardResultCodes
+#### CreditCardResultCodes
 
 ▪ `Const` **CreditCardResultCodes**: object
 
@@ -228,7 +222,7 @@ In progress ...
 | `991001` | string | "Invalid expiry date"                                           |
 | `991002` | string | "Invalid amount"                                                |
 
-### PayGateEndpoints
+#### PayGateEndpoints
 
 ▪ `Const` **PayGateEndpoints**: object
 
@@ -242,7 +236,7 @@ In progress ...
 
 ---
 
-### PayGateErrorCodes
+#### PayGateErrorCodes
 
 ▪ `Const` **PayGateErrorCodes**: object
 
@@ -276,7 +270,7 @@ In progress ...
 | `TXN_PRC`            | string | "Transaction is older than 30 minutes or there has been an error processing it"                       |
 | `VAULT_NOT_ACCEPTED` | string | "Card types enabled on terminal not available for vaulting"                                           |
 
-### PayGateLocaleName
+#### PayGateLocaleName
 
 ▪ `Const` **PayGateLocaleName**: object
 
@@ -291,7 +285,7 @@ In progress ...
 | `ve` | string | "Venda"     |
 | `zu` | string | "Zulu"      |
 
-### PayGateTestCards
+#### PayGateTestCards
 
 ▪ `Const` **PayGateTestCards**: object
 
@@ -304,7 +298,7 @@ In progress ...
 | `InsufficientFunds` | object | { MasterCard: string = "5200000000000023"; Visa: string = "4000000000000028" } |
 | `NotProcessed`      | object | { MasterCard: string = "5200000000000064" }                                    |
 
-### PaymentMethod
+#### PaymentMethod
 
 ▪ `Const` **PaymentMethod**: object
 
@@ -319,7 +313,7 @@ In progress ...
 | `EW` | string | "E-Wallet"      |
 | `PC` | string | "Pre-Paid Card" |
 
-### TransactionStatus
+#### TransactionStatus
 
 ▪ `Const` **TransactionStatus**: object
 

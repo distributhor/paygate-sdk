@@ -1,4 +1,4 @@
-In progress ...
+Documentation in progress ...
 
 ### Enumerations
 
@@ -22,13 +22,9 @@ In progress ...
 - [TransactionDescription](../interfaces/_types_.transactiondescription.md)
 - [UntypedObject](../interfaces/_types_.untypedobject.md)
 
-### Variables
-
-- [TransactionResultCodes](_types_.md#transactionresultcodes)
-
 ### Object literals
 
-### CommunicationAndDataResultCodes
+#### CommunicationAndDataResultCodes
 
 ▪ `Const` **CommunicationAndDataResultCodes**: object
 
@@ -48,7 +44,7 @@ In progress ...
 | `990028` | string | "Transaction cancelled"                                                                             |
 | `990053` | string | "Error processing transaction"                                                                      |
 
-### CreditCardResultCodes
+#### CreditCardResultCodes
 
 ▪ `Const` **CreditCardResultCodes**: object
 
@@ -77,7 +73,7 @@ In progress ...
 | `991001` | string | "Invalid expiry date"                                           |
 | `991002` | string | "Invalid amount"                                                |
 
-### PayGateEndpoints
+#### PayGateEndpoints
 
 ▪ `Const` **PayGateEndpoints**: object
 
@@ -91,7 +87,7 @@ In progress ...
 
 ---
 
-### PayGateErrorCodes
+#### PayGateErrorCodes
 
 ▪ `Const` **PayGateErrorCodes**: object
 
@@ -125,7 +121,7 @@ In progress ...
 | `TXN_PRC`            | string | "Transaction is older than 30 minutes or there has been an error processing it"                       |
 | `VAULT_NOT_ACCEPTED` | string | "Card types enabled on terminal not available for vaulting"                                           |
 
-### PayGateLocaleName
+#### PayGateLocaleName
 
 ▪ `Const` **PayGateLocaleName**: object
 
@@ -140,7 +136,7 @@ In progress ...
 | `ve` | string | "Venda"     |
 | `zu` | string | "Zulu"      |
 
-### PayGateTestCards
+#### PayGateTestCards
 
 ▪ `Const` **PayGateTestCards**: object
 
@@ -153,7 +149,7 @@ In progress ...
 | `InsufficientFunds` | object | { MasterCard: string = "5200000000000023"; Visa: string = "4000000000000028" } |
 | `NotProcessed`      | object | { MasterCard: string = "5200000000000064" }                                    |
 
-### PaymentMethod
+#### PaymentMethod
 
 ▪ `Const` **PaymentMethod**: object
 
@@ -168,7 +164,7 @@ In progress ...
 | `EW` | string | "E-Wallet"      |
 | `PC` | string | "Pre-Paid Card" |
 
-### TransactionStatus
+#### TransactionStatus
 
 ▪ `Const` **TransactionStatus**: object
 
