@@ -16,7 +16,7 @@ The main components are:
 
 These components can be used in isolation, or in combination, so you only have to pick what you need in order to help with your specific integration requirements. For example, if you are already using ExpressJS and want to easily enable endpoints that can handle payment processing, then it's likely that the only thing you need from this project is the ExpressJS middleware functions. Or perhaps you want to use the TS/JS client in a Node based project so that you don't have to deal directly with the PayGate HTTP API.
 
-Currently this project is in development, but already quite usable. Basic reference documentation can be found in the docs folder, and more detailed information will be made available in this README shortly.
+Currently this project is in development, but already quite usable. Reference documentation (currently a work in progress) can be found at https://distributhor.github.io/paygate-sdk/, and more detailed usage info will be made available in this README shortly.
 
 ## Typescript Typings
 
