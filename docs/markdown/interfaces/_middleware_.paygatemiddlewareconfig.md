@@ -26,7 +26,7 @@
 
 • `Optional` **defaultCountry**: string
 
-_Defined in [src/middleware.ts:11](https://github.com/distributhor/paygate-sdk/blob/c181cfd/src/middleware.ts#L11)_
+_Defined in [src/middleware.ts:11](https://github.com/distributhor/paygate-sdk/blob/79e7c40/src/middleware.ts#L11)_
 
 ---
 
@@ -34,7 +34,7 @@ _Defined in [src/middleware.ts:11](https://github.com/distributhor/paygate-sdk/b
 
 • `Optional` **defaultCurrency**: string
 
-_Defined in [src/middleware.ts:10](https://github.com/distributhor/paygate-sdk/blob/c181cfd/src/middleware.ts#L10)_
+_Defined in [src/middleware.ts:10](https://github.com/distributhor/paygate-sdk/blob/79e7c40/src/middleware.ts#L10)_
 
 ---
 
@@ -42,7 +42,7 @@ _Defined in [src/middleware.ts:10](https://github.com/distributhor/paygate-sdk/b
 
 • `Optional` **defaultLocale**: string
 
-_Defined in [src/middleware.ts:12](https://github.com/distributhor/paygate-sdk/blob/c181cfd/src/middleware.ts#L12)_
+_Defined in [src/middleware.ts:12](https://github.com/distributhor/paygate-sdk/blob/79e7c40/src/middleware.ts#L12)_
 
 ---
 
@@ -50,7 +50,7 @@ _Defined in [src/middleware.ts:12](https://github.com/distributhor/paygate-sdk/b
 
 • `Optional` **notifyUri**: string
 
-_Defined in [src/middleware.ts:9](https://github.com/distributhor/paygate-sdk/blob/c181cfd/src/middleware.ts#L9)_
+_Defined in [src/middleware.ts:9](https://github.com/distributhor/paygate-sdk/blob/79e7c40/src/middleware.ts#L9)_
 
 ---
 
@@ -58,7 +58,7 @@ _Defined in [src/middleware.ts:9](https://github.com/distributhor/paygate-sdk/bl
 
 • **payGateId**: string
 
-_Defined in [src/middleware.ts:6](https://github.com/distributhor/paygate-sdk/blob/c181cfd/src/middleware.ts#L6)_
+_Defined in [src/middleware.ts:6](https://github.com/distributhor/paygate-sdk/blob/79e7c40/src/middleware.ts#L6)_
 
 ---
 
@@ -66,7 +66,7 @@ _Defined in [src/middleware.ts:6](https://github.com/distributhor/paygate-sdk/bl
 
 • **payGateKey**: string
 
-_Defined in [src/middleware.ts:7](https://github.com/distributhor/paygate-sdk/blob/c181cfd/src/middleware.ts#L7)_
+_Defined in [src/middleware.ts:7](https://github.com/distributhor/paygate-sdk/blob/79e7c40/src/middleware.ts#L7)_
 
 ---
 
@@ -74,4 +74,4 @@ _Defined in [src/middleware.ts:7](https://github.com/distributhor/paygate-sdk/bl
 
 • **returnUri**: string
 
-_Defined in [src/middleware.ts:8](https://github.com/distributhor/paygate-sdk/blob/c181cfd/src/middleware.ts#L8)_
+_Defined in [src/middleware.ts:8](https://github.com/distributhor/paygate-sdk/blob/79e7c40/src/middleware.ts#L8)_

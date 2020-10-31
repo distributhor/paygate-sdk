@@ -72,53 +72,26 @@
 		<div class="col-7 offset-3 col-content">
 			<h1>Documentation</h1>
 			<div class="tsd-panel tsd-typography">
-				<a href="#typescript-typings" id="typescript-typings" style="color: inherit; text-decoration: none;">
-					<h2>Typescript Typings</h2>
-				</a>
-				<p>To follow</p>
-				<a href="#api-client-usage" id="api-client-usage" style="color: inherit; text-decoration: none;">
-					<h2>API Client Usage</h2>
-				</a>
-				<p>To follow</p>
-				<a href="#expressjs-middleware-usage" id="expressjs-middleware-usage" style="color: inherit; text-decoration: none;">
-					<h2>ExpressJS Middleware Usage</h2>
-				</a>
-				<p>To follow</p>
-				<a href="#general-utility-functions" id="general-utility-functions" style="color: inherit; text-decoration: none;">
-					<h2>General Utility Functions</h2>
-				</a>
-				<p>In progress ...</p>
-				<pre><code class="language-javascript">generatePayGateChecksum();
-getTransactionDescription();
-getTestCards();
-toCentAmount();
-redirectBrowser();
-PayGateLocale;
-PayGateEndpoints;
-PayGateErrorCodes;
-PaymentMethod;
-TransactionCode;
-TransactionStatus;
-TransactionResultCodes;
-PayGateTestCards;</code></pre>
 				<a href="#reference-implementation" id="reference-implementation" style="color: inherit; text-decoration: none;">
 					<h2>Reference Implementation</h2>
 				</a>
-				<p>In addition to the above, there is also a reference implementation available under the <code>impl</code> folder. It consists of an ExpressJS backend that exposes endpoints via the middleware functions (which in turn uses the TS/JS API client), and a very simple frontend with which to test payments. It should demonstrate how to use these components in your own project. The reference implementation can run in your local development environment in only a few easy steps.</p>
-				<a href="#ngrok-token" id="ngrok-token" style="color: inherit; text-decoration: none;">
-					<h3>Ngrok Token</h3>
+				<p>#include &quot;readme/reference-impl.md&quot;</p>
+				<a href="#api-client-usage" id="api-client-usage" style="color: inherit; text-decoration: none;">
+					<h2>API Client Usage</h2>
 				</a>
-				<p>In order to run the reference implementation locally, you will need to have an account with Ngrok <a href="https://ngrok.com/">https://ngrok.com/</a>. A basic account is free and quick to set up. Ngrok, if you don&#39;t already know, is a service that can make your local development server available on a public URL via a secure tunnel. This is needed because PayGate needs to return to a URL that is publically available, after processing a payment. So we use Ngrok to expose the frontend app to the web.</p>
-				<p>Once you have an Ngrok authentication token, copy the file <code>impl/proxy/.env.sample</code> to <code>impl/proxy/.env</code> and replace the fake value with your authentication token. This is all that will be required to configure the tunelling environment.</p>
-				<a href="#paygate-credentials" id="paygate-credentials" style="color: inherit; text-decoration: none;">
-					<h3>PayGate Credentials</h3>
+				<p>#include &quot;readme/api-client.md&quot;</p>
+				<a href="#expressjs-middleware-usage" id="expressjs-middleware-usage" style="color: inherit; text-decoration: none;">
+					<h2>ExpressJS Middleware Usage</h2>
 				</a>
-				<p>The backend server implementation needs to know which PayGate credentials to use for testing. Copy the file <code>impl/server/.env.sample</code> to <code>impl/server.env</code>. It is already configured with the default PayGate test credentials, so no further action is needed. But if you wanted to test with different credentials, you may update them in this file.</p>
-				<a href="#running-the-reference-implementation-locally" id="running-the-reference-implementation-locally" style="color: inherit; text-decoration: none;">
-					<h3>Running the reference implementation locally</h3>
+				<p>#include &quot;readme/middleware.md&quot;</p>
+				<a href="#general-utility-functions" id="general-utility-functions" style="color: inherit; text-decoration: none;">
+					<h2>General Utility Functions</h2>
 				</a>
-				<p>If you have an Ngrok auth token and PayGate credentials configured, then you can simply run <code>yarn install</code> and <code>yarn develop</code> in each of the folders <code>impl/proxy</code>, <code>impl/server</code> and <code>impl/app</code>, and the proxy needs to be the first one to run. This (the fact that 3 different instance are running in 3 consoles) may be improved later to allow for a somewhat better development experience.</p>
-				<p>Once they are all up and running, navigate to <a href="http://localhost:8000">http://localhost:8000</a> to test payments.</p>
+				<p>#include &quot;readme/common-utils.md&quot;</p>
+				<a href="#types" id="types" style="color: inherit; text-decoration: none;">
+					<h2>Types</h2>
+				</a>
+				<p>#include &quot;readme/types.md&quot;</p>
 			</div>
 			<!--{&quot;options&quot;:&quot;/Volumes/HDX/project/distributhor/paygate-sdk&quot;,&quot;tsconfig&quot;:&quot;./tsconfig.json&quot;,&quot;inputFiles&quot;:[&quot;/Volumes/HDX/project/distributhor/paygate-sdk/src/browser.ts&quot;,&quot;/Volumes/HDX/project/distributhor/paygate-sdk/src/client.ts&quot;,&quot;/Volumes/HDX/project/distributhor/paygate-sdk/src/index.ts&quot;,&quot;/Volumes/HDX/project/distributhor/paygate-sdk/src/middleware.ts&quot;,&quot;/Volumes/HDX/project/distributhor/paygate-sdk/src/types.ts&quot;,&quot;/Volumes/HDX/project/distributhor/paygate-sdk/src/util.ts&quot;],&quot;mode&quot;:1,&quot;includeDeclarations&quot;:false,&quot;entryPoint&quot;:&quot;&quot;,&quot;exclude&quot;:[],&quot;externalPattern&quot;:[],&quot;excludeExternals&quot;:false,&quot;excludeNotExported&quot;:false,&quot;excludeNotDocumented&quot;:false,&quot;excludePrivate&quot;:true,&quot;excludeProtected&quot;:false,&quot;ignoreCompilerErrors&quot;:false,&quot;disableSources&quot;:false,&quot;includes&quot;:&quot;&quot;,&quot;media&quot;:&quot;&quot;,&quot;out&quot;:&quot;docs&quot;,&quot;json&quot;:&quot;&quot;,&quot;theme&quot;:&quot;./node_modules/typedoc-neo-theme/bin/default&quot;,&quot;name&quot;:&quot;Documentation&quot;,&quot;includeVersion&quot;:false,&quot;excludeTags&quot;:[],&quot;readme&quot;:&quot;readme/doc.md&quot;,&quot;defaultCategory&quot;:&quot;Other&quot;,&quot;categoryOrder&quot;:[],&quot;categorizeByGroup&quot;:true,&quot;gitRevision&quot;:&quot;&quot;,&quot;gitRemote&quot;:&quot;origin&quot;,&quot;gaID&quot;:&quot;&quot;,&quot;gaSite&quot;:&quot;auto&quot;,&quot;hideGenerator&quot;:true,&quot;toc&quot;:[],&quot;disableOutputCheck&quot;:false,&quot;help&quot;:false,&quot;version&quot;:false,&quot;plugin&quot;:[&quot;typedoc-neo-theme&quot;],&quot;logger&quot;:&quot;console&quot;,&quot;listInvalidSymbolLinks&quot;:false,&quot;links&quot;:[{&quot;label&quot;:&quot;GitHub&quot;,&quot;url&quot;:&quot;https://github.com/distributhor/paygate-sdk&quot;}],&quot;outline&quot;:[{&quot;TS Typings&quot;:&quot;_types_&quot;,&quot;API Client&quot;:&quot;_client_&quot;,&quot;Express Middleware&quot;:&quot;_middleware_&quot;,&quot;Common Utils&quot;:&quot;_util_&quot;,&quot;Browser Lib&quot;:&quot;_browser_&quot;}]}-->
 		</div>
