@@ -5,6 +5,8 @@
 [![Total alerts][lgtm-alerts]](link-lgtm-alerts)
 [![Language grade: JavaScript][lgtm-code-quality]](lgtm-code-quality-link)
 
+@[:verbatim](DOC.md)
+
 This project contains a few parts which can be used seperately or in combination, to aid with integration to the payment provider PayGate (https://www.paygate.co.za).
 
 The main components are:
