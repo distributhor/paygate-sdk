@@ -1,4 +1,4 @@
 {
   "build": "README.md",
-  "files": ["readme/project.md"]
+  "files": ["readme/github.md"]
 }
