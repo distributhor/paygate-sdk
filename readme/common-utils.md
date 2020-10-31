@@ -18,30 +18,16 @@ PayGateTestCards;
 
 ### Functions
 
-▸ **generatePayGateChecksum**(`data`: [UntypedObject](../interfaces/_types_.untypedobject.md), `encryptionKey`: string): string
+▸ **generatePayGateChecksum**(`data`: [UntypedObject](https://distributhor.github.io/paygate-sdk/interfaces/_types_.untypedobject.html), `encryptionKey`: string): string
 
-**Returns:** string
+▸ **getTestCards**(): [CreditCard](https://distributhor.github.io/paygate-sdk/interfaces/_types_.creditcard.html)[]
 
-▸ **getTestCards**(): [CreditCard](../interfaces/_types_.creditcard.md)[]
+▸ **getTestCardsByTransactionType**(): [CreditCard](https://distributhor.github.io/paygate-sdk/interfaces/_types_.creditcard.html)[]
 
-**Returns:** [CreditCard](../interfaces/_types_.creditcard.md)[]
-
-▸ **getTestCardsByTransactionType**(): [CreditCard](../interfaces/_types_.creditcard.md)[]
-
-**Returns:** [CreditCard](../interfaces/_types_.creditcard.md)[]
-
-▸ **getTransactionDescription**(`paymentStatus`: [PaymentStatus](../interfaces/_types_.paymentstatus.md)): [TransactionDescription](../interfaces/_types_.transactiondescription.md)
-
-**Returns:** [TransactionDescription](../interfaces/_types_.transactiondescription.md)
+▸ **getTransactionDescription**(`paymentStatus`: [PaymentStatus](https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentstatus.html)): [TransactionDescription](https://distributhor.github.io/paygate-sdk/interfaces/_types_.transactiondescription.html)
 
 ▸ **redirectBrowser**(`uri`: string, `params`: any): void
 
-**Returns:** void
-
-▸ **removeAllNonValuedProperties**(`obj`: [UntypedObject](../interfaces/_types_.untypedobject.md)): void
-
-**Returns:** void
+▸ **removeAllNonValuedProperties**(`obj`: [UntypedObject](https://distributhor.github.io/paygate-sdk/interfaces/_types_.untypedobject.html)): void
 
 ▸ **toCentAmount**(`amount`: string \| number): string
-
-**Returns:** string

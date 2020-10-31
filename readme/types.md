@@ -2,29 +2,29 @@ Documentation in progress ...
 
 ### Enumerations
 
-- [Currency](../enums/_types_.currency.md)
-- [PayGateLocale](../enums/_types_.paygatelocale.md)
-- [PaymentMethodCode](../enums/_types_.paymentmethodcode.md)
-- [TransactionCode](../enums/_types_.transactioncode.md)
+- [Currency](https://distributhor.github.io/paygate-sdk/enums/_types_.currency.html)
+- [PayGateLocale](https://distributhor.github.io/paygate-sdk/enums/_types_.paygatelocale.html)
+- [PaymentMethodCode](https://distributhor.github.io/paygate-sdk/enums/_types_.paymentmethodcode.html)
+- [TransactionCode](https://distributhor.github.io/paygate-sdk/enums/_types_.transactioncode.html)
 
 ### Interfaces
 
-- [CreditCard](../interfaces/_types_.creditcard.md)
-- [ErrorObject](../interfaces/_types_.errorobject.md)
-- [ErrorProperty](../interfaces/_types_.errorproperty.md)
-- [HttpResponse](../interfaces/_types_.httpresponse.md)
-- [PaymentReference](../interfaces/_types_.paymentreference.md)
-- [PaymentRequest](../interfaces/_types_.paymentrequest.md)
-- [PaymentResponse](../interfaces/_types_.paymentresponse.md)
-- [PaymentStatus](../interfaces/_types_.paymentstatus.md)
-- [RedirectParams](../interfaces/_types_.redirectparams.md)
-- [SuccessIndicator](../interfaces/_types_.successindicator.md)
-- [TransactionDescription](../interfaces/_types_.transactiondescription.md)
-- [UntypedObject](../interfaces/_types_.untypedobject.md)
+- [CreditCard](https://distributhor.github.io/paygate-sdk/interfaces/_types_.creditcard.html)
+- [ErrorObject](https://distributhor.github.io/paygate-sdk/interfaces/_types_.errorobject.html)
+- [ErrorProperty](https://distributhor.github.io/paygate-sdk/interfaces/_types_.errorproperty.html)
+- [HttpResponse](https://distributhor.github.io/paygate-sdk/interfaces/_types_.httpresponse.html)
+- [PaymentReference](https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentreference.html)
+- [PaymentRequest](https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentrequest.html)
+- [PaymentResponse](https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentresponse.html)
+- [PaymentStatus](https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentstatus.html)
+- [RedirectParams](https://distributhor.github.io/paygate-sdk/interfaces/_types_.redirectparams.html)
+- [SuccessIndicator](https://distributhor.github.io/paygate-sdk/interfaces/_types_.successindicator.html)
+- [TransactionDescription](https://distributhor.github.io/paygate-sdk/interfaces/_types_.transactiondescription.html)
+- [UntypedObject](https://distributhor.github.io/paygate-sdk/interfaces/_types_.untypedobject.html)
 
 ### Object literals
 
-#### CommunicationAndDataResultCodes
+#### [CommunicationAndDataResultCodes](https://distributhor.github.io/paygate-sdk/modules/_types_.html#communicationanddataresultcodes)
 
 ▪ `Const` **CommunicationAndDataResultCodes**: object
 
@@ -44,7 +44,7 @@ Documentation in progress ...
 | `990028` | string | "Transaction cancelled"                                                                             |
 | `990053` | string | "Error processing transaction"                                                                      |
 
-#### CreditCardResultCodes
+#### [CreditCardResultCodes](https://distributhor.github.io/paygate-sdk/modules/_types_.html#creditcardresultcodes)
 
 ▪ `Const` **CreditCardResultCodes**: object
 
@@ -73,7 +73,7 @@ Documentation in progress ...
 | `991001` | string | "Invalid expiry date"                                           |
 | `991002` | string | "Invalid amount"                                                |
 
-#### PayGateEndpoints
+#### [PayGateEndpoints](https://distributhor.github.io/paygate-sdk/modules/_types_.html#paygateendpoints)
 
 ▪ `Const` **PayGateEndpoints**: object
 
@@ -87,7 +87,7 @@ Documentation in progress ...
 
 ---
 
-#### PayGateErrorCodes
+#### [PayGateErrorCodes](https://distributhor.github.io/paygate-sdk/modules/_types_.html#paygateerrorcodes)
 
 ▪ `Const` **PayGateErrorCodes**: object
 
@@ -121,7 +121,7 @@ Documentation in progress ...
 | `TXN_PRC`            | string | "Transaction is older than 30 minutes or there has been an error processing it"                       |
 | `VAULT_NOT_ACCEPTED` | string | "Card types enabled on terminal not available for vaulting"                                           |
 
-#### PayGateLocaleName
+#### [PayGateLocaleName](https://distributhor.github.io/paygate-sdk/modules/_types_.html#paygatelocalename)
 
 ▪ `Const` **PayGateLocaleName**: object
 
@@ -136,7 +136,7 @@ Documentation in progress ...
 | `ve` | string | "Venda"     |
 | `zu` | string | "Zulu"      |
 
-#### PayGateTestCards
+#### [PayGateTestCards](https://distributhor.github.io/paygate-sdk/modules/_types_.html#paygatetestcards)
 
 ▪ `Const` **PayGateTestCards**: object
 
@@ -149,7 +149,7 @@ Documentation in progress ...
 | `InsufficientFunds` | object | { MasterCard: string = "5200000000000023"; Visa: string = "4000000000000028" } |
 | `NotProcessed`      | object | { MasterCard: string = "5200000000000064" }                                    |
 
-#### PaymentMethod
+#### [PaymentMethod](https://distributhor.github.io/paygate-sdk/modules/_types_.html#paymentmethod)
 
 ▪ `Const` **PaymentMethod**: object
 
@@ -164,7 +164,7 @@ Documentation in progress ...
 | `EW` | string | "E-Wallet"      |
 | `PC` | string | "Pre-Paid Card" |
 
-#### TransactionStatus
+#### [TransactionStatus](https://distributhor.github.io/paygate-sdk/modules/_types_.html#transactionstatus)
 
 ▪ `Const` **TransactionStatus**: object
 
