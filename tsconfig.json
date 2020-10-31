@@ -15,12 +15,22 @@
   },
   "typedocOptions": {
     "mode": "modules",
-    "name": "SDK Reference Docs",
+    "name": "Reference Docs",
     "includeVersion": false,
     "excludePrivate": true,
     "stripInternal": true,
     "disableSources": false,
-    "hideGenerator": true
+    "hideGenerator": true,
+    "links": [
+      {
+        "label": "GitHub Project",
+        "url": "https://github.com/distributhor/paygate-sdk"
+      },
+      {
+        "label": "Documentation",
+        "url": "https://distributhor.github.io/paygate-sdk/"
+      }
+    ]
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist", "test"]

@@ -21,7 +21,7 @@
 
 • **BANK_TRANSFER**: = "BT"
 
-_Defined in [src/types.ts:159](https://github.com/distributhor/paygate-sdk/blob/d9084c8/src/types.ts#L159)_
+_Defined in [src/types.ts:159](https://github.com/distributhor/paygate-sdk/blob/cf6f971/src/types.ts#L159)_
 
 ---
 
@@ -29,7 +29,7 @@ _Defined in [src/types.ts:159](https://github.com/distributhor/paygate-sdk/blob/
 
 • **CASH_VOUCHER**: = "CV"
 
-_Defined in [src/types.ts:160](https://github.com/distributhor/paygate-sdk/blob/d9084c8/src/types.ts#L160)_
+_Defined in [src/types.ts:160](https://github.com/distributhor/paygate-sdk/blob/cf6f971/src/types.ts#L160)_
 
 ---
 
@@ -37,7 +37,7 @@ _Defined in [src/types.ts:160](https://github.com/distributhor/paygate-sdk/blob/
 
 • **CREDIT_CARD**: = "CC"
 
-_Defined in [src/types.ts:156](https://github.com/distributhor/paygate-sdk/blob/d9084c8/src/types.ts#L156)_
+_Defined in [src/types.ts:156](https://github.com/distributhor/paygate-sdk/blob/cf6f971/src/types.ts#L156)_
 
 ---
 
@@ -45,7 +45,7 @@ _Defined in [src/types.ts:156](https://github.com/distributhor/paygate-sdk/blob/
 
 • **DEBIT_CARD**: = "DC"
 
-_Defined in [src/types.ts:157](https://github.com/distributhor/paygate-sdk/blob/d9084c8/src/types.ts#L157)_
+_Defined in [src/types.ts:157](https://github.com/distributhor/paygate-sdk/blob/cf6f971/src/types.ts#L157)_
 
 ---
 
@@ -53,7 +53,7 @@ _Defined in [src/types.ts:157](https://github.com/distributhor/paygate-sdk/blob/
 
 • **E_WALLET**: = "EW"
 
-_Defined in [src/types.ts:158](https://github.com/distributhor/paygate-sdk/blob/d9084c8/src/types.ts#L158)_
+_Defined in [src/types.ts:158](https://github.com/distributhor/paygate-sdk/blob/cf6f971/src/types.ts#L158)_
 
 ---
 
@@ -61,4 +61,4 @@ _Defined in [src/types.ts:158](https://github.com/distributhor/paygate-sdk/blob/
 
 • **PREPAID_CARD**: = "PC"
 
-_Defined in [src/types.ts:161](https://github.com/distributhor/paygate-sdk/blob/d9084c8/src/types.ts#L161)_
+_Defined in [src/types.ts:161](https://github.com/distributhor/paygate-sdk/blob/cf6f971/src/types.ts#L161)_
