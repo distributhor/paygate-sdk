@@ -27,7 +27,7 @@
 
 ▸ **paymentNotificationHandler**(`options`: [PayGateMiddlewareConfig](../interfaces/_middleware_.paygatemiddlewareconfig.md)): (Anonymous function)
 
-_Defined in [src/middleware.ts:79](https://github.com/distributhor/paygate-sdk/blob/79e7c40/src/middleware.ts#L79)_
+_Defined in [src/middleware.ts:79](https://github.com/distributhor/paygate-sdk/blob/e12a1f9/src/middleware.ts#L79)_
 
 #### Parameters:
 
@@ -43,7 +43,7 @@ _Defined in [src/middleware.ts:79](https://github.com/distributhor/paygate-sdk/b
 
 ▸ **paymentRequestHandler**(`options`: [PayGateMiddlewareConfig](../interfaces/_middleware_.paygatemiddlewareconfig.md)): (Anonymous function)
 
-_Defined in [src/middleware.ts:36](https://github.com/distributhor/paygate-sdk/blob/79e7c40/src/middleware.ts#L36)_
+_Defined in [src/middleware.ts:36](https://github.com/distributhor/paygate-sdk/blob/e12a1f9/src/middleware.ts#L36)_
 
 #### Parameters:
 
@@ -59,7 +59,7 @@ _Defined in [src/middleware.ts:36](https://github.com/distributhor/paygate-sdk/b
 
 ▸ **paymentStatusHandler**(`options`: [PayGateMiddlewareConfig](../interfaces/_middleware_.paygatemiddlewareconfig.md)): (Anonymous function)
 
-_Defined in [src/middleware.ts:117](https://github.com/distributhor/paygate-sdk/blob/79e7c40/src/middleware.ts#L117)_
+_Defined in [src/middleware.ts:117](https://github.com/distributhor/paygate-sdk/blob/e12a1f9/src/middleware.ts#L117)_
 
 #### Parameters:
 
