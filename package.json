@@ -57,13 +57,15 @@
     "prettier:check": "prettier --ignore-path .prettierignore --check '{src,test}/**/*.{js,ts,json,md}'",
     "doc:html": "typedoc --tsconfig ./tsconfig.json --out docs --plugin typedoc-neo-theme --theme ./node_modules/typedoc-neo-theme/bin/default && nodetouch docs/.nojekyll",
     "doc:markdown": "typedoc --mode modules --includeVersion false --excludePrivate true --stripInternal true --hideGenerator true --out docs/markdown --readme none --plugin typedoc-plugin-markdown",
-    "doc": "yarn doc:html && yarn doc:markdown",
+    "doc": "yarn doc:html && yarn doc:markdown && yarn readme",
+    "readme": "node_modules/markdown-include/bin/cli.js readme/markdown.json",
     "release": "yarn build && yarn doc && np"
   },
   "dependencies": {
     "currency.js": "^2.0.3",
     "debug": "^4.2.0",
     "luxon": "^1.25.0",
+    "markdown-include": "^0.4.3",
     "md5": "^2.3.0",
     "node-cache": "^5.1.2",
     "qs": "^6.9.4",

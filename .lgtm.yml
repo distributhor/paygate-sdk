@@ -3,6 +3,7 @@ path_classifiers:
     - test
   docs:
     - docs
+    - readme
 extraction:
   javascript:
     index:
