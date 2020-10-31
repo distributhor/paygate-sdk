@@ -15,7 +15,7 @@
   },
   "typedocOptions": {
     "mode": "modules",
-    "name": "Reference Docs",
+    "name": "Documentation",
     "includeVersion": false,
     "excludePrivate": true,
     "stripInternal": true,
@@ -25,10 +25,22 @@
       {
         "label": "GitHub Project",
         "url": "https://github.com/distributhor/paygate-sdk"
-      },
+      }
+    ],
+    "outline": [
       {
-        "label": "Documentation",
-        "url": "https://distributhor.github.io/paygate-sdk/"
+        "Browser Utils": {
+          "Overview": "browser",
+          "api/v1": "modules/_browser_.html",
+          "api/v2": "browser",
+          "api/v3": "_browser",
+          "api/v4": "_browser_"
+        },
+        "Dialogflow": {
+          "Overview": "dialogflow",
+          "api/v1": "dialogflow_api_v1",
+          "api/v2": "dialogflow_api_v2"
+        }
       }
     ]
   },

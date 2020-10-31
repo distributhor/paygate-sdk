@@ -1,4 +1,4 @@
-**[Reference Docs](../README.md)**
+**[Documentation](../README.md)**
 
 > [Globals](../README.md) / ["types"](../modules/_types_.md) / UntypedObject
 

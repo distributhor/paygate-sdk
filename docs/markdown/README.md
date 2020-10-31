@@ -1,8 +1,8 @@
-**[Reference Docs](README.md)**
+**[Documentation](README.md)**
 
 > Globals
 
-# Reference Docs
+# Documentation
 
 ## Index
 

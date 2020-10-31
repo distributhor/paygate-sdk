@@ -1,4 +1,4 @@
-**[Reference Docs](../README.md)**
+**[Documentation](../README.md)**
 
 > [Globals](../README.md) / ["types"](../modules/_types_.md) / SuccessIndicator
 
@@ -21,7 +21,7 @@
 
 • `Optional` **message**: string
 
-_Defined in [src/types.ts:25](https://github.com/distributhor/paygate-sdk/blob/2f1873c/src/types.ts#L25)_
+_Defined in [src/types.ts:25](https://github.com/distributhor/paygate-sdk/blob/1278863/src/types.ts#L25)_
 
 ---
 
@@ -29,4 +29,4 @@ _Defined in [src/types.ts:25](https://github.com/distributhor/paygate-sdk/blob/2
 
 • **success**: boolean
 
-_Defined in [src/types.ts:24](https://github.com/distributhor/paygate-sdk/blob/2f1873c/src/types.ts#L24)_
+_Defined in [src/types.ts:24](https://github.com/distributhor/paygate-sdk/blob/1278863/src/types.ts#L24)_

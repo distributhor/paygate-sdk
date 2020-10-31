@@ -1,4 +1,4 @@
-**[Reference Docs](../README.md)**
+**[Documentation](../README.md)**
 
 > [Globals](../README.md) / ["types"](../modules/_types_.md) / TransactionDescription
 
@@ -21,7 +21,7 @@
 
 • `Optional` **detail**: string
 
-_Defined in [src/types.ts:143](https://github.com/distributhor/paygate-sdk/blob/2f1873c/src/types.ts#L143)_
+_Defined in [src/types.ts:143](https://github.com/distributhor/paygate-sdk/blob/1278863/src/types.ts#L143)_
 
 ---
 
@@ -29,4 +29,4 @@ _Defined in [src/types.ts:143](https://github.com/distributhor/paygate-sdk/blob/
 
 • **status**: string
 
-_Defined in [src/types.ts:142](https://github.com/distributhor/paygate-sdk/blob/2f1873c/src/types.ts#L142)_
+_Defined in [src/types.ts:142](https://github.com/distributhor/paygate-sdk/blob/1278863/src/types.ts#L142)_

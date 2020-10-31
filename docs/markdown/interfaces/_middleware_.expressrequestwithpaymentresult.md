@@ -1,4 +1,4 @@
-**[Reference Docs](../README.md)**
+**[Documentation](../README.md)**
 
 > [Globals](../README.md) / ["middleware"](../modules/_middleware_.md) / ExpressRequestWithPaymentResult
 
@@ -406,7 +406,7 @@ Short-hand for `url.parse(req.url).pathname`.
 
 • **paygate**: [PayGateMiddlewarePaymentResult](_middleware_.paygatemiddlewarepaymentresult.md)
 
-_Defined in [src/middleware.ts:29](https://github.com/distributhor/paygate-sdk/blob/2f1873c/src/middleware.ts#L29)_
+_Defined in [src/middleware.ts:29](https://github.com/distributhor/paygate-sdk/blob/1278863/src/middleware.ts#L29)_
 
 ---
 
