@@ -22,7 +22,7 @@
 
 • **paymentRef**: [PaymentReference](_types_.paymentreference.md)
 
-_Defined in [src/types.ts:234](https://github.com/distributhor/paygate-sdk/blob/c181cfd/src/types.ts#L234)_
+_Defined in [src/types.ts:234](https://github.com/distributhor/paygate-sdk/blob/79e7c40/src/types.ts#L234)_
 
 ---
 
@@ -30,7 +30,7 @@ _Defined in [src/types.ts:234](https://github.com/distributhor/paygate-sdk/blob/
 
 • **redirectParams**: [RedirectParams](_types_.redirectparams.md)
 
-_Defined in [src/types.ts:235](https://github.com/distributhor/paygate-sdk/blob/c181cfd/src/types.ts#L235)_
+_Defined in [src/types.ts:235](https://github.com/distributhor/paygate-sdk/blob/79e7c40/src/types.ts#L235)_
 
 ---
 
@@ -38,4 +38,4 @@ _Defined in [src/types.ts:235](https://github.com/distributhor/paygate-sdk/blob/
 
 • **redirectUri**: string
 
-_Defined in [src/types.ts:236](https://github.com/distributhor/paygate-sdk/blob/c181cfd/src/types.ts#L236)_
+_Defined in [src/types.ts:236](https://github.com/distributhor/paygate-sdk/blob/79e7c40/src/types.ts#L236)_
