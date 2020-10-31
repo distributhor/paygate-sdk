@@ -26,7 +26,7 @@
 
 • `Optional` **cardHolderName**: string
 
-_Defined in [src/types.ts:40](https://github.com/distributhor/paygate-sdk/blob/1278863/src/types.ts#L40)_
+_Defined in [src/types.ts:40](https://github.com/distributhor/paygate-sdk/blob/af7e356/src/types.ts#L40)_
 
 ---
 
@@ -34,7 +34,7 @@ _Defined in [src/types.ts:40](https://github.com/distributhor/paygate-sdk/blob/1
 
 • `Optional` **ccv**: string
 
-_Defined in [src/types.ts:45](https://github.com/distributhor/paygate-sdk/blob/1278863/src/types.ts#L45)_
+_Defined in [src/types.ts:45](https://github.com/distributhor/paygate-sdk/blob/af7e356/src/types.ts#L45)_
 
 ---
 
@@ -42,7 +42,7 @@ _Defined in [src/types.ts:45](https://github.com/distributhor/paygate-sdk/blob/1
 
 • `Optional` **expireMonth**: string
 
-_Defined in [src/types.ts:43](https://github.com/distributhor/paygate-sdk/blob/1278863/src/types.ts#L43)_
+_Defined in [src/types.ts:43](https://github.com/distributhor/paygate-sdk/blob/af7e356/src/types.ts#L43)_
 
 ---
 
@@ -50,7 +50,7 @@ _Defined in [src/types.ts:43](https://github.com/distributhor/paygate-sdk/blob/1
 
 • `Optional` **expireYear**: string
 
-_Defined in [src/types.ts:44](https://github.com/distributhor/paygate-sdk/blob/1278863/src/types.ts#L44)_
+_Defined in [src/types.ts:44](https://github.com/distributhor/paygate-sdk/blob/af7e356/src/types.ts#L44)_
 
 ---
 
@@ -58,7 +58,7 @@ _Defined in [src/types.ts:44](https://github.com/distributhor/paygate-sdk/blob/1
 
 • **number**: string
 
-_Defined in [src/types.ts:42](https://github.com/distributhor/paygate-sdk/blob/1278863/src/types.ts#L42)_
+_Defined in [src/types.ts:42](https://github.com/distributhor/paygate-sdk/blob/af7e356/src/types.ts#L42)_
 
 ---
 
@@ -66,7 +66,7 @@ _Defined in [src/types.ts:42](https://github.com/distributhor/paygate-sdk/blob/1
 
 • `Optional` **transactionType**: string
 
-_Defined in [src/types.ts:39](https://github.com/distributhor/paygate-sdk/blob/1278863/src/types.ts#L39)_
+_Defined in [src/types.ts:39](https://github.com/distributhor/paygate-sdk/blob/af7e356/src/types.ts#L39)_
 
 ---
 
@@ -74,4 +74,4 @@ _Defined in [src/types.ts:39](https://github.com/distributhor/paygate-sdk/blob/1
 
 • `Optional` **vendor**: string
 
-_Defined in [src/types.ts:41](https://github.com/distributhor/paygate-sdk/blob/1278863/src/types.ts#L41)_
+_Defined in [src/types.ts:41](https://github.com/distributhor/paygate-sdk/blob/af7e356/src/types.ts#L41)_
