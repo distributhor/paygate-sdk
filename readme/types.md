@@ -28,30 +28,9 @@ In progress ...
 
 ### Object literals
 
-- [CommunicationAndDataResultCodes](_types_.md#communicationanddataresultcodes)
-- [CreditCardResultCodes](_types_.md#creditcardresultcodes)
-- [PayGateEndpoints](_types_.md#paygateendpoints)
-- [PayGateErrorCodes](_types_.md#paygateerrorcodes)
-- [PayGateLocaleName](_types_.md#paygatelocalename)
-- [PayGateTestCards](_types_.md#paygatetestcards)
-- [PaymentMethod](_types_.md#paymentmethod)
-- [TransactionStatus](_types_.md#transactionstatus)
-
-## Variables
-
-### TransactionResultCodes
-
-• `Const` **TransactionResultCodes**: { 900019: string = "Invalid PayVault scope"; 900205: string = "Unexpected authentication result (phase 1)"; 900206: string = "Unexpected authentication result (phase 2)"; 900209: string = "Transaction verification failed (phase 2) (verification data altered)"; 900210: string = "Authentication already complete; transaction must be restarted (verification done more than once)"; 990001: string = "Could not insert into DB"; 990013: string = "Error processing a batch transaction"; 990022: string = "Bank not available"; 990024: string = "Duplicate transaction detected"; 990028: string = "Transaction cancelled"; 990053: string = "Error processing transaction" } & { 900001: string = "Call for approval"; 900002: string = "Card expired"; 900003: string = "Insufficient funds"; 900004: string = "Invalid card number"; 900005: string = "Bank interface timeout"; 900006: string = "Invalid card"; 900007: string = "Declined"; 900009: string = "Lost card"; 900010: string = "Invalid card length"; 900011: string = "Suspected fraud"; 900012: string = "Card reported as stolen"; 900013: string = "Restricted card"; 900014: string = "Excessive card usage"; 900015: string = "Card blacklisted"; 900017: string = "Auth done"; 900207: string = "Declined; authentication failed (incorrect verification code)"; 900210: string = "3D Secure lookup timeout"; 990020: string = "Auth declined"; 991001: string = "Invalid expiry date"; 991002: string = "Invalid amount" } = Object.assign(CommunicationAndDataResultCodes, CreditCardResultCodes)
-
-_Defined in [src/types.ts:119](https://github.com/distributhor/paygate-sdk/blob/c181cfd/src/types.ts#L119)_
-
-## Object literals
-
 ### CommunicationAndDataResultCodes
 
 ▪ `Const` **CommunicationAndDataResultCodes**: object
-
-_Defined in [src/types.ts:105](https://github.com/distributhor/paygate-sdk/blob/c181cfd/src/types.ts#L105)_
 
 #### Properties:
 
@@ -69,13 +48,9 @@ _Defined in [src/types.ts:105](https://github.com/distributhor/paygate-sdk/blob/
 | `990028` | string | "Transaction cancelled"                                                                             |
 | `990053` | string | "Error processing transaction"                                                                      |
 
----
-
 ### CreditCardResultCodes
 
 ▪ `Const` **CreditCardResultCodes**: object
-
-_Defined in [src/types.ts:82](https://github.com/distributhor/paygate-sdk/blob/c181cfd/src/types.ts#L82)_
 
 #### Properties:
 
@@ -102,13 +77,9 @@ _Defined in [src/types.ts:82](https://github.com/distributhor/paygate-sdk/blob/c
 | `991001` | string | "Invalid expiry date"                                           |
 | `991002` | string | "Invalid amount"                                                |
 
----
-
 ### PayGateEndpoints
 
 ▪ `Const` **PayGateEndpoints**: object
-
-_Defined in [src/types.ts:48](https://github.com/distributhor/paygate-sdk/blob/c181cfd/src/types.ts#L48)_
 
 #### Properties:
 
@@ -123,8 +94,6 @@ _Defined in [src/types.ts:48](https://github.com/distributhor/paygate-sdk/blob/c
 ### PayGateErrorCodes
 
 ▪ `Const` **PayGateErrorCodes**: object
-
-_Defined in [src/types.ts:54](https://github.com/distributhor/paygate-sdk/blob/c181cfd/src/types.ts#L54)_
 
 #### Properties:
 
@@ -156,13 +125,9 @@ _Defined in [src/types.ts:54](https://github.com/distributhor/paygate-sdk/blob/c
 | `TXN_PRC`            | string | "Transaction is older than 30 minutes or there has been an error processing it"                       |
 | `VAULT_NOT_ACCEPTED` | string | "Card types enabled on terminal not available for vaulting"                                           |
 
----
-
 ### PayGateLocaleName
 
 ▪ `Const` **PayGateLocaleName**: object
-
-_Defined in [src/types.ts:173](https://github.com/distributhor/paygate-sdk/blob/c181cfd/src/types.ts#L173)_
 
 #### Properties:
 
@@ -175,13 +140,9 @@ _Defined in [src/types.ts:173](https://github.com/distributhor/paygate-sdk/blob/
 | `ve` | string | "Venda"     |
 | `zu` | string | "Zulu"      |
 
----
-
 ### PayGateTestCards
 
 ▪ `Const` **PayGateTestCards**: object
-
-_Defined in [src/types.ts:182](https://github.com/distributhor/paygate-sdk/blob/c181cfd/src/types.ts#L182)_
 
 #### Properties:
 
@@ -192,13 +153,9 @@ _Defined in [src/types.ts:182](https://github.com/distributhor/paygate-sdk/blob/
 | `InsufficientFunds` | object | { MasterCard: string = "5200000000000023"; Visa: string = "4000000000000028" } |
 | `NotProcessed`      | object | { MasterCard: string = "5200000000000064" }                                    |
 
----
-
 ### PaymentMethod
 
 ▪ `Const` **PaymentMethod**: object
-
-_Defined in [src/types.ts:146](https://github.com/distributhor/paygate-sdk/blob/c181cfd/src/types.ts#L146)_
 
 #### Properties:
 
@@ -211,13 +168,9 @@ _Defined in [src/types.ts:146](https://github.com/distributhor/paygate-sdk/blob/
 | `EW` | string | "E-Wallet"      |
 | `PC` | string | "Pre-Paid Card" |
 
----
-
 ### TransactionStatus
 
 ▪ `Const` **TransactionStatus**: object
-
-_Defined in [src/types.ts:121](https://github.com/distributhor/paygate-sdk/blob/c181cfd/src/types.ts#L121)_
 
 #### Properties:
 
