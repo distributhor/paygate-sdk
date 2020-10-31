@@ -23,16 +23,17 @@
     "hideGenerator": true,
     "links": [
       {
-        "label": "GitHub Project",
+        "label": "GitHub",
         "url": "https://github.com/distributhor/paygate-sdk"
       }
     ],
     "outline": [
       {
-        "Browser Utils": {
-          "Overview": "_browser_"
-        },
-        "Client": "_client_"
+        "TS Typings": "_types_",
+        "API Client": "_client_",
+        "Express Middleware": "_middleware_",
+        "Common Utils": "_util_",
+        "Browser Lib": "_browser_"
       }
     ]
   },
