@@ -55,11 +55,11 @@
     "lint:format": "yarn prettier:fix",
     "prettier:fix": "prettier --ignore-path .prettierignore --write '{src,test}/**/*.{js,ts,json,md}'",
     "prettier:check": "prettier --ignore-path .prettierignore --check '{src,test}/**/*.{js,ts,json,md}'",
-    "doc:html": "typedoc --tsconfig ./tsconfig.json --out docs --plugin typedoc-neo-theme --theme ./node_modules/typedoc-neo-theme/bin/default && nodetouch docs/.nojekyll",
     "doc:markdown": "typedoc --mode modules --readme none --includeVersion false --excludePrivate true --stripInternal true --hideGenerator true --out docs/markdown --plugin typedoc-plugin-markdown",
-    "doc": "yarn doc:html && yarn doc:markdown && yarn readme",
+    "doc:html": "typedoc --tsconfig ./tsconfig.json --out docs --plugin typedoc-neo-theme --theme ./node_modules/typedoc-neo-theme/bin/default && nodetouch docs/.nojekyll",
+    "doc": "yarn doc:html && yarn readme",
     "readme": "node_modules/markdown-include/bin/cli.js readme/markdown.json",
-    "release": "yarn build && yarn doc && np"
+    "release": "yarn build && np"
   },
   "dependencies": {
     "currency.js": "^2.0.3",
