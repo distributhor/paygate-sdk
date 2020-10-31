@@ -5,6 +5,12 @@
 [![Total alerts][lgtm-alerts]](link-lgtm-alerts)
 [![Language grade: JavaScript][lgtm-code-quality]](lgtm-code-quality-link)
 
+## Currently In Progress
+
+- Validation improvements
+- Locales and currencies
+- Documentation
+
 #include "readme/introduction.md"
 
 #include "readme/documentation.md"

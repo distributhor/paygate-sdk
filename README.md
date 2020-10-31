@@ -5,6 +5,12 @@
 [![Total alerts][lgtm-alerts]](link-lgtm-alerts)
 [![Language grade: JavaScript][lgtm-code-quality]](lgtm-code-quality-link)
 
+## Currently In Progress
+
+- Validation improvements
+- Locales and currencies
+- Documentation
+
 ## Introduction
 
 This project contains a few parts which can be used seperately or in combination, to aid with integration to the payment provider PayGate (https://www.paygate.co.za).
