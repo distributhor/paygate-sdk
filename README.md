@@ -143,9 +143,9 @@ Documentation in progress ...
 
 ### Object literals
 
-#### [CommunicationAndDataResultCodes](https://distributhor.github.io/paygate-sdk/modules/_types_.html#communicationanddataresultcodes)
+#### CommunicationAndDataResultCodes
 
-▪ `Const` **CommunicationAndDataResultCodes**: object
+▪ `Const` **[CommunicationAndDataResultCodes](https://distributhor.github.io/paygate-sdk/modules/_types_.html#communicationanddataresultcodes)**: object
 
 #### Properties:
 
@@ -163,9 +163,9 @@ Documentation in progress ...
 | `990028` | string | "Transaction cancelled"                                                                             |
 | `990053` | string | "Error processing transaction"                                                                      |
 
-#### [CreditCardResultCodes](https://distributhor.github.io/paygate-sdk/modules/_types_.html#creditcardresultcodes)
+#### CreditCardResultCodes
 
-▪ `Const` **CreditCardResultCodes**: object
+▪ `Const` **[CreditCardResultCodes](https://distributhor.github.io/paygate-sdk/modules/_types_.html#creditcardresultcodes)**: object
 
 #### Properties:
 
@@ -192,9 +192,9 @@ Documentation in progress ...
 | `991001` | string | "Invalid expiry date"                                           |
 | `991002` | string | "Invalid amount"                                                |
 
-#### [PayGateEndpoints](https://distributhor.github.io/paygate-sdk/modules/_types_.html#paygateendpoints)
+#### PayGateEndpoints
 
-▪ `Const` **PayGateEndpoints**: object
+▪ `Const` **[PayGateEndpoints](https://distributhor.github.io/paygate-sdk/modules/_types_.html#paygateendpoints)**: object
 
 #### Properties:
 
@@ -206,9 +206,9 @@ Documentation in progress ...
 
 ---
 
-#### [PayGateErrorCodes](https://distributhor.github.io/paygate-sdk/modules/_types_.html#paygateerrorcodes)
+#### PayGateErrorCodes
 
-▪ `Const` **PayGateErrorCodes**: object
+▪ `Const` **[PayGateErrorCodes](https://distributhor.github.io/paygate-sdk/modules/_types_.html#paygateerrorcodes)**: object
 
 #### Properties:
 
@@ -240,9 +240,9 @@ Documentation in progress ...
 | `TXN_PRC`            | string | "Transaction is older than 30 minutes or there has been an error processing it"                       |
 | `VAULT_NOT_ACCEPTED` | string | "Card types enabled on terminal not available for vaulting"                                           |
 
-#### [PayGateLocaleName](https://distributhor.github.io/paygate-sdk/modules/_types_.html#paygatelocalename)
+#### PayGateLocaleName
 
-▪ `Const` **PayGateLocaleName**: object
+▪ `Const` **[PayGateLocaleName](https://distributhor.github.io/paygate-sdk/modules/_types_.html#paygatelocalename)**: object
 
 #### Properties:
 
@@ -255,9 +255,9 @@ Documentation in progress ...
 | `ve` | string | "Venda"     |
 | `zu` | string | "Zulu"      |
 
-#### [PayGateTestCards](https://distributhor.github.io/paygate-sdk/modules/_types_.html#paygatetestcards)
+#### PayGateTestCards
 
-▪ `Const` **PayGateTestCards**: object
+▪ `Const` **[PayGateTestCards](https://distributhor.github.io/paygate-sdk/modules/_types_.html#paygatetestcards)**: object
 
 #### Properties:
 
@@ -268,9 +268,9 @@ Documentation in progress ...
 | `InsufficientFunds` | object | { MasterCard: string = "5200000000000023"; Visa: string = "4000000000000028" } |
 | `NotProcessed`      | object | { MasterCard: string = "5200000000000064" }                                    |
 
-#### [PaymentMethod](https://distributhor.github.io/paygate-sdk/modules/_types_.html#paymentmethod)
+#### PaymentMethod
 
-▪ `Const` **PaymentMethod**: object
+▪ `Const` **[PaymentMethod](https://distributhor.github.io/paygate-sdk/modules/_types_.html#paymentmethod)**: object
 
 #### Properties:
 
@@ -283,9 +283,9 @@ Documentation in progress ...
 | `EW` | string | "E-Wallet"      |
 | `PC` | string | "Pre-Paid Card" |
 
-#### [TransactionStatus](https://distributhor.github.io/paygate-sdk/modules/_types_.html#transactionstatus)
+#### TransactionStatus
 
-▪ `Const` **TransactionStatus**: object
+▪ `Const` **[TransactionStatus](https://distributhor.github.io/paygate-sdk/modules/_types_.html#transactionstatus)**: object
 
 #### Properties:
 
