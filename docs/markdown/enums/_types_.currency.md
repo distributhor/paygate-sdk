@@ -1,4 +1,4 @@
-**[SDK Reference Docs](../README.md)**
+**[Reference Docs](../README.md)**
 
 > [Globals](../README.md) / ["types"](../modules/_types_.md) / Currency
 
@@ -18,7 +18,7 @@
 
 • **EUR**: = "EUR"
 
-_Defined in [src/types.ts:35](https://github.com/distributhor/paygate-sdk/blob/cf6f971/src/types.ts#L35)_
+_Defined in [src/types.ts:35](https://github.com/distributhor/paygate-sdk/blob/2f1873c/src/types.ts#L35)_
 
 ---
 
@@ -26,7 +26,7 @@ _Defined in [src/types.ts:35](https://github.com/distributhor/paygate-sdk/blob/c
 
 • **USD**: = "USD"
 
-_Defined in [src/types.ts:34](https://github.com/distributhor/paygate-sdk/blob/cf6f971/src/types.ts#L34)_
+_Defined in [src/types.ts:34](https://github.com/distributhor/paygate-sdk/blob/2f1873c/src/types.ts#L34)_
 
 ---
 
@@ -34,4 +34,4 @@ _Defined in [src/types.ts:34](https://github.com/distributhor/paygate-sdk/blob/c
 
 • **ZAR**: = "ZAR"
 
-_Defined in [src/types.ts:33](https://github.com/distributhor/paygate-sdk/blob/cf6f971/src/types.ts#L33)_
+_Defined in [src/types.ts:33](https://github.com/distributhor/paygate-sdk/blob/2f1873c/src/types.ts#L33)_

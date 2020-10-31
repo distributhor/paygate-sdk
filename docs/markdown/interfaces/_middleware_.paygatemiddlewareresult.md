@@ -1,4 +1,4 @@
-**[SDK Reference Docs](../README.md)**
+**[Reference Docs](../README.md)**
 
 > [Globals](../README.md) / ["middleware"](../modules/_middleware_.md) / PayGateMiddlewareResult
 
@@ -25,7 +25,7 @@
 
 • `Optional` **badRequest**: string
 
-_Defined in [src/middleware.ts:16](https://github.com/distributhor/paygate-sdk/blob/cf6f971/src/middleware.ts#L16)_
+_Defined in [src/middleware.ts:16](https://github.com/distributhor/paygate-sdk/blob/2f1873c/src/middleware.ts#L16)_
 
 ---
 
@@ -33,4 +33,4 @@ _Defined in [src/middleware.ts:16](https://github.com/distributhor/paygate-sdk/b
 
 • `Optional` **serviceError**: any
 
-_Defined in [src/middleware.ts:17](https://github.com/distributhor/paygate-sdk/blob/cf6f971/src/middleware.ts#L17)_
+_Defined in [src/middleware.ts:17](https://github.com/distributhor/paygate-sdk/blob/2f1873c/src/middleware.ts#L17)_

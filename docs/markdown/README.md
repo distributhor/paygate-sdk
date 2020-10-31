@@ -1,8 +1,8 @@
-**[SDK Reference Docs](README.md)**
+**[Reference Docs](README.md)**
 
 > Globals
 
-# SDK Reference Docs
+# Reference Docs
 
 ## Index
 

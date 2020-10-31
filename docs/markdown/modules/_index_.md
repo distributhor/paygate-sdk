@@ -1,4 +1,4 @@
-**[SDK Reference Docs](../README.md)**
+**[Reference Docs](../README.md)**
 
 > [Globals](../README.md) / "index"
 

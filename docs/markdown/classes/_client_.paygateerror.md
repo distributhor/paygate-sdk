@@ -1,4 +1,4 @@
-**[SDK Reference Docs](../README.md)**
+**[Reference Docs](../README.md)**
 
 > [Globals](../README.md) / ["client"](../modules/_client_.md) / PayGateError
 
@@ -33,7 +33,7 @@
 
 \+ **new PayGateError**(`cause`: any, `message?`: string): [PayGateError](_client_.paygateerror.md)
 
-_Defined in [src/client.ts:128](https://github.com/distributhor/paygate-sdk/blob/cf6f971/src/client.ts#L128)_
+_Defined in [src/client.ts:128](https://github.com/distributhor/paygate-sdk/blob/2f1873c/src/client.ts#L128)_
 
 #### Parameters:
 
@@ -50,7 +50,7 @@ _Defined in [src/client.ts:128](https://github.com/distributhor/paygate-sdk/blob
 
 • `Optional` **cause**: [ErrorObject](../interfaces/_types_.errorobject.md) \| [UntypedObject](../interfaces/_types_.untypedobject.md)
 
-_Defined in [src/client.ts:128](https://github.com/distributhor/paygate-sdk/blob/cf6f971/src/client.ts#L128)_
+_Defined in [src/client.ts:128](https://github.com/distributhor/paygate-sdk/blob/2f1873c/src/client.ts#L128)_
 
 ---
 
@@ -58,7 +58,7 @@ _Defined in [src/client.ts:128](https://github.com/distributhor/paygate-sdk/blob
 
 • `Optional` **httpStatus**: number
 
-_Defined in [src/client.ts:127](https://github.com/distributhor/paygate-sdk/blob/cf6f971/src/client.ts#L127)_
+_Defined in [src/client.ts:127](https://github.com/distributhor/paygate-sdk/blob/2f1873c/src/client.ts#L127)_
 
 ---
 
