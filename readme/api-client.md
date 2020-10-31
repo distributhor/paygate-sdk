@@ -1,12 +1,10 @@
 In progress ...
 
-## Constructors
-
-### constructor
+### Constructors
 
 \+ **new PayGateClient**(`payGateId?`: string, `payGateKey?`: string): [PayGateClient](_client_.paygateclient.md)
 
-#### Parameters:
+**Parameters:**
 
 | Name          | Type   |
 | ------------- | ------ |
@@ -15,15 +13,15 @@ In progress ...
 
 **Returns:** [PayGateClient](_client_.paygateclient.md)
 
-## Methods
+### Methods
 
-### handlePaymentNotification
+#### handlePaymentNotification
 
 ▸ **handlePaymentNotification**(`paymentStatus`: [PaymentStatus](../interfaces/_types_.paymentstatus.md)): Promise\<[SuccessIndicator](../interfaces/_types_.successindicator.md)>
 
 _Defined in [src/client.ts:299](https://github.com/distributhor/paygate-sdk/blob/c181cfd/src/client.ts#L299)_
 
-#### Parameters:
+**Parameters:**
 
 | Name            | Type                                                    |
 | --------------- | ------------------------------------------------------- |

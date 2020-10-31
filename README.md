@@ -5,6 +5,8 @@
 [![Total alerts][lgtm-alerts]](link-lgtm-alerts)
 [![Language grade: JavaScript][lgtm-code-quality]](lgtm-code-quality-link)
 
+## Introduction
+
 This project contains a few parts which can be used seperately or in combination, to aid with integration to the payment provider PayGate (https://www.paygate.co.za).
 
 The main components are:
@@ -20,7 +22,7 @@ Currently this project is in development, but already quite usable. Reference do
 
 ## Reference Implementation
 
-In addition to the above, there is also a reference implementation available under the `impl` folder. It consists of an ExpressJS backend that exposes endpoints via the middleware functions (which in turn uses the TS/JS API client), and a very simple frontend with which to test payments. It should demonstrate how to use these components in your own project. The reference implementation can run in your local development environment in only a few easy steps.
+There is also a reference implementation available under the `impl` folder. It consists of an ExpressJS backend that exposes endpoints via the middleware functions (which in turn uses the TS/JS API client), and a very simple frontend with which to test payments. It should demonstrate how to use these components in your own project. The reference implementation can run in your local development environment in only a few easy steps.
 
 ### Ngrok Token
 
@@ -42,13 +44,11 @@ Once they are all up and running, navigate to http://localhost:8000 to test paym
 
 In progress ...
 
-## Constructors
-
-### constructor
+### Constructors
 
 \+ **new PayGateClient**(`payGateId?`: string, `payGateKey?`: string): [PayGateClient](_client_.paygateclient.md)
 
-#### Parameters:
+**Parameters:**
 
 | Name          | Type   |
 | ------------- | ------ |
@@ -57,15 +57,15 @@ In progress ...
 
 **Returns:** [PayGateClient](_client_.paygateclient.md)
 
-## Methods
+### Methods
 
-### handlePaymentNotification
+#### handlePaymentNotification
 
 ▸ **handlePaymentNotification**(`paymentStatus`: [PaymentStatus](../interfaces/_types_.paymentstatus.md)): Promise\<[SuccessIndicator](../interfaces/_types_.successindicator.md)>
 
 _Defined in [src/client.ts:299](https://github.com/distributhor/paygate-sdk/blob/c181cfd/src/client.ts#L299)_
 
-#### Parameters:
+**Parameters:**
 
 | Name            | Type                                                    |
 | --------------- | ------------------------------------------------------- |
