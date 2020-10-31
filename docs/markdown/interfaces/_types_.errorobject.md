@@ -20,4 +20,4 @@
 
 • **message**: string
 
-_Defined in [src/types.ts:11](https://github.com/distributhor/paygate-sdk/blob/a9a0e2d/src/types.ts#L11)_
+_Defined in [src/types.ts:11](https://github.com/distributhor/paygate-sdk/blob/c181cfd/src/types.ts#L11)_

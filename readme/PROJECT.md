@@ -18,7 +18,7 @@ These components can be used in isolation, or in combination, so you only have t
 
 Currently this project is in development, but already quite usable. Reference documentation (currently a work in progress) can be found at https://distributhor.github.io/paygate-sdk/, and more detailed usage info will be made available in this README shortly.
 
-#include "readme/DOC.md"
+#include "readme/doc.md"
 
 ## License
 

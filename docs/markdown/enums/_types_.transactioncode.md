@@ -22,7 +22,7 @@
 
 • **APPROVED**: = "1"
 
-_Defined in [src/types.ts:133](https://github.com/distributhor/paygate-sdk/blob/a9a0e2d/src/types.ts#L133)_
+_Defined in [src/types.ts:133](https://github.com/distributhor/paygate-sdk/blob/c181cfd/src/types.ts#L133)_
 
 ---
 
@@ -30,7 +30,7 @@ _Defined in [src/types.ts:133](https://github.com/distributhor/paygate-sdk/blob/
 
 • **CANCELLED**: = "3"
 
-_Defined in [src/types.ts:135](https://github.com/distributhor/paygate-sdk/blob/a9a0e2d/src/types.ts#L135)_
+_Defined in [src/types.ts:135](https://github.com/distributhor/paygate-sdk/blob/c181cfd/src/types.ts#L135)_
 
 ---
 
@@ -38,7 +38,7 @@ _Defined in [src/types.ts:135](https://github.com/distributhor/paygate-sdk/blob/
 
 • **DECLINED**: = "2"
 
-_Defined in [src/types.ts:134](https://github.com/distributhor/paygate-sdk/blob/a9a0e2d/src/types.ts#L134)_
+_Defined in [src/types.ts:134](https://github.com/distributhor/paygate-sdk/blob/c181cfd/src/types.ts#L134)_
 
 ---
 
@@ -46,7 +46,7 @@ _Defined in [src/types.ts:134](https://github.com/distributhor/paygate-sdk/blob/
 
 • **NOT_DONE**: = "0"
 
-_Defined in [src/types.ts:132](https://github.com/distributhor/paygate-sdk/blob/a9a0e2d/src/types.ts#L132)_
+_Defined in [src/types.ts:132](https://github.com/distributhor/paygate-sdk/blob/c181cfd/src/types.ts#L132)_
 
 ---
 
@@ -54,7 +54,7 @@ _Defined in [src/types.ts:132](https://github.com/distributhor/paygate-sdk/blob/
 
 • **RECEIVED_BY_PAYGATE**: = "5"
 
-_Defined in [src/types.ts:137](https://github.com/distributhor/paygate-sdk/blob/a9a0e2d/src/types.ts#L137)_
+_Defined in [src/types.ts:137](https://github.com/distributhor/paygate-sdk/blob/c181cfd/src/types.ts#L137)_
 
 ---
 
@@ -62,7 +62,7 @@ _Defined in [src/types.ts:137](https://github.com/distributhor/paygate-sdk/blob/
 
 • **SETTLEMENT_VOIDED**: = "7"
 
-_Defined in [src/types.ts:138](https://github.com/distributhor/paygate-sdk/blob/a9a0e2d/src/types.ts#L138)_
+_Defined in [src/types.ts:138](https://github.com/distributhor/paygate-sdk/blob/c181cfd/src/types.ts#L138)_
 
 ---
 
@@ -70,4 +70,4 @@ _Defined in [src/types.ts:138](https://github.com/distributhor/paygate-sdk/blob/
 
 • **USER_CANCELLED**: = "4"
 
-_Defined in [src/types.ts:136](https://github.com/distributhor/paygate-sdk/blob/a9a0e2d/src/types.ts#L136)_
+_Defined in [src/types.ts:136](https://github.com/distributhor/paygate-sdk/blob/c181cfd/src/types.ts#L136)_

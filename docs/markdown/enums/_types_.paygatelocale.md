@@ -21,7 +21,7 @@
 
 • **AFRIKAANS**: = "af"
 
-_Defined in [src/types.ts:165](https://github.com/distributhor/paygate-sdk/blob/a9a0e2d/src/types.ts#L165)_
+_Defined in [src/types.ts:165](https://github.com/distributhor/paygate-sdk/blob/c181cfd/src/types.ts#L165)_
 
 ---
 
@@ -29,7 +29,7 @@ _Defined in [src/types.ts:165](https://github.com/distributhor/paygate-sdk/blob/
 
 • **ENGLISH**: = "en"
 
-_Defined in [src/types.ts:166](https://github.com/distributhor/paygate-sdk/blob/a9a0e2d/src/types.ts#L166)_
+_Defined in [src/types.ts:166](https://github.com/distributhor/paygate-sdk/blob/c181cfd/src/types.ts#L166)_
 
 ---
 
@@ -37,7 +37,7 @@ _Defined in [src/types.ts:166](https://github.com/distributhor/paygate-sdk/blob/
 
 • **SUTU**: = "sx"
 
-_Defined in [src/types.ts:167](https://github.com/distributhor/paygate-sdk/blob/a9a0e2d/src/types.ts#L167)_
+_Defined in [src/types.ts:167](https://github.com/distributhor/paygate-sdk/blob/c181cfd/src/types.ts#L167)_
 
 ---
 
@@ -45,7 +45,7 @@ _Defined in [src/types.ts:167](https://github.com/distributhor/paygate-sdk/blob/
 
 • **TSWANA**: = "tn"
 
-_Defined in [src/types.ts:168](https://github.com/distributhor/paygate-sdk/blob/a9a0e2d/src/types.ts#L168)_
+_Defined in [src/types.ts:168](https://github.com/distributhor/paygate-sdk/blob/c181cfd/src/types.ts#L168)_
 
 ---
 
@@ -53,7 +53,7 @@ _Defined in [src/types.ts:168](https://github.com/distributhor/paygate-sdk/blob/
 
 • **VENDA**: = "vn"
 
-_Defined in [src/types.ts:169](https://github.com/distributhor/paygate-sdk/blob/a9a0e2d/src/types.ts#L169)_
+_Defined in [src/types.ts:169](https://github.com/distributhor/paygate-sdk/blob/c181cfd/src/types.ts#L169)_
 
 ---
 
@@ -61,4 +61,4 @@ _Defined in [src/types.ts:169](https://github.com/distributhor/paygate-sdk/blob/
 
 • **ZULU**: = "zu"
 
-_Defined in [src/types.ts:170](https://github.com/distributhor/paygate-sdk/blob/a9a0e2d/src/types.ts#L170)_
+_Defined in [src/types.ts:170](https://github.com/distributhor/paygate-sdk/blob/c181cfd/src/types.ts#L170)_

@@ -16,6 +16,7 @@
   "typedocOptions": {
     "mode": "modules",
     "name": "Documentation",
+    "readme": "readme/doc.md",
     "includeVersion": false,
     "excludePrivate": true,
     "stripInternal": true,
