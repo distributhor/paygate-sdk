@@ -26,16 +26,16 @@
 
 ### constructor
 
-\+ **new PayGateClient**(`payGateId?`: string, `payGateSecret?`: string): [PayGateClient](_client_.paygateclient.md)
+\+ **new PayGateClient**(`payGateId?`: string, `payGateKey?`: string): [PayGateClient](_client_.paygateclient.md)
 
-_Defined in [src/client.ts:211](https://github.com/distributhor/paygate-sdk/blob/09aaeab/src/client.ts#L211)_
+_Defined in [src/client.ts:211](https://github.com/distributhor/paygate-sdk/blob/d9084c8/src/client.ts#L211)_
 
 #### Parameters:
 
-| Name             | Type   |
-| ---------------- | ------ |
-| `payGateId?`     | string |
-| `payGateSecret?` | string |
+| Name          | Type   |
+| ------------- | ------ |
+| `payGateId?`  | string |
+| `payGateKey?` | string |
 
 **Returns:** [PayGateClient](_client_.paygateclient.md)
 
@@ -45,7 +45,7 @@ _Defined in [src/client.ts:211](https://github.com/distributhor/paygate-sdk/blob
 
 ▸ **handlePaymentNotification**(`paymentStatus`: [PaymentStatus](../interfaces/_types_.paymentstatus.md)): Promise\<[SuccessIndicator](../interfaces/_types_.successindicator.md)>
 
-_Defined in [src/client.ts:299](https://github.com/distributhor/paygate-sdk/blob/09aaeab/src/client.ts#L299)_
+_Defined in [src/client.ts:299](https://github.com/distributhor/paygate-sdk/blob/d9084c8/src/client.ts#L299)_
 
 #### Parameters:
 
@@ -61,7 +61,7 @@ _Defined in [src/client.ts:299](https://github.com/distributhor/paygate-sdk/blob
 
 ▸ **queryPaymentStatus**(`paymentRef`: [PaymentReference](../interfaces/_types_.paymentreference.md)): Promise\<[PaymentStatus](../interfaces/_types_.paymentstatus.md)>
 
-_Defined in [src/client.ts:303](https://github.com/distributhor/paygate-sdk/blob/09aaeab/src/client.ts#L303)_
+_Defined in [src/client.ts:303](https://github.com/distributhor/paygate-sdk/blob/d9084c8/src/client.ts#L303)_
 
 #### Parameters:
 
@@ -77,7 +77,7 @@ _Defined in [src/client.ts:303](https://github.com/distributhor/paygate-sdk/blob
 
 ▸ **requestPayment**(`paymentRequest`: [PaymentRequest](../interfaces/_types_.paymentrequest.md)): Promise\<[PaymentResponse](../interfaces/_types_.paymentresponse.md)>
 
-_Defined in [src/client.ts:253](https://github.com/distributhor/paygate-sdk/blob/09aaeab/src/client.ts#L253)_
+_Defined in [src/client.ts:253](https://github.com/distributhor/paygate-sdk/blob/d9084c8/src/client.ts#L253)_
 
 #### Parameters:
 
@@ -91,16 +91,16 @@ _Defined in [src/client.ts:253](https://github.com/distributhor/paygate-sdk/blob
 
 ### generateChecksum
 
-▸ `Static`**generateChecksum**(`data`: [UntypedObject](../interfaces/_types_.untypedobject.md), `secret`: string): string
+▸ `Static`**generateChecksum**(`data`: [UntypedObject](../interfaces/_types_.untypedobject.md), `encryptionKey`: string): string
 
-_Defined in [src/client.ts:355](https://github.com/distributhor/paygate-sdk/blob/09aaeab/src/client.ts#L355)_
+_Defined in [src/client.ts:355](https://github.com/distributhor/paygate-sdk/blob/d9084c8/src/client.ts#L355)_
 
 #### Parameters:
 
-| Name     | Type                                                    |
-| -------- | ------------------------------------------------------- |
-| `data`   | [UntypedObject](../interfaces/_types_.untypedobject.md) |
-| `secret` | string                                                  |
+| Name            | Type                                                    |
+| --------------- | ------------------------------------------------------- |
+| `data`          | [UntypedObject](../interfaces/_types_.untypedobject.md) |
+| `encryptionKey` | string                                                  |
 
 **Returns:** string
 
@@ -108,15 +108,15 @@ _Defined in [src/client.ts:355](https://github.com/distributhor/paygate-sdk/blob
 
 ### getInstance
 
-▸ `Static`**getInstance**(`payGateId?`: string, `payGateSecret?`: string): [PayGateClient](_client_.paygateclient.md)
+▸ `Static`**getInstance**(`payGateId?`: string, `payGateKey?`: string): [PayGateClient](_client_.paygateclient.md)
 
-_Defined in [src/client.ts:219](https://github.com/distributhor/paygate-sdk/blob/09aaeab/src/client.ts#L219)_
+_Defined in [src/client.ts:219](https://github.com/distributhor/paygate-sdk/blob/d9084c8/src/client.ts#L219)_
 
 #### Parameters:
 
-| Name             | Type   |
-| ---------------- | ------ |
-| `payGateId?`     | string |
-| `payGateSecret?` | string |
+| Name          | Type   |
+| ------------- | ------ |
+| `payGateId?`  | string |
+| `payGateKey?` | string |
 
 **Returns:** [PayGateClient](_client_.paygateclient.md)

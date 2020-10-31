@@ -46,7 +46,8 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc -b --clean && tsc -b && rollup -c rollup.config.js",
+    "clean": "rimraf dist && rimraf lib",
+    "build": "yarn clean && tsc && rollup -c rollup.config.js",
     "test": "jest -c test/jest.config.js --passWithNoTests",
     "lint": "yarn lint:check",
     "lint:check": "eslint '{src,test}/**/*.{js,ts,json}'",
@@ -54,9 +55,10 @@
     "lint:format": "yarn prettier:fix",
     "prettier:fix": "prettier --ignore-path .prettierignore --write '{src,test}/**/*.{js,ts,json,md}'",
     "prettier:check": "prettier --ignore-path .prettierignore --check '{src,test}/**/*.{js,ts,json,md}'",
-    "doc:html": "typedoc --tsconfig ./tsconfig.json --out docs/html --plugin typedoc-neo-theme --theme ./node_modules/typedoc-neo-theme/bin/default",
+    "doc:html": "typedoc --tsconfig ./tsconfig.json --out docs --plugin typedoc-neo-theme --theme ./node_modules/typedoc-neo-theme/bin/default",
     "doc:markdown": "typedoc --tsconfig ./tsconfig.json --out docs/markdown --readme none --plugin typedoc-plugin-markdown",
-    "doc": "yarn doc:html && yarn doc:markdown"
+    "doc": "yarn doc:html && yarn doc:markdown",
+    "release": "yarn build && yarn doc && np"
   },
   "dependencies": {
     "currency.js": "^2.0.3",
@@ -90,7 +92,9 @@
     "husky": "^4.3.0",
     "jest": "^26.5.3",
     "lint-staged": "^10.4.2",
+    "np": "^7.0.0",
     "prettier": "^2.1.2",
+    "rimraf": "^3.0.2",
     "rollup": "^2.32.1",
     "rollup-plugin-typescript2": "^0.28.0",
     "ts-jest": "^26.4.1",

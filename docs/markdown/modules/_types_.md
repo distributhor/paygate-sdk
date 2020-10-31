@@ -49,7 +49,7 @@
 
 • `Const` **TransactionResultCodes**: { 900019: string = "Invalid PayVault scope"; 900205: string = "Unexpected authentication result (phase 1)"; 900206: string = "Unexpected authentication result (phase 2)"; 900209: string = "Transaction verification failed (phase 2) (verification data altered)"; 900210: string = "Authentication already complete; transaction must be restarted (verification done more than once)"; 990001: string = "Could not insert into DB"; 990013: string = "Error processing a batch transaction"; 990022: string = "Bank not available"; 990024: string = "Duplicate transaction detected"; 990028: string = "Transaction cancelled"; 990053: string = "Error processing transaction" } & { 900001: string = "Call for approval"; 900002: string = "Card expired"; 900003: string = "Insufficient funds"; 900004: string = "Invalid card number"; 900005: string = "Bank interface timeout"; 900006: string = "Invalid card"; 900007: string = "Declined"; 900009: string = "Lost card"; 900010: string = "Invalid card length"; 900011: string = "Suspected fraud"; 900012: string = "Card reported as stolen"; 900013: string = "Restricted card"; 900014: string = "Excessive card usage"; 900015: string = "Card blacklisted"; 900017: string = "Auth done"; 900207: string = "Declined; authentication failed (incorrect verification code)"; 900210: string = "3D Secure lookup timeout"; 990020: string = "Auth declined"; 991001: string = "Invalid expiry date"; 991002: string = "Invalid amount" } = Object.assign(CommunicationAndDataResultCodes, CreditCardResultCodes)
 
-_Defined in [src/types.ts:119](https://github.com/distributhor/paygate-sdk/blob/09aaeab/src/types.ts#L119)_
+_Defined in [src/types.ts:119](https://github.com/distributhor/paygate-sdk/blob/d9084c8/src/types.ts#L119)_
 
 ## Object literals
 
@@ -57,7 +57,7 @@ _Defined in [src/types.ts:119](https://github.com/distributhor/paygate-sdk/blob/
 
 ▪ `Const` **CommunicationAndDataResultCodes**: object
 
-_Defined in [src/types.ts:105](https://github.com/distributhor/paygate-sdk/blob/09aaeab/src/types.ts#L105)_
+_Defined in [src/types.ts:105](https://github.com/distributhor/paygate-sdk/blob/d9084c8/src/types.ts#L105)_
 
 #### Properties:
 
@@ -81,7 +81,7 @@ _Defined in [src/types.ts:105](https://github.com/distributhor/paygate-sdk/blob/
 
 ▪ `Const` **CreditCardResultCodes**: object
 
-_Defined in [src/types.ts:82](https://github.com/distributhor/paygate-sdk/blob/09aaeab/src/types.ts#L82)_
+_Defined in [src/types.ts:82](https://github.com/distributhor/paygate-sdk/blob/d9084c8/src/types.ts#L82)_
 
 #### Properties:
 
@@ -114,7 +114,7 @@ _Defined in [src/types.ts:82](https://github.com/distributhor/paygate-sdk/blob/0
 
 ▪ `Const` **PayGateEndpoints**: object
 
-_Defined in [src/types.ts:48](https://github.com/distributhor/paygate-sdk/blob/09aaeab/src/types.ts#L48)_
+_Defined in [src/types.ts:48](https://github.com/distributhor/paygate-sdk/blob/d9084c8/src/types.ts#L48)_
 
 #### Properties:
 
@@ -130,7 +130,7 @@ _Defined in [src/types.ts:48](https://github.com/distributhor/paygate-sdk/blob/0
 
 ▪ `Const` **PayGateErrorCodes**: object
 
-_Defined in [src/types.ts:54](https://github.com/distributhor/paygate-sdk/blob/09aaeab/src/types.ts#L54)_
+_Defined in [src/types.ts:54](https://github.com/distributhor/paygate-sdk/blob/d9084c8/src/types.ts#L54)_
 
 #### Properties:
 
@@ -168,7 +168,7 @@ _Defined in [src/types.ts:54](https://github.com/distributhor/paygate-sdk/blob/0
 
 ▪ `Const` **PayGateLocaleName**: object
 
-_Defined in [src/types.ts:173](https://github.com/distributhor/paygate-sdk/blob/09aaeab/src/types.ts#L173)_
+_Defined in [src/types.ts:173](https://github.com/distributhor/paygate-sdk/blob/d9084c8/src/types.ts#L173)_
 
 #### Properties:
 
@@ -187,7 +187,7 @@ _Defined in [src/types.ts:173](https://github.com/distributhor/paygate-sdk/blob/
 
 ▪ `Const` **PayGateTestCards**: object
 
-_Defined in [src/types.ts:182](https://github.com/distributhor/paygate-sdk/blob/09aaeab/src/types.ts#L182)_
+_Defined in [src/types.ts:182](https://github.com/distributhor/paygate-sdk/blob/d9084c8/src/types.ts#L182)_
 
 #### Properties:
 
@@ -204,7 +204,7 @@ _Defined in [src/types.ts:182](https://github.com/distributhor/paygate-sdk/blob/
 
 ▪ `Const` **PaymentMethod**: object
 
-_Defined in [src/types.ts:146](https://github.com/distributhor/paygate-sdk/blob/09aaeab/src/types.ts#L146)_
+_Defined in [src/types.ts:146](https://github.com/distributhor/paygate-sdk/blob/d9084c8/src/types.ts#L146)_
 
 #### Properties:
 
@@ -223,7 +223,7 @@ _Defined in [src/types.ts:146](https://github.com/distributhor/paygate-sdk/blob/
 
 ▪ `Const` **TransactionStatus**: object
 
-_Defined in [src/types.ts:121](https://github.com/distributhor/paygate-sdk/blob/09aaeab/src/types.ts#L121)_
+_Defined in [src/types.ts:121](https://github.com/distributhor/paygate-sdk/blob/d9084c8/src/types.ts#L121)_
 
 #### Properties:
 

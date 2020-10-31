@@ -14,6 +14,8 @@ export default [
           compilerOptions: {
             outDir: "lib",
             module: "es2015",
+            declaration: false,
+            declarationMap: false,
           },
         },
       }),

@@ -18,7 +18,7 @@
 
 • **EUR**: = "EUR"
 
-_Defined in [src/types.ts:35](https://github.com/distributhor/paygate-sdk/blob/09aaeab/src/types.ts#L35)_
+_Defined in [src/types.ts:35](https://github.com/distributhor/paygate-sdk/blob/d9084c8/src/types.ts#L35)_
 
 ---
 
@@ -26,7 +26,7 @@ _Defined in [src/types.ts:35](https://github.com/distributhor/paygate-sdk/blob/0
 
 • **USD**: = "USD"
 
-_Defined in [src/types.ts:34](https://github.com/distributhor/paygate-sdk/blob/09aaeab/src/types.ts#L34)_
+_Defined in [src/types.ts:34](https://github.com/distributhor/paygate-sdk/blob/d9084c8/src/types.ts#L34)_
 
 ---
 
@@ -34,4 +34,4 @@ _Defined in [src/types.ts:34](https://github.com/distributhor/paygate-sdk/blob/0
 
 • **ZAR**: = "ZAR"
 
-_Defined in [src/types.ts:33](https://github.com/distributhor/paygate-sdk/blob/09aaeab/src/types.ts#L33)_
+_Defined in [src/types.ts:33](https://github.com/distributhor/paygate-sdk/blob/d9084c8/src/types.ts#L33)_
