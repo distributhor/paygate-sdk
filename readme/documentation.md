@@ -3,7 +3,7 @@
 - [Configuration](#configuration)
 - [Reference Implementation](#reference-implementation)
 - [API Client](#api-client)
-- [Express Middleware](#expressjs-middleware)
+- [ExpressJS Middleware](#expressjs-middleware)
 - [Common Utils](#common-utility-functions)
 - [Types](#types)
 
