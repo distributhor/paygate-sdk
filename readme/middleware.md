@@ -2,6 +2,8 @@
 
 TODO: notes on caching, urlencoded body parser requirement
 
+Make sure you are familiar with the [PayGate process flow](https://docs.paygate.co.za/?shell#process-flow) before continuing.
+
 The middleware module exposes 3 functions that can be used in your existing [ExpressJS](https://expressjs.com) application.
 
 ▸ **paymentRequestHandler**(`config`: [PayGateConfig](https://distributhor.github.io/paygate-sdk/interfaces/_types_.paygateconfig.html)): (void)
