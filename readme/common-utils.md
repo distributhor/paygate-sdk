@@ -1,3 +1,5 @@
+## General Utility Functions
+
 Documentation in progress ...
 
 ```javascript

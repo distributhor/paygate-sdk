@@ -1,3 +1,5 @@
+## Types
+
 Documentation in progress ...
 
 ### Enumerations

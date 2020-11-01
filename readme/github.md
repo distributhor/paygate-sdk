@@ -7,9 +7,8 @@
 
 ## Work Currently In Progress
 
-- Validation improvements
-- Locales and currencies
 - Documentation
+- Locales
 
 #include "readme/introduction.md"
 

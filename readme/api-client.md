@@ -1,3 +1,5 @@
+## API Client Usage
+
 Documentation in progress ...
 
 ### Constructor
