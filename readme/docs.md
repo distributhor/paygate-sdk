@@ -1,17 +1,17 @@
 ### Table Of Contents
 
-- [Configuration](#configuration)
 - [Reference Implementation](#reference-implementation)
+- [Configuration](#configuration)
 - [API Client](#api-client)
 - [Express Middleware](#expressjs-middleware)
 - [Common Utils](#common-utility-functions)
 - [Types](#types)
 
-#include "readme/configuration.md"
+#include "readme/reference-impl.md"
 
 [Back to top](#table-of-contents)
 
-#include "readme/reference-impl.md"
+#include "readme/configuration.md"
 
 [Back to top](#table-of-contents)
 

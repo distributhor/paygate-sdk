@@ -21,27 +21,20 @@ Only pick what you need in order to help with your specific integration requirem
 
 ### Table Of Contents
 
-- [Configuration](#configuration)
 - [Reference Implementation](#reference-implementation)
+- [Configuration](#configuration)
 - [API Client](#api-client)
 - [Express Middleware](#expressjs-middleware)
 - [Common Utils](#common-utility-functions)
 - [Types](#types)
 
-## Configuration
-
-In progress .... PayGateConfig options
-
-[Back to top](#table-of-contents)
-
 ## Reference Implementation
 
-There is a reference implementation available under the `impl` folder. It consists of an ExpressJS backend that exposes endpoints via the middleware functions (which in turn uses the TS/JS API client), and a very simple frontend with which to test payments. It should demonstrate how to use these components in your own project. The reference implementation can run in your local development environment in only a few easy steps.
-There is a reference implementation available under the `impl` folder. It consists of an ExpressJS backend that exposes endpoints via the middleware functions (which in turn uses the TS/JS API client), and a very simple frontend with which to test payments. It should demonstrate how to use these components in your own project. The reference implementation can run in your local development environment in only a few easy steps.
+In addition to the reference documentation, there is also a reference implementation available under the `impl` folder, which you can run in your local development environment (using a PayGate demo account) in a few simple steps. It serves as an example of how to use the various modules, and also as a playground where one can easily test an implementation. It consists of an ExpressJS backend that exposes endpoints via the middleware functions (which in turn uses the TS/JS API client), and a very simple frontend with which to test payments. To run the implementation, follow the steps below.
 
 ### Ngrok Token
 
-In order to run the reference implementation locally, you will need to have an account with Ngrok https://ngrok.com/. A basic account is free and quick to set up. Ngrok, if you don't already know, is a service that can make your local development server available on a public URL via a secure tunnel. This is needed because PayGate needs to return to a URL that is publically available, after processing a payment. So we use Ngrok to expose the frontend app to the web.
+In order to run the reference implementation locally, you will need to have an account with [Ngrok](https://ngrok.com). A basic account is free and quick to set up. Ngrok, if you don't already know, is a service that can make your local development server available on a public URL via a secure tunnel. This is needed because PayGate needs to return to a URL that is publically available, after processing a payment. So we use Ngrok to expose the frontend app to the web.
 
 Once you have an Ngrok authentication token, copy the file `impl/proxy/.env.sample` to `impl/proxy/.env` and replace the fake value with your authentication token. This is all that will be required to configure the tunelling environment.
 
@@ -54,6 +47,60 @@ The backend server implementation needs to know which PayGate credentials to use
 If you have an Ngrok auth token and PayGate credentials configured, then you can simply run `yarn install` and `yarn develop` in each of the folders `impl/proxy`, `impl/server` and `impl/app`, and the proxy needs to be the first one to run. This (the fact that 3 different instance are running in 3 consoles) may be improved later to allow for a somewhat better development experience.
 
 Once they are all up and running, navigate to http://localhost:8000 to test payments.
+
+[Back to top](#table-of-contents)
+
+## Configuration
+
+Both the API Client as well as the ExpressJS middleware are configured via a [PayGateConfig](https://distributhor.github.io/paygate-sdk/interfaces/_types_.paygateconfig.html) object, described by the properties below. The `payGateId` and `payGateKey` properties are required, all the rest is optional. Where optional properties or default configuration is not specified, those values will have to be explicitly passed in with each request, for example each payment request would then have to supply the `RETURN_URL` and a unique `TRANSACTION_DATE`, as per the [PayGate Specification](https://docs.paygate.co.za/?shell#request). But if you specify a `returnUrl` on the configuration, and set `autoTransactionDate` to true, then you don't have to supply those values with the payment request, as they will be set automatically by the client or middleware.
+
+### payGateId
+
+• `Required`**payGateId**: string
+Your PayGate account ID
+
+### payGateKey
+
+• `Required`**payGateKey**: string
+Your PayGate secret/password
+
+### returnUrl
+
+• `Optional` **returnUrl**: string
+A default URL that PayGate should return to after processing a payment. If you set a `RETURN_URL` with an individual payment request, then that value will take precedence over this one.
+
+### notifyUrl
+
+• `Optional` **notifyUrl**: string
+A default URL that PayGate should post payment notifications to. If you set a `NOTIFY_URL` with an individual payment request, then that value will take precedence over this one. If no value is found on either, then PayGate will not post payment notification data back.
+
+### autoPaymentReference
+
+• `Optional` **autoPaymentReference**: boolean
+
+### autoTransactionDate
+
+• `Optional` **autoTransactionDate**: boolean
+
+### defaultCountry
+
+• `Optional` **defaultCountry**: [CountryCode](https://distributhor.github.io/paygate-sdk/enums/_types_.countrycode.html)
+
+### defaultCurrency
+
+• `Optional` **defaultCurrency**: [CurrencyCode](https://distributhor.github.io/paygate-sdk/enums/_types_.currencycode.html)
+
+### defaultLocale
+
+• `Optional` **defaultLocale**: [PayGateLocale](https://distributhor.github.io/paygate-sdk/enums/_types_.paygatelocale.html)
+
+### defaultPaymentMethod
+
+• `Optional` **defaultPaymentMethod**: [PaymentMethod](https://distributhor.github.io/paygate-sdk/enums/_types_.paymentmethod.html)
+
+### fallbackToZA
+
+• `Optional` **fallbackToZA**: boolean
 
 [Back to top](#table-of-contents)
 
