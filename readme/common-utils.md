@@ -1,4 +1,4 @@
-## General Utility Functions
+## Common Utility Functions
 
 Documentation in progress ...
 

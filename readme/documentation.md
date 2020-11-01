@@ -1,3 +1,12 @@
+### Table Of Contents
+
+- [Configuration](#configuration)
+- [Reference Implementation](#reference-implementation)
+- [API Client](#api-client)
+- [Express Middleware](#expressjs-middleware)
+- [Common Utils](#common-utility-functions)
+- [Types](#types)
+
 ## Configuration
 
 In progress .... PayGateConfig options
@@ -23,7 +32,7 @@ If you have an Ngrok auth token and PayGate credentials configured, then you can
 
 Once they are all up and running, navigate to http://localhost:8000 to test payments.
 
-## API Client Usage
+## API Client
 
 Documentation in progress ...
 
@@ -43,7 +52,7 @@ Documentation in progress ...
 
 ▸ `Static`**getInstance**(`payGateId?`: string, `payGateKey?`: string): [PayGateClient](https://distributhor.github.io/paygate-sdk/classes/_client_.paygateclient.html)
 
-## ExpressJS Middleware Usage
+## ExpressJS Middleware
 
 Documentation in progress ...
 
@@ -62,7 +71,7 @@ Documentation in progress ...
 
 ▸ **paymentStatusHandler**(`options`: [PayGateMiddlewareConfig](https://distributhor.github.io/paygate-sdk/interfaces/_middleware_.paygatemiddlewareconfig.html)): (Anonymous function)
 
-## General Utility Functions
+## Common Utility Functions
 
 Documentation in progress ...
 

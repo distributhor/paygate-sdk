@@ -1,4 +1,4 @@
-## API Client Usage
+## API Client
 
 Documentation in progress ...
 

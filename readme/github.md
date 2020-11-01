@@ -7,7 +7,7 @@
 
 ## Introduction
 
-This project is made up of a few parts which can be used seperately or in combination, to aid with building and integration to the South African payment provider [PayGate](https://www.paygate.co.za).
+This project is made up of a few parts which can be used seperately or in combination, to aid with building an integration to the South African payment provider [PayGate](https://www.paygate.co.za).
 
 Reference documentation can be found at https://distributhor.github.io/paygate-sdk/
 

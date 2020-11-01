@@ -1,4 +1,4 @@
-## ExpressJS Middleware Usage
+## ExpressJS Middleware
 
 Documentation in progress ...
 
