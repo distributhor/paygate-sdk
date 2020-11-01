@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>ErrorObject | Documentation</title>
+	<title>PayGateConfig | Documentation</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -59,7 +59,7 @@
 					<a href="../modules/_types_.html">types</a>
 				</li>
 				<li>
-					<a href="_types_.errorobject.html">ErrorObject</a>
+					<a href="_types_.paygateconfig.html">PayGateConfig</a>
 				</li>
 			</ul>
 		</div>
@@ -76,12 +76,12 @@
 			</nav>
 		</div>
 		<div class="col-7 offset-3 col-content">
-			<h1>Interface ErrorObject</h1>
+			<h1>Interface PayGateConfig</h1>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">ErrorObject</span>
+						<span class="target">PayGateConfig</span>
 					</li>
 				</ul>
 			</section>
@@ -91,7 +91,17 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_types_.errorobject.html#message" class="tsd-kind-icon">message</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_types_.paygateconfig.html#autopaymentreference" class="tsd-kind-icon">autoPaymentReference</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_types_.paygateconfig.html#autotransactiondate" class="tsd-kind-icon">autoTransactionDate</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_types_.paygateconfig.html#defaultcountry" class="tsd-kind-icon">defaultCountry</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_types_.paygateconfig.html#defaultcurrency" class="tsd-kind-icon">defaultCurrency</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_types_.paygateconfig.html#defaultlocale" class="tsd-kind-icon">defaultLocale</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_types_.paygateconfig.html#defaultpaymentmethod" class="tsd-kind-icon">defaultPaymentMethod</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_types_.paygateconfig.html#fallbacktoza" class="tsd-kind-icon">fallbackToZA</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_types_.paygateconfig.html#notifyurl" class="tsd-kind-icon">notifyUrl</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_types_.paygateconfig.html#paygateid" class="tsd-kind-icon">payGateId</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_types_.paygateconfig.html#paygatekey" class="tsd-kind-icon">payGateKey</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_types_.paygateconfig.html#returnurl" class="tsd-kind-icon">returnUrl</a></li>
 							</ul>
 						</section>
 					</div>
@@ -100,12 +110,112 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="message" class="tsd-anchor"></a>
-					<h3>message</h3>
-					<div class="tsd-signature tsd-kind-icon">message<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="autopaymentreference" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> auto<wbr>Payment<wbr>Reference</h3>
+					<div class="tsd-signature tsd-kind-icon">auto<wbr>Payment<wbr>Reference<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/types.ts:26</li>
+							<li>Defined in src/types.ts:44</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="autotransactiondate" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> auto<wbr>Transaction<wbr>Date</h3>
+					<div class="tsd-signature tsd-kind-icon">auto<wbr>Transaction<wbr>Date<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/types.ts:43</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="defaultcountry" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> default<wbr>Country</h3>
+					<div class="tsd-signature tsd-kind-icon">default<wbr>Country<span class="tsd-signature-symbol">:</span> <a href="../enums/_types_.countrycode.html" class="tsd-signature-type">CountryCode</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/types.ts:45</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="defaultcurrency" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> default<wbr>Currency</h3>
+					<div class="tsd-signature tsd-kind-icon">default<wbr>Currency<span class="tsd-signature-symbol">:</span> <a href="../enums/_types_.currencycode.html" class="tsd-signature-type">CurrencyCode</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/types.ts:46</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="defaultlocale" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> default<wbr>Locale</h3>
+					<div class="tsd-signature tsd-kind-icon">default<wbr>Locale<span class="tsd-signature-symbol">:</span> <a href="../enums/_types_.paygatelocale.html" class="tsd-signature-type">PayGateLocale</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/types.ts:47</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="defaultpaymentmethod" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> default<wbr>Payment<wbr>Method</h3>
+					<div class="tsd-signature tsd-kind-icon">default<wbr>Payment<wbr>Method<span class="tsd-signature-symbol">:</span> <a href="../enums/_types_.paymentmethod.html" class="tsd-signature-type">PaymentMethod</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/types.ts:48</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="fallbacktoza" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> fallback<wbr>ToZA</h3>
+					<div class="tsd-signature tsd-kind-icon">fallback<wbr>ToZA<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/types.ts:49</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="notifyurl" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> notify<wbr>Url</h3>
+					<div class="tsd-signature tsd-kind-icon">notify<wbr>Url<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/types.ts:42</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="paygateid" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> pay<wbr>Gate<wbr>Id</h3>
+					<div class="tsd-signature tsd-kind-icon">pay<wbr>Gate<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/types.ts:39</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="paygatekey" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> pay<wbr>Gate<wbr>Key</h3>
+					<div class="tsd-signature tsd-kind-icon">pay<wbr>Gate<wbr>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/types.ts:40</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="returnurl" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> return<wbr>Url</h3>
+					<div class="tsd-signature tsd-kind-icon">return<wbr>Url<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/types.ts:41</li>
 						</ul>
 					</aside>
 				</section>
@@ -136,21 +246,51 @@
 					<li class=" tsd-kind-interface tsd-parent-kind-module root">
 						<a href="_types_.creditcard.html" class="tsd-kind-icon">Credit<wbr>Card</a>
 					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module root">
+						<a href="_types_.errorobject.html" class="tsd-kind-icon">Error<wbr>Object</a>
+					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface tsd-parent-kind-module root">
-						<a href="_types_.errorobject.html" class="tsd-kind-icon">Error<wbr>Object</a>
+						<a href="_types_.paygateconfig.html" class="tsd-kind-icon">Pay<wbr>Gate<wbr>Config</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_types_.errorobject.html#message" class="tsd-kind-icon">message</a>
+								<a href="_types_.paygateconfig.html#autopaymentreference" class="tsd-kind-icon">auto<wbr>Payment<wbr>Reference</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_types_.paygateconfig.html#autotransactiondate" class="tsd-kind-icon">auto<wbr>Transaction<wbr>Date</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_types_.paygateconfig.html#defaultcountry" class="tsd-kind-icon">default<wbr>Country</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_types_.paygateconfig.html#defaultcurrency" class="tsd-kind-icon">default<wbr>Currency</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_types_.paygateconfig.html#defaultlocale" class="tsd-kind-icon">default<wbr>Locale</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_types_.paygateconfig.html#defaultpaymentmethod" class="tsd-kind-icon">default<wbr>Payment<wbr>Method</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_types_.paygateconfig.html#fallbacktoza" class="tsd-kind-icon">fallback<wbr>ToZA</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_types_.paygateconfig.html#notifyurl" class="tsd-kind-icon">notify<wbr>Url</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_types_.paygateconfig.html#paygateid" class="tsd-kind-icon">pay<wbr>Gate<wbr>Id</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_types_.paygateconfig.html#paygatekey" class="tsd-kind-icon">pay<wbr>Gate<wbr>Key</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_types_.paygateconfig.html#returnurl" class="tsd-kind-icon">return<wbr>Url</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-interface tsd-parent-kind-module root">
-						<a href="_types_.paygateconfig.html" class="tsd-kind-icon">Pay<wbr>Gate<wbr>Config</a>
-					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module root">
 						<a href="_types_.paymentreference.html" class="tsd-kind-icon">Payment<wbr>Reference</a>
 					</li>

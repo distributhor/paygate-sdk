@@ -1,16 +1,6 @@
 import { Request, Response, NextFunction } from "express";
-import { PaymentResponse, PaymentStatus } from "./types";
+import { PayGateConfig, PaymentResponse, PaymentStatus } from "./types";
 import { PayGateClient, InvalidRequest } from "./client";
-
-export interface PayGateMiddlewareConfig {
-  payGateId: string;
-  payGateKey: string;
-  returnUri: string;
-  notifyUri?: string;
-  defaultCurrency?: string;
-  defaultCountry?: string;
-  defaultLocale?: string;
-}
 
 export interface PayGateMiddlewareResult {
   badRequest?: string;
@@ -33,9 +23,9 @@ interface ExpressRequestWithPaymentStatus extends Request {
   paygate: PayGateMiddlewarePaymentStatus;
 }
 
-export function paymentRequestHandler(options: PayGateMiddlewareConfig) {
+export function paymentRequestHandler(options: PayGateConfig) {
   return async function (req: ExpressRequestWithPaymentResult, res: Response, next: NextFunction): Promise<void> {
-    if (!req.body || !req.body.amount || !req.body.email) {
+    if (!req.body || !req.body.AMOUNT || !req.body.EMAIL) {
       req.paygate = {
         badRequest: "Invalid payment request received",
       };
@@ -43,20 +33,9 @@ export function paymentRequestHandler(options: PayGateMiddlewareConfig) {
       return next();
     }
 
-    const paymentRequest = {
-      AMOUNT: req.body.amount,
-      EMAIL: req.body.email,
-      RETURN_URL: options.returnUri,
-      NOTIFY_URL: options.notifyUri,
-    };
-
     try {
-      const paymentResponse = await PayGateClient.getInstance(options.payGateId, options.payGateKey).requestPayment(
-        paymentRequest
-      );
-
       req.paygate = {
-        paymentResponse,
+        paymentResponse: await PayGateClient.getInstance(options).requestPayment(req.body),
       };
 
       return next();
@@ -76,7 +55,7 @@ export function paymentRequestHandler(options: PayGateMiddlewareConfig) {
   };
 }
 
-export function paymentNotificationHandler(options: PayGateMiddlewareConfig) {
+export function paymentNotificationHandler(options: PayGateConfig) {
   return async function (req: ExpressRequestWithPaymentStatus, res: Response, next: NextFunction): Promise<void> {
     if (!req.body || !req.body.PAY_REQUEST_ID) {
       req.paygate = {
@@ -87,7 +66,7 @@ export function paymentNotificationHandler(options: PayGateMiddlewareConfig) {
     }
 
     try {
-      await PayGateClient.getInstance(options.payGateId, options.payGateKey).handlePaymentNotification(req.body);
+      await PayGateClient.getInstance(options).handlePaymentNotification(req.body);
 
       // if (!cacheOperation || !cacheOperation.success) {
       //   console.log("Failed to cache payment status");
@@ -114,7 +93,7 @@ export function paymentNotificationHandler(options: PayGateMiddlewareConfig) {
   };
 }
 
-export function paymentStatusHandler(options: PayGateMiddlewareConfig) {
+export function paymentStatusHandler(options: PayGateConfig) {
   return async function (req: ExpressRequestWithPaymentStatus, res: Response, next: NextFunction): Promise<void> {
     if (!req.query || (!req.query.PAY_REQUEST_ID && !req.query.REFERENCE)) {
       req.paygate = {
@@ -125,7 +104,7 @@ export function paymentStatusHandler(options: PayGateMiddlewareConfig) {
     }
 
     try {
-      const paymentStatus = await PayGateClient.getInstance(options.payGateId, options.payGateKey).queryPaymentStatus({
+      const paymentStatus = await PayGateClient.getInstance(options).queryPaymentStatus({
         PAY_REQUEST_ID: req.query.PAY_REQUEST_ID ? (req.query.PAY_REQUEST_ID as string) : undefined,
         REFERENCE: req.query.REFERENCE ? (req.query.REFERENCE as string) : undefined,
       });

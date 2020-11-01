@@ -23,7 +23,7 @@ export default [
     input: "src/browser.ts",
     output: {
       file: "lib/paygate.js",
-      name: "paygate",
+      name: "Paygate",
       format: "iife",
     },
   },

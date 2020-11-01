@@ -5,7 +5,7 @@
 [![Total alerts][lgtm-alerts]](link-lgtm-alerts)
 [![Language grade: JavaScript][lgtm-code-quality]](lgtm-code-quality-link)
 
-## Currently In Progress
+## Work Currently In Progress
 
 - Validation improvements
 - Locales and currencies
@@ -13,7 +13,7 @@
 
 #include "readme/introduction.md"
 
-#include "readme/documentation.md"
+#include "readme/docs.md"
 
 ## License
 

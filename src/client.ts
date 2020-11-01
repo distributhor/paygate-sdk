@@ -9,15 +9,18 @@ import {
   PaymentRequest,
   PaymentResponse,
   PaymentReference,
-  PayGateEndpoints,
-  PayGateErrorCodes,
+  PayGateEndpoint,
+  PayGateErrorCode,
   SuccessIndicator,
   UntypedObject,
   ErrorProperty,
   ErrorObject,
-  Currency,
+  CurrencyCode,
+  PayGateConfig,
+  PayGateLocale,
 } from "./types";
 import * as util from "./util";
+import { CountryCode } from "./browser";
 
 /** @internal */
 const debugError = Debug("paygate-sdk:error");
@@ -76,20 +79,72 @@ const TypeChecks = {
 
 /** @internal */
 const PayGateData = {
-  sanitizePaymentRequest: (data: PaymentRequest, payGateId?: string, payGateKey?: string): PaymentRequest => {
+  getPaymentReference(data: PaymentRequest, config: PayGateConfig = {}): string {
+    if (data.REFERENCE) {
+      return data.REFERENCE;
+    }
+
+    return config.autoPaymentReference ? uuidv4() : undefined;
+  },
+
+  getTransactionDate(data: PaymentRequest, config: PayGateConfig = {}): string {
+    if (data.TRANSACTION_DATE) {
+      return data.TRANSACTION_DATE;
+    }
+
+    return config.autoTransactionDate ? DateTime.local().setZone("UTC").toISO() : undefined;
+  },
+
+  getCurrency(data: PaymentRequest, config: PayGateConfig = {}): CurrencyCode {
+    if (data.CURRENCY) {
+      return data.CURRENCY;
+    }
+
+    if (config.defaultCurrency) {
+      return config.defaultCurrency;
+    }
+
+    return config.fallbackToZA ? CurrencyCode.ZAR : undefined;
+  },
+
+  getCountry(data: PaymentRequest, config: PayGateConfig = {}): CountryCode {
+    if (data.COUNTRY) {
+      return data.COUNTRY;
+    }
+
+    if (config.defaultCountry) {
+      return config.defaultCountry;
+    }
+
+    return config.fallbackToZA ? CountryCode.ZAF : undefined;
+  },
+
+  getLocale(data: PaymentRequest, config: PayGateConfig = {}): PayGateLocale {
+    if (data.LOCALE) {
+      return data.LOCALE;
+    }
+
+    if (config.defaultLocale) {
+      return config.defaultLocale;
+    }
+
+    return PayGateLocale.ENGLISH;
+  },
+
+  sanitizePaymentRequest: (data: PaymentRequest, config: PayGateConfig = {}): PaymentRequest => {
     const obj: PaymentRequest = {
-      PAYGATE_ID: payGateId || data.PAYGATE_ID,
-      REFERENCE: data.REFERENCE || uuidv4(),
-      AMOUNT: util.toCentAmount(data.AMOUNT),
-      CURRENCY: data.CURRENCY || Currency.ZAR,
-      RETURN_URL: data.RETURN_URL,
-      TRANSACTION_DATE: data.TRANSACTION_DATE || DateTime.local().setZone("UTC").toISO(),
-      LOCALE: data.LOCALE || "en-za",
-      COUNTRY: data.COUNTRY || "ZAF",
+      PAYGATE_ID: data.PAYGATE_ID || config.payGateId,
+      REFERENCE: PayGateData.getPaymentReference(data, config),
+      AMOUNT: data.AMOUNT ? util.toCentAmount(data.AMOUNT) : undefined,
+      CURRENCY: PayGateData.getCurrency(data, config),
+      RETURN_URL: data.RETURN_URL || config.returnUrl || undefined,
+      TRANSACTION_DATE: PayGateData.getTransactionDate(data, config),
+      LOCALE: PayGateData.getLocale(data, config),
+      COUNTRY: PayGateData.getCountry(data, config),
       EMAIL: data.EMAIL,
-      PAY_METHOD: data.PAY_METHOD || undefined,
+      PAY_METHOD: data.PAY_METHOD || config.defaultPaymentMethod || undefined,
       PAY_METHOD_DETAIL: data.PAY_METHOD_DETAIL || undefined,
-      NOTIFY_URL: data.NOTIFY_URL || undefined,
+      NOTIFY_URL: data.NOTIFY_URL || config.notifyUrl || undefined,
       USER1: data.USER1 || undefined,
       USER2: data.USER2 || undefined,
       USER3: data.USER3 || undefined,
@@ -99,24 +154,24 @@ const PayGateData = {
 
     util.removeAllNonValuedProperties(obj);
 
-    if (payGateKey) {
-      obj.CHECKSUM = PayGateClient.generateChecksum(obj, payGateKey);
+    if (config.payGateKey) {
+      obj.CHECKSUM = PayGateClient.generateChecksum(obj, config.payGateKey);
     }
 
     return obj;
   },
 
-  sanitizePaymentRef: (data: PaymentReference, payGateId?: string, payGateKey?: string): PaymentReference => {
+  sanitizePaymentRef: (data: PaymentReference, config: PayGateConfig = {}): PaymentReference => {
     const obj: PaymentReference = {
-      PAYGATE_ID: payGateId || data.PAYGATE_ID,
+      PAYGATE_ID: data.PAYGATE_ID || config.payGateId,
       PAY_REQUEST_ID: data.PAY_REQUEST_ID,
       REFERENCE: data.REFERENCE,
     };
 
     util.removeAllNonValuedProperties(obj);
 
-    if (payGateKey) {
-      obj.CHECKSUM = PayGateClient.generateChecksum(obj, payGateKey);
+    if (config.payGateKey) {
+      obj.CHECKSUM = PayGateClient.generateChecksum(obj, config.payGateKey);
     }
 
     return obj;
@@ -161,8 +216,8 @@ export class PayGateError extends Error {
 
     if (TypeChecks.containsErrorProperty(cause)) {
       const error = cause.ERROR || cause.error;
-      if (PayGateErrorCodes[error]) {
-        return `[${error}] ${PayGateErrorCodes[error]}`;
+      if (PayGateErrorCode[error]) {
+        return `[${error}] ${PayGateErrorCode[error]}`;
       }
 
       return error;
@@ -206,31 +261,50 @@ export class InvalidRequest extends PayGateError {
 export class PayGateClient {
   private payGateId: string;
   private payGateKey: string;
+  private payGateConfig: PayGateConfig;
   private paymentCache: NodeCache;
 
   private static instance: PayGateClient;
 
-  constructor(payGateId?: string, payGateKey?: string) {
-    this.payGateId = payGateId;
-    this.payGateKey = payGateKey;
+  constructor(payGateIdOrConfig: string | PayGateConfig, payGateKey?: string) {
+    if (typeof payGateIdOrConfig === "string") {
+      // assume an ID and KEY as constructor constructor args
+      this.payGateId = payGateIdOrConfig;
+      this.payGateKey = payGateKey;
+      this.payGateConfig = { payGateId: payGateIdOrConfig, payGateKey };
+    } else {
+      // assume a PayGateConfig as constructor arg, and get ID and KEY from the config
+      this.payGateId = payGateIdOrConfig.payGateId || undefined;
+      this.payGateKey = payGateIdOrConfig.payGateKey || undefined;
+      this.payGateConfig = payGateIdOrConfig;
+    }
+
     this.paymentCache = new NodeCache({ stdTTL: 900, checkperiod: 1000 });
   }
 
-  static getInstance(payGateId?: string, payGateKey?: string): PayGateClient {
+  static getInstance(payGateIdOrConfig?: string | PayGateConfig, payGateKey?: string): PayGateClient {
+    let id: string = undefined;
+    let key: string = undefined;
+
+    if (payGateIdOrConfig) {
+      if (typeof payGateIdOrConfig === "string") {
+        id = payGateIdOrConfig;
+        key = payGateKey;
+      } else {
+        id = payGateIdOrConfig.payGateId || undefined;
+        key = payGateIdOrConfig.payGateKey || undefined;
+      }
+    }
+
     if (PayGateClient.instance) {
-      if (
-        payGateId &&
-        payGateKey &&
-        payGateId === PayGateClient.instance.payGateId &&
-        payGateKey === PayGateClient.instance.payGateKey
-      ) {
-        debugSingleton("Returning existing instance, credentials provided and matches current");
+      if (id && key && id === PayGateClient.instance.payGateId && key === PayGateClient.instance.payGateKey) {
+        debugSingleton("Returning existing instance, credentials was provided and matches current instance");
         return PayGateClient.instance;
       }
 
-      if (payGateId && payGateKey) {
-        debugSingleton("Creating new instance, credentials provided and differs from current");
-        PayGateClient.instance = new PayGateClient(payGateId, payGateKey);
+      if (id && key) {
+        debugSingleton("Creating new instance, credentials was provided, but differs from current instance");
+        PayGateClient.instance = new PayGateClient(payGateIdOrConfig, payGateKey);
         return PayGateClient.instance;
       }
 
@@ -240,26 +314,41 @@ export class PayGateClient {
 
     debugSingleton("No instance exists");
 
-    if (!payGateId || !payGateKey) {
+    if (!id || !key) {
       throw new PayGateError("No instance found, and insufficient credentials with which to authenticate");
     }
 
     debugSingleton("Creating new instance");
-    PayGateClient.instance = new PayGateClient(payGateId, payGateKey);
+    PayGateClient.instance = new PayGateClient(payGateIdOrConfig, payGateKey);
 
     return PayGateClient.instance;
   }
 
   async requestPayment(paymentRequest: PaymentRequest): Promise<PaymentResponse> {
     try {
-      const request = PayGateData.sanitizePaymentRequest(paymentRequest, this.payGateId, this.payGateKey);
+      const request = PayGateData.sanitizePaymentRequest(paymentRequest, this.payGateConfig);
+
+      if (
+        !request.PAYGATE_ID ||
+        !request.REFERENCE ||
+        !request.AMOUNT ||
+        !request.CURRENCY ||
+        !request.RETURN_URL ||
+        !request.TRANSACTION_DATE ||
+        !request.LOCALE ||
+        !request.COUNTRY ||
+        !request.EMAIL
+      ) {
+        throw new InvalidRequest("Required fields missing on payment request");
+      }
+
       const payload = qs.stringify(request);
 
       debugPaymentRequest("Payment request");
       debugPaymentRequest(payload);
       debugPaymentRequest(request);
 
-      const httpResponse = await superagent.post(PayGateEndpoints.INITIATE_URI).send(payload);
+      const httpResponse = await superagent.post(PayGateEndpoint.INITIATE_URI).send(payload);
 
       debugPaymentRequest("Payment response");
       debugPaymentRequest(httpResponse.text);
@@ -280,7 +369,7 @@ export class PayGateClient {
 
       const paymentResponse = {
         paymentRef: payGateResponse,
-        redirectUri: PayGateEndpoints.REDIRECT_URI,
+        redirectUri: PayGateEndpoint.REDIRECT_URI,
         redirectParams: {
           PAY_REQUEST_ID: payGateResponse.PAY_REQUEST_ID as string,
           CHECKSUM: payGateResponse.CHECKSUM as string,
@@ -308,7 +397,7 @@ export class PayGateClient {
     }
 
     try {
-      const request = PayGateData.sanitizePaymentRef(paymentRef, this.payGateId, this.payGateKey);
+      const request = PayGateData.sanitizePaymentRef(paymentRef, this.payGateConfig);
 
       if (!request.REFERENCE || !request.PAY_REQUEST_ID) {
         throw new InvalidRequest(
@@ -322,7 +411,7 @@ export class PayGateClient {
       debugPaymentStatus(payload);
       debugPaymentStatus(request);
 
-      const httpResponse = await superagent.post(PayGateEndpoints.QUERY_URI).send(payload);
+      const httpResponse = await superagent.post(PayGateEndpoint.QUERY_URI).send(payload);
 
       debugPaymentStatus("Payment status response");
       debugPaymentStatus(httpResponse.text);

@@ -1,13 +1,13 @@
-function requestPayment(amount, email) {
+function requestPayment(paymentRequest) {
   $.ajax({
     type: "POST",
     url: "http://localhost:7000/payment-request",
-    data: JSON.stringify({ amount: amount, email: email }),
+    data: JSON.stringify(paymentRequest),
     contentType: "application/json",
     dataType: "json",
     success: function (data) {
       if (data.redirectUri) {
-        paygate.util.redirectBrowser(data.redirectUri, data.redirectParams);
+        Paygate.Util.redirectBrowser(data.redirectUri, data.redirectParams);
       }
     },
     error: function (error) {
@@ -43,7 +43,7 @@ function queryPaymentStatus(paymentRef) {
     dataType: "json",
     success: function (data) {
       NProgress.done();
-      paygate.util.redirectBrowser("/status", data);
+      Paygate.Util.redirectBrowser("/status", data);
     },
     error: function (error) {
       NProgress.done();
@@ -111,7 +111,10 @@ $(document).ready(function () {
 
     $("#error").hide();
 
-    requestPayment(validation.amount, email);
+    requestPayment({
+      AMOUNT: validation.amount,
+      EMAIL: email,
+    });
   });
 
   $("#status").click(function () {

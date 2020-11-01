@@ -1,27 +1,29 @@
 import {
-  Currency,
+  CurrencyCode,
+  CountriesByCode,
+  CountryCode,
   PayGateLocale,
-  PayGateLocaleName,
-  PayGateEndpoints,
-  PayGateErrorCodes,
-  PaymentMethodCode,
+  PayGateEndpoint,
+  PayGateErrorCode,
+  PaymentMethod,
   TransactionStatus,
   TransactionCode,
-  PaymentMethod,
+  PaymentMethodName,
   PayGateTestCards,
-  TransactionResultCodes,
+  TransactionResultCode,
 } from "./types";
 
-export * as util from "./util";
+export * as Util from "./util";
 
-export { Currency as currency };
-export { PayGateLocale as locale };
-export { PayGateEndpoints as endpoint };
-export { PayGateErrorCodes as errorCode };
-export { PaymentMethod as paymentMethod };
-export { PayGateLocaleName as localeName };
-export { TransactionCode as transactionCode };
-export { PaymentMethodCode as paymentMethodCode };
-export { TransactionStatus as transactionStatus };
-export { TransactionResultCodes as resultCodes };
-export { PayGateTestCards as testCards };
+export { PayGateEndpoint as Endpoint };
+export { PaymentMethod };
+export { PaymentMethodName };
+export { TransactionStatus };
+export { TransactionCode };
+export { TransactionResultCode };
+export { PayGateErrorCode as ErrorCode };
+export { CurrencyCode };
+export { PayGateLocale as Locale };
+export { CountryCode };
+export { CountriesByCode };
+export { PayGateTestCards as TestCards };

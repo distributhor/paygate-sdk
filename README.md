@@ -5,7 +5,7 @@
 [![Total alerts][lgtm-alerts]](link-lgtm-alerts)
 [![Language grade: JavaScript][lgtm-code-quality]](lgtm-code-quality-link)
 
-## Currently In Progress
+## Work Currently In Progress
 
 - Validation improvements
 - Locales and currencies
@@ -128,75 +128,24 @@ Documentation in progress ...
 ### Enumerations
 
 - [Currency](https://distributhor.github.io/paygate-sdk/enums/_types_.currency.html)
-- [PayGateLocale](https://distributhor.github.io/paygate-sdk/enums/_types_.paygatelocale.html)
-- [PaymentMethodCode](https://distributhor.github.io/paygate-sdk/enums/_types_.paymentmethodcode.html)
+- [PaymentMethod](https://distributhor.github.io/paygate-sdk/enums/_types_.paymentmethod.html)
 - [TransactionCode](https://distributhor.github.io/paygate-sdk/enums/_types_.transactioncode.html)
+- [PayGateLocale](https://distributhor.github.io/paygate-sdk/enums/_types_.paygatelocale.html)
 
 ### Interfaces
 
-- [CreditCard](https://distributhor.github.io/paygate-sdk/interfaces/_types_.creditcard.html)
+- [UntypedObject](https://distributhor.github.io/paygate-sdk/interfaces/_types_.untypedobject.html)
 - [ErrorObject](https://distributhor.github.io/paygate-sdk/interfaces/_types_.errorobject.html)
-- [ErrorProperty](https://distributhor.github.io/paygate-sdk/interfaces/_types_.errorproperty.html)
-- [HttpResponse](https://distributhor.github.io/paygate-sdk/interfaces/_types_.httpresponse.html)
-- [PaymentReference](https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentreference.html)
 - [PaymentRequest](https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentrequest.html)
 - [PaymentResponse](https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentresponse.html)
+- [PaymentReference](https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentreference.html)
 - [PaymentStatus](https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentstatus.html)
 - [RedirectParams](https://distributhor.github.io/paygate-sdk/interfaces/_types_.redirectparams.html)
 - [SuccessIndicator](https://distributhor.github.io/paygate-sdk/interfaces/_types_.successindicator.html)
 - [TransactionDescription](https://distributhor.github.io/paygate-sdk/interfaces/_types_.transactiondescription.html)
-- [UntypedObject](https://distributhor.github.io/paygate-sdk/interfaces/_types_.untypedobject.html)
+- [CreditCard](https://distributhor.github.io/paygate-sdk/interfaces/_types_.creditcard.html)
 
 ### Object literals
-
-#### CommunicationAndDataResultCodes
-
-▪ `Const` **[CommunicationAndDataResultCodes](https://distributhor.github.io/paygate-sdk/modules/_types_.html#communicationanddataresultcodes)**: object
-
-#### Properties:
-
-| Name     | Type   | Value                                                                                               |
-| -------- | ------ | --------------------------------------------------------------------------------------------------- |
-| `900019` | string | "Invalid PayVault scope"                                                                            |
-| `900205` | string | "Unexpected authentication result (phase 1)"                                                        |
-| `900206` | string | "Unexpected authentication result (phase 2)"                                                        |
-| `900209` | string | "Transaction verification failed (phase 2) (verification data altered)"                             |
-| `900210` | string | "Authentication already complete; transaction must be restarted (verification done more than once)" |
-| `990001` | string | "Could not insert into DB"                                                                          |
-| `990013` | string | "Error processing a batch transaction"                                                              |
-| `990022` | string | "Bank not available"                                                                                |
-| `990024` | string | "Duplicate transaction detected"                                                                    |
-| `990028` | string | "Transaction cancelled"                                                                             |
-| `990053` | string | "Error processing transaction"                                                                      |
-
-#### CreditCardResultCodes
-
-▪ `Const` **[CreditCardResultCodes](https://distributhor.github.io/paygate-sdk/modules/_types_.html#creditcardresultcodes)**: object
-
-#### Properties:
-
-| Name     | Type   | Value                                                           |
-| -------- | ------ | --------------------------------------------------------------- |
-| `900001` | string | "Call for approval"                                             |
-| `900002` | string | "Card expired"                                                  |
-| `900003` | string | "Insufficient funds"                                            |
-| `900004` | string | "Invalid card number"                                           |
-| `900005` | string | "Bank interface timeout"                                        |
-| `900006` | string | "Invalid card"                                                  |
-| `900007` | string | "Declined"                                                      |
-| `900009` | string | "Lost card"                                                     |
-| `900010` | string | "Invalid card length"                                           |
-| `900011` | string | "Suspected fraud"                                               |
-| `900012` | string | "Card reported as stolen"                                       |
-| `900013` | string | "Restricted card"                                               |
-| `900014` | string | "Excessive card usage"                                          |
-| `900015` | string | "Card blacklisted"                                              |
-| `900017` | string | "Auth done"                                                     |
-| `900207` | string | "Declined; authentication failed (incorrect verification code)" |
-| `900210` | string | "3D Secure lookup timeout"                                      |
-| `990020` | string | "Auth declined"                                                 |
-| `991001` | string | "Invalid expiry date"                                           |
-| `991002` | string | "Invalid amount"                                                |
 
 #### PayGateEndpoints
 
@@ -210,7 +159,21 @@ Documentation in progress ...
 | `QUERY_URI`    | string | "https://secure.paygate.co.za/payweb3/query.trans"    |
 | `REDIRECT_URI` | string | "https://secure.paygate.co.za/payweb3/process.trans"  |
 
----
+#### TransactionStatus
+
+▪ `Const` **[TransactionStatus](https://distributhor.github.io/paygate-sdk/modules/_types_.html#transactionstatus)**: object
+
+#### Properties:
+
+| Name | Type   | Value                 |
+| ---- | ------ | --------------------- |
+| `0`  | string | "Not Done"            |
+| `1`  | string | "Approved"            |
+| `2`  | string | "Declined"            |
+| `3`  | string | "Cancelled"           |
+| `4`  | string | "User Cancelled"      |
+| `5`  | string | "Received by PayGate" |
+| `7`  | string | "Settlement Voided"   |
 
 #### PayGateErrorCodes
 
@@ -246,9 +209,54 @@ Documentation in progress ...
 | `TXN_PRC`            | string | "Transaction is older than 30 minutes or there has been an error processing it"                       |
 | `VAULT_NOT_ACCEPTED` | string | "Card types enabled on terminal not available for vaulting"                                           |
 
-#### PayGateLocaleName
+#### CreditCardResultCodes
 
-▪ `Const` **[PayGateLocaleName](https://distributhor.github.io/paygate-sdk/modules/_types_.html#paygatelocalename)**: object
+▪ `Const` **[CreditCardResultCodes](https://distributhor.github.io/paygate-sdk/modules/_types_.html#creditcardresultcodes)**: object
+
+#### Properties:
+
+| Name     | Type   | Value                                                           |
+| -------- | ------ | --------------------------------------------------------------- |
+| `900001` | string | "Call for approval"                                             |
+| `900002` | string | "Card expired"                                                  |
+| `900003` | string | "Insufficient funds"                                            |
+| `900004` | string | "Invalid card number"                                           |
+| `900005` | string | "Bank interface timeout"                                        |
+| `900006` | string | "Invalid card"                                                  |
+| `900007` | string | "Declined"                                                      |
+| `900009` | string | "Lost card"                                                     |
+| `900010` | string | "Invalid card length"                                           |
+| `900011` | string | "Suspected fraud"                                               |
+| `900012` | string | "Card reported as stolen"                                       |
+| `900013` | string | "Restricted card"                                               |
+| `900014` | string | "Excessive card usage"                                          |
+| `900015` | string | "Card blacklisted"                                              |
+| `900017` | string | "Auth done"                                                     |
+| `900207` | string | "Declined; authentication failed (incorrect verification code)" |
+| `900210` | string | "3D Secure lookup timeout"                                      |
+| `990020` | string | "Auth declined"                                                 |
+| `991001` | string | "Invalid expiry date"                                           |
+| `991002` | string | "Invalid amount"                                                |
+
+#### CommunicationAndDataResultCodes
+
+▪ `Const` **[CommunicationAndDataResultCodes](https://distributhor.github.io/paygate-sdk/modules/_types_.html#communicationanddataresultcodes)**: object
+
+#### Properties:
+
+| Name     | Type   | Value                                                                                               |
+| -------- | ------ | --------------------------------------------------------------------------------------------------- |
+| `900019` | string | "Invalid PayVault scope"                                                                            |
+| `900205` | string | "Unexpected authentication result (phase 1)"                                                        |
+| `900206` | string | "Unexpected authentication result (phase 2)"                                                        |
+| `900209` | string | "Transaction verification failed (phase 2) (verification data altered)"                             |
+| `900210` | string | "Authentication already complete; transaction must be restarted (verification done more than once)" |
+| `990001` | string | "Could not insert into DB"                                                                          |
+| `990013` | string | "Error processing a batch transaction"                                                              |
+| `990022` | string | "Bank not available"                                                                                |
+| `990024` | string | "Duplicate transaction detected"                                                                    |
+| `990028` | string | "Transaction cancelled"                                                                             |
+| `990053` | string | "Error processing transaction"                                                                      |
 
 #### Properties:
 
@@ -260,6 +268,21 @@ Documentation in progress ...
 | `tn` | string | "Tswana"    |
 | `ve` | string | "Venda"     |
 | `zu` | string | "Zulu"      |
+
+#### PaymentMethodName
+
+▪ `Const` **[PaymentMethodName](https://distributhor.github.io/paygate-sdk/modules/_types_.html#paymentmethodname)**: object
+
+#### Properties:
+
+| Name | Type   | Value           |
+| ---- | ------ | --------------- |
+| `BT` | string | "Bank Transfer" |
+| `CC` | string | "Credit Card"   |
+| `CV` | string | "Cash Voucher"  |
+| `DC` | string | "Debit Card"    |
+| `EW` | string | "E-Wallet"      |
+| `PC` | string | "Pre-Paid Card" |
 
 #### PayGateTestCards
 
@@ -273,37 +296,6 @@ Documentation in progress ...
 | `Declined`          | object | { MasterCard: string = "4000000000000036"; Visa: string = "5200000000000049" } |
 | `InsufficientFunds` | object | { MasterCard: string = "5200000000000023"; Visa: string = "4000000000000028" } |
 | `NotProcessed`      | object | { MasterCard: string = "5200000000000064" }                                    |
-
-#### PaymentMethod
-
-▪ `Const` **[PaymentMethod](https://distributhor.github.io/paygate-sdk/modules/_types_.html#paymentmethod)**: object
-
-#### Properties:
-
-| Name | Type   | Value           |
-| ---- | ------ | --------------- |
-| `BT` | string | "Bank Transfer" |
-| `CC` | string | "Credit Card"   |
-| `CV` | string | "Cash Voucher"  |
-| `DC` | string | "Debit Card"    |
-| `EW` | string | "E-Wallet"      |
-| `PC` | string | "Pre-Paid Card" |
-
-#### TransactionStatus
-
-▪ `Const` **[TransactionStatus](https://distributhor.github.io/paygate-sdk/modules/_types_.html#transactionstatus)**: object
-
-#### Properties:
-
-| Name | Type   | Value                 |
-| ---- | ------ | --------------------- |
-| `0`  | string | "Not Done"            |
-| `1`  | string | "Approved"            |
-| `2`  | string | "Declined"            |
-| `3`  | string | "Cancelled"           |
-| `4`  | string | "User Cancelled"      |
-| `5`  | string | "Received by PayGate" |
-| `7`  | string | "Settlement Voided"   |
 
 ## License
 

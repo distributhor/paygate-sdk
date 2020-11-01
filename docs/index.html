@@ -75,25 +75,608 @@
 				<a href="#reference-implementation" id="reference-implementation" style="color: inherit; text-decoration: none;">
 					<h2>Reference Implementation</h2>
 				</a>
-				<p>#include &quot;readme/reference-impl.md&quot;</p>
+				<p>There is also a reference implementation available under the <code>impl</code> folder. It consists of an ExpressJS backend that exposes endpoints via the middleware functions (which in turn uses the TS/JS API client), and a very simple frontend with which to test payments. It should demonstrate how to use these components in your own project. The reference implementation can run in your local development environment in only a few easy steps.</p>
+				<a href="#ngrok-token" id="ngrok-token" style="color: inherit; text-decoration: none;">
+					<h3>Ngrok Token</h3>
+				</a>
+				<p>In order to run the reference implementation locally, you will need to have an account with Ngrok <a href="https://ngrok.com/">https://ngrok.com/</a>. A basic account is free and quick to set up. Ngrok, if you don&#39;t already know, is a service that can make your local development server available on a public URL via a secure tunnel. This is needed because PayGate needs to return to a URL that is publically available, after processing a payment. So we use Ngrok to expose the frontend app to the web.</p>
+				<p>Once you have an Ngrok authentication token, copy the file <code>impl/proxy/.env.sample</code> to <code>impl/proxy/.env</code> and replace the fake value with your authentication token. This is all that will be required to configure the tunelling environment.</p>
+				<a href="#paygate-credentials" id="paygate-credentials" style="color: inherit; text-decoration: none;">
+					<h3>PayGate Credentials</h3>
+				</a>
+				<p>The backend server implementation needs to know which PayGate credentials to use for testing. Copy the file <code>impl/server/.env.sample</code> to <code>impl/server.env</code>. It is already configured with the default PayGate test credentials, so no further action is needed. But if you wanted to test with different credentials, you may update them in this file.</p>
+				<a href="#running-the-reference-implementation-locally" id="running-the-reference-implementation-locally" style="color: inherit; text-decoration: none;">
+					<h3>Running the reference implementation locally</h3>
+				</a>
+				<p>If you have an Ngrok auth token and PayGate credentials configured, then you can simply run <code>yarn install</code> and <code>yarn develop</code> in each of the folders <code>impl/proxy</code>, <code>impl/server</code> and <code>impl/app</code>, and the proxy needs to be the first one to run. This (the fact that 3 different instance are running in 3 consoles) may be improved later to allow for a somewhat better development experience.</p>
+				<p>Once they are all up and running, navigate to <a href="http://localhost:8000">http://localhost:8000</a> to test payments.</p>
 				<a href="#api-client-usage" id="api-client-usage" style="color: inherit; text-decoration: none;">
 					<h2>API Client Usage</h2>
 				</a>
-				<p>#include &quot;readme/api-client.md&quot;</p>
+				<p>Documentation in progress ...</p>
+				<a href="#constructor" id="constructor" style="color: inherit; text-decoration: none;">
+					<h3>Constructor</h3>
+				</a>
+				<p>+ <strong>new PayGateClient</strong>(<code>payGateId?</code>: string, <code>payGateKey?</code>: string): <a href="https://distributhor.github.io/paygate-sdk/classes/_client_.paygateclient.html">PayGateClient</a></p>
+				<a href="#methods" id="methods" style="color: inherit; text-decoration: none;">
+					<h3>Methods</h3>
+				</a>
+				<p>▸ <strong>handlePaymentNotification</strong>(<code>paymentStatus</code>: <a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentstatus.html">PaymentStatus</a>): Promise&lt;<a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.successindicator.html">SuccessIndicator</a>&gt;</p>
+				<p>▸ <strong>queryPaymentStatus</strong>(<code>paymentRef</code>: <a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentreference.html">PaymentReference</a>): Promise&lt;<a href="https://distributhor.github.io/paygate-sdk/classes/_client_.paygateclient.html">PaymentStatus</a>&gt;</p>
+				<p>▸ <strong>requestPayment</strong>(<code>paymentRequest</code>: <a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentrequest.html">PaymentRequest</a>): Promise&lt;<a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentresponse.html">PaymentResponse</a>&gt;</p>
+				<p>▸ <code>Static</code><strong>generateChecksum</strong>(<code>data</code>: <a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.untypedobject.html">UntypedObject</a>, <code>encryptionKey</code>: string): string</p>
+				<p>▸ <code>Static</code><strong>getInstance</strong>(<code>payGateId?</code>: string, <code>payGateKey?</code>: string): <a href="https://distributhor.github.io/paygate-sdk/classes/_client_.paygateclient.html">PayGateClient</a></p>
 				<a href="#expressjs-middleware-usage" id="expressjs-middleware-usage" style="color: inherit; text-decoration: none;">
 					<h2>ExpressJS Middleware Usage</h2>
 				</a>
-				<p>#include &quot;readme/middleware.md&quot;</p>
+				<p>Documentation in progress ...</p>
+				<a href="#interfaces" id="interfaces" style="color: inherit; text-decoration: none;">
+					<h3>Interfaces</h3>
+				</a>
+				<ul>
+					<li><a href="https://distributhor.github.io/paygate-sdk/interfaces/_middleware_.paygatemiddlewareconfig.html">PayGateMiddlewareConfig</a></li>
+					<li><a href="https://distributhor.github.io/paygate-sdk/interfaces/_middleware_.paygatemiddlewarepaymentresult.html">PayGateMiddlewarePaymentResult</a></li>
+					<li><a href="https://distributhor.github.io/paygate-sdk/interfaces/_middleware_.paygatemiddlewarepaymentstatus.html">PayGateMiddlewarePaymentStatus</a></li>
+					<li><a href="https://distributhor.github.io/paygate-sdk/interfaces/_middleware_.paygatemiddlewareresult.html">PayGateMiddlewareResult</a></li>
+				</ul>
+				<a href="#functions" id="functions" style="color: inherit; text-decoration: none;">
+					<h3>Functions</h3>
+				</a>
+				<p>▸ <strong>paymentNotificationHandler</strong>(<code>options</code>: <a href="https://distributhor.github.io/paygate-sdk/interfaces/_middleware_.paygatemiddlewareconfig.html">PayGateMiddlewareConfig</a>): (Anonymous function)</p>
+				<p>▸ <strong>paymentRequestHandler</strong>(<code>options</code>: <a href="https://distributhor.github.io/paygate-sdk/interfaces/_middleware_.paygatemiddlewareconfig.html">PayGateMiddlewareConfig</a>): (Anonymous function)</p>
+				<p>▸ <strong>paymentStatusHandler</strong>(<code>options</code>: <a href="https://distributhor.github.io/paygate-sdk/interfaces/_middleware_.paygatemiddlewareconfig.html">PayGateMiddlewareConfig</a>): (Anonymous function)</p>
 				<a href="#general-utility-functions" id="general-utility-functions" style="color: inherit; text-decoration: none;">
 					<h2>General Utility Functions</h2>
 				</a>
-				<p>#include &quot;readme/common-utils.md&quot;</p>
+				<p>Documentation in progress ...</p>
+				<pre><code class="language-javascript">generatePayGateChecksum();
+getTransactionDescription();
+getTestCards();
+toCentAmount();
+redirectBrowser();
+PayGateLocale;
+PayGateEndpoints;
+PayGateErrorCodes;
+PaymentMethod;
+TransactionCode;
+TransactionStatus;
+TransactionResultCodes;
+PayGateTestCards;</code></pre>
+				<a href="#functions-1" id="functions-1" style="color: inherit; text-decoration: none;">
+					<h3>Functions</h3>
+				</a>
+				<p>▸ <strong>generatePayGateChecksum</strong>(<code>data</code>: <a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.untypedobject.html">UntypedObject</a>, <code>encryptionKey</code>: string): string</p>
+				<p>▸ <strong>getTestCards</strong>(): <a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.creditcard.html">CreditCard</a>[]</p>
+				<p>▸ <strong>getTestCardsByTransactionType</strong>(): <a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.creditcard.html">CreditCard</a>[]</p>
+				<p>▸ <strong>getTransactionDescription</strong>(<code>paymentStatus</code>: <a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentstatus.html">PaymentStatus</a>): <a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.transactiondescription.html">TransactionDescription</a></p>
+				<p>▸ <strong>redirectBrowser</strong>(<code>uri</code>: string, <code>params</code>: any): void</p>
+				<p>▸ <strong>removeAllNonValuedProperties</strong>(<code>obj</code>: <a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.untypedobject.html">UntypedObject</a>): void</p>
+				<p>▸ <strong>toCentAmount</strong>(<code>amount</code>: string | number): string</p>
 				<a href="#types" id="types" style="color: inherit; text-decoration: none;">
 					<h2>Types</h2>
 				</a>
-				<p>#include &quot;readme/types.md&quot;</p>
+				<p>Documentation in progress ...</p>
+				<a href="#enumerations" id="enumerations" style="color: inherit; text-decoration: none;">
+					<h3>Enumerations</h3>
+				</a>
+				<ul>
+					<li><a href="https://distributhor.github.io/paygate-sdk/enums/_types_.currency.html">Currency</a></li>
+					<li><a href="https://distributhor.github.io/paygate-sdk/enums/_types_.paymentmethod.html">PaymentMethod</a></li>
+					<li><a href="https://distributhor.github.io/paygate-sdk/enums/_types_.transactioncode.html">TransactionCode</a></li>
+					<li><a href="https://distributhor.github.io/paygate-sdk/enums/_types_.paygatelocale.html">PayGateLocale</a></li>
+				</ul>
+				<a href="#interfaces-1" id="interfaces-1" style="color: inherit; text-decoration: none;">
+					<h3>Interfaces</h3>
+				</a>
+				<ul>
+					<li><a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.untypedobject.html">UntypedObject</a></li>
+					<li><a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.errorobject.html">ErrorObject</a></li>
+					<li><a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentrequest.html">PaymentRequest</a></li>
+					<li><a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentresponse.html">PaymentResponse</a></li>
+					<li><a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentreference.html">PaymentReference</a></li>
+					<li><a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentstatus.html">PaymentStatus</a></li>
+					<li><a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.redirectparams.html">RedirectParams</a></li>
+					<li><a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.successindicator.html">SuccessIndicator</a></li>
+					<li><a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.transactiondescription.html">TransactionDescription</a></li>
+					<li><a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.creditcard.html">CreditCard</a></li>
+				</ul>
+				<a href="#object-literals" id="object-literals" style="color: inherit; text-decoration: none;">
+					<h3>Object literals</h3>
+				</a>
+				<a href="#paygateendpoints" id="paygateendpoints" style="color: inherit; text-decoration: none;">
+					<h4>PayGateEndpoints</h4>
+				</a>
+				<p>▪ <code>Const</code> <strong><a href="https://distributhor.github.io/paygate-sdk/modules/_types_.html#paygateendpoints">PayGateEndpoints</a></strong>: object</p>
+				<a href="#properties" id="properties" style="color: inherit; text-decoration: none;">
+					<h4>Properties:</h4>
+				</a>
+				<table>
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Type</th>
+							<th>Value</th>
+						</tr>
+					</thead>
+					<tbody><tr>
+							<td><code>INITIATE_URI</code></td>
+							<td>string</td>
+							<td>&quot;<a href="https://secure.paygate.co.za/payweb3/initiate.trans&quot;">https://secure.paygate.co.za/payweb3/initiate.trans&quot;</a></td>
+						</tr>
+						<tr>
+							<td><code>QUERY_URI</code></td>
+							<td>string</td>
+							<td>&quot;<a href="https://secure.paygate.co.za/payweb3/query.trans&quot;">https://secure.paygate.co.za/payweb3/query.trans&quot;</a></td>
+						</tr>
+						<tr>
+							<td><code>REDIRECT_URI</code></td>
+							<td>string</td>
+							<td>&quot;<a href="https://secure.paygate.co.za/payweb3/process.trans&quot;">https://secure.paygate.co.za/payweb3/process.trans&quot;</a></td>
+						</tr>
+				</tbody></table>
+				<a href="#transactionstatus" id="transactionstatus" style="color: inherit; text-decoration: none;">
+					<h4>TransactionStatus</h4>
+				</a>
+				<p>▪ <code>Const</code> <strong><a href="https://distributhor.github.io/paygate-sdk/modules/_types_.html#transactionstatus">TransactionStatus</a></strong>: object</p>
+				<a href="#properties-1" id="properties-1" style="color: inherit; text-decoration: none;">
+					<h4>Properties:</h4>
+				</a>
+				<table>
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Type</th>
+							<th>Value</th>
+						</tr>
+					</thead>
+					<tbody><tr>
+							<td><code>0</code></td>
+							<td>string</td>
+							<td>&quot;Not Done&quot;</td>
+						</tr>
+						<tr>
+							<td><code>1</code></td>
+							<td>string</td>
+							<td>&quot;Approved&quot;</td>
+						</tr>
+						<tr>
+							<td><code>2</code></td>
+							<td>string</td>
+							<td>&quot;Declined&quot;</td>
+						</tr>
+						<tr>
+							<td><code>3</code></td>
+							<td>string</td>
+							<td>&quot;Cancelled&quot;</td>
+						</tr>
+						<tr>
+							<td><code>4</code></td>
+							<td>string</td>
+							<td>&quot;User Cancelled&quot;</td>
+						</tr>
+						<tr>
+							<td><code>5</code></td>
+							<td>string</td>
+							<td>&quot;Received by PayGate&quot;</td>
+						</tr>
+						<tr>
+							<td><code>7</code></td>
+							<td>string</td>
+							<td>&quot;Settlement Voided&quot;</td>
+						</tr>
+				</tbody></table>
+				<a href="#paygateerrorcodes" id="paygateerrorcodes" style="color: inherit; text-decoration: none;">
+					<h4>PayGateErrorCodes</h4>
+				</a>
+				<p>▪ <code>Const</code> <strong><a href="https://distributhor.github.io/paygate-sdk/modules/_types_.html#paygateerrorcodes">PayGateErrorCodes</a></strong>: object</p>
+				<a href="#properties-2" id="properties-2" style="color: inherit; text-decoration: none;">
+					<h4>Properties:</h4>
+				</a>
+				<table>
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Type</th>
+							<th>Value</th>
+						</tr>
+					</thead>
+					<tbody><tr>
+							<td><code>CNTRY_INVALID</code></td>
+							<td>string</td>
+							<td>&quot;Country Invalid&quot;</td>
+						</tr>
+						<tr>
+							<td><code>DATA_AMT_NUM</code></td>
+							<td>string</td>
+							<td>&quot;Amount is not a number&quot;</td>
+						</tr>
+						<tr>
+							<td><code>DATA_AMT_ZERO</code></td>
+							<td>string</td>
+							<td>&quot;Amount value is zero&quot;</td>
+						</tr>
+						<tr>
+							<td><code>DATA_CHK</code></td>
+							<td>string</td>
+							<td>&quot;Checksum calculated incorrectly&quot;</td>
+						</tr>
+						<tr>
+							<td><code>DATA_CREF</code></td>
+							<td>string</td>
+							<td>&quot;No transaction reference&quot;</td>
+						</tr>
+						<tr>
+							<td><code>DATA_DTTM</code></td>
+							<td>string</td>
+							<td>&quot;Transaction date invalid&quot;</td>
+						</tr>
+						<tr>
+							<td><code>DATA_INS</code></td>
+							<td>string</td>
+							<td>&quot;Error creating record for transaction request&quot;</td>
+						</tr>
+						<tr>
+							<td><code>DATA_PAY_REQ_ID</code></td>
+							<td>string</td>
+							<td>&quot;Pay request ID missing or invalid&quot;</td>
+						</tr>
+						<tr>
+							<td><code>DATA_PM</code></td>
+							<td>string</td>
+							<td>&quot;Pay Method or Pay Method Detail fields invalid&quot;</td>
+						</tr>
+						<tr>
+							<td><code>DATA_PW</code></td>
+							<td>string</td>
+							<td>&quot;Not all required fields have been posted to PayWeb&quot;</td>
+						</tr>
+						<tr>
+							<td><code>DATA_REGION</code></td>
+							<td>string</td>
+							<td>&quot;No Country or Locale&quot;</td>
+						</tr>
+						<tr>
+							<td><code>DATA_URL</code></td>
+							<td>string</td>
+							<td>&quot;No return url&quot;</td>
+						</tr>
+						<tr>
+							<td><code>INVALID_VAULT</code></td>
+							<td>string</td>
+							<td>&quot;Vault value invalid&quot;</td>
+						</tr>
+						<tr>
+							<td><code>INVALID_VAULT_ID</code></td>
+							<td>string</td>
+							<td>&quot;Vault ID invalid&quot;</td>
+						</tr>
+						<tr>
+							<td><code>INV_EMAIL</code></td>
+							<td>string</td>
+							<td>&quot;Invalid Email address&quot;</td>
+						</tr>
+						<tr>
+							<td><code>LOCALE_INVALID</code></td>
+							<td>string</td>
+							<td>&quot;Invalid Locale&quot;</td>
+						</tr>
+						<tr>
+							<td><code>ND_INV_PGID</code></td>
+							<td>string</td>
+							<td>&quot;Invalid PayGate ID&quot;</td>
+						</tr>
+						<tr>
+							<td><code>NOT_LIVE_PM</code></td>
+							<td>string</td>
+							<td>&quot;No available payment methods&quot;</td>
+						</tr>
+						<tr>
+							<td><code>NO_TRANS_DATA</code></td>
+							<td>string</td>
+							<td>&quot;No transaction data found&quot;</td>
+						</tr>
+						<tr>
+							<td><code>PAYVAULT_NOT_EN</code></td>
+							<td>string</td>
+							<td>&quot;PayVault not enabled&quot;</td>
+						</tr>
+						<tr>
+							<td><code>PGID_NOT_EN</code></td>
+							<td>string</td>
+							<td>&quot;PayGate ID not enabled, there are no available payment methods or there are no available currencies&quot;</td>
+						</tr>
+						<tr>
+							<td><code>TXN_CAN</code></td>
+							<td>string</td>
+							<td>&quot;Transaction has already been cancelled&quot;</td>
+						</tr>
+						<tr>
+							<td><code>TXN_CMP</code></td>
+							<td>string</td>
+							<td>&quot;Transaction has already been completed&quot;</td>
+						</tr>
+						<tr>
+							<td><code>TXN_PRC</code></td>
+							<td>string</td>
+							<td>&quot;Transaction is older than 30 minutes or there has been an error processing it&quot;</td>
+						</tr>
+						<tr>
+							<td><code>VAULT_NOT_ACCEPTED</code></td>
+							<td>string</td>
+							<td>&quot;Card types enabled on terminal not available for vaulting&quot;</td>
+						</tr>
+				</tbody></table>
+				<a href="#creditcardresultcodes" id="creditcardresultcodes" style="color: inherit; text-decoration: none;">
+					<h4>CreditCardResultCodes</h4>
+				</a>
+				<p>▪ <code>Const</code> <strong><a href="https://distributhor.github.io/paygate-sdk/modules/_types_.html#creditcardresultcodes">CreditCardResultCodes</a></strong>: object</p>
+				<a href="#properties-3" id="properties-3" style="color: inherit; text-decoration: none;">
+					<h4>Properties:</h4>
+				</a>
+				<table>
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Type</th>
+							<th>Value</th>
+						</tr>
+					</thead>
+					<tbody><tr>
+							<td><code>900001</code></td>
+							<td>string</td>
+							<td>&quot;Call for approval&quot;</td>
+						</tr>
+						<tr>
+							<td><code>900002</code></td>
+							<td>string</td>
+							<td>&quot;Card expired&quot;</td>
+						</tr>
+						<tr>
+							<td><code>900003</code></td>
+							<td>string</td>
+							<td>&quot;Insufficient funds&quot;</td>
+						</tr>
+						<tr>
+							<td><code>900004</code></td>
+							<td>string</td>
+							<td>&quot;Invalid card number&quot;</td>
+						</tr>
+						<tr>
+							<td><code>900005</code></td>
+							<td>string</td>
+							<td>&quot;Bank interface timeout&quot;</td>
+						</tr>
+						<tr>
+							<td><code>900006</code></td>
+							<td>string</td>
+							<td>&quot;Invalid card&quot;</td>
+						</tr>
+						<tr>
+							<td><code>900007</code></td>
+							<td>string</td>
+							<td>&quot;Declined&quot;</td>
+						</tr>
+						<tr>
+							<td><code>900009</code></td>
+							<td>string</td>
+							<td>&quot;Lost card&quot;</td>
+						</tr>
+						<tr>
+							<td><code>900010</code></td>
+							<td>string</td>
+							<td>&quot;Invalid card length&quot;</td>
+						</tr>
+						<tr>
+							<td><code>900011</code></td>
+							<td>string</td>
+							<td>&quot;Suspected fraud&quot;</td>
+						</tr>
+						<tr>
+							<td><code>900012</code></td>
+							<td>string</td>
+							<td>&quot;Card reported as stolen&quot;</td>
+						</tr>
+						<tr>
+							<td><code>900013</code></td>
+							<td>string</td>
+							<td>&quot;Restricted card&quot;</td>
+						</tr>
+						<tr>
+							<td><code>900014</code></td>
+							<td>string</td>
+							<td>&quot;Excessive card usage&quot;</td>
+						</tr>
+						<tr>
+							<td><code>900015</code></td>
+							<td>string</td>
+							<td>&quot;Card blacklisted&quot;</td>
+						</tr>
+						<tr>
+							<td><code>900017</code></td>
+							<td>string</td>
+							<td>&quot;Auth done&quot;</td>
+						</tr>
+						<tr>
+							<td><code>900207</code></td>
+							<td>string</td>
+							<td>&quot;Declined; authentication failed (incorrect verification code)&quot;</td>
+						</tr>
+						<tr>
+							<td><code>900210</code></td>
+							<td>string</td>
+							<td>&quot;3D Secure lookup timeout&quot;</td>
+						</tr>
+						<tr>
+							<td><code>990020</code></td>
+							<td>string</td>
+							<td>&quot;Auth declined&quot;</td>
+						</tr>
+						<tr>
+							<td><code>991001</code></td>
+							<td>string</td>
+							<td>&quot;Invalid expiry date&quot;</td>
+						</tr>
+						<tr>
+							<td><code>991002</code></td>
+							<td>string</td>
+							<td>&quot;Invalid amount&quot;</td>
+						</tr>
+				</tbody></table>
+				<a href="#communicationanddataresultcodes" id="communicationanddataresultcodes" style="color: inherit; text-decoration: none;">
+					<h4>CommunicationAndDataResultCodes</h4>
+				</a>
+				<p>▪ <code>Const</code> <strong><a href="https://distributhor.github.io/paygate-sdk/modules/_types_.html#communicationanddataresultcodes">CommunicationAndDataResultCodes</a></strong>: object</p>
+				<a href="#properties-4" id="properties-4" style="color: inherit; text-decoration: none;">
+					<h4>Properties:</h4>
+				</a>
+				<table>
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Type</th>
+							<th>Value</th>
+						</tr>
+					</thead>
+					<tbody><tr>
+							<td><code>900019</code></td>
+							<td>string</td>
+							<td>&quot;Invalid PayVault scope&quot;</td>
+						</tr>
+						<tr>
+							<td><code>900205</code></td>
+							<td>string</td>
+							<td>&quot;Unexpected authentication result (phase 1)&quot;</td>
+						</tr>
+						<tr>
+							<td><code>900206</code></td>
+							<td>string</td>
+							<td>&quot;Unexpected authentication result (phase 2)&quot;</td>
+						</tr>
+						<tr>
+							<td><code>900209</code></td>
+							<td>string</td>
+							<td>&quot;Transaction verification failed (phase 2) (verification data altered)&quot;</td>
+						</tr>
+						<tr>
+							<td><code>900210</code></td>
+							<td>string</td>
+							<td>&quot;Authentication already complete; transaction must be restarted (verification done more than once)&quot;</td>
+						</tr>
+						<tr>
+							<td><code>990001</code></td>
+							<td>string</td>
+							<td>&quot;Could not insert into DB&quot;</td>
+						</tr>
+						<tr>
+							<td><code>990013</code></td>
+							<td>string</td>
+							<td>&quot;Error processing a batch transaction&quot;</td>
+						</tr>
+						<tr>
+							<td><code>990022</code></td>
+							<td>string</td>
+							<td>&quot;Bank not available&quot;</td>
+						</tr>
+						<tr>
+							<td><code>990024</code></td>
+							<td>string</td>
+							<td>&quot;Duplicate transaction detected&quot;</td>
+						</tr>
+						<tr>
+							<td><code>990028</code></td>
+							<td>string</td>
+							<td>&quot;Transaction cancelled&quot;</td>
+						</tr>
+						<tr>
+							<td><code>990053</code></td>
+							<td>string</td>
+							<td>&quot;Error processing transaction&quot;</td>
+						</tr>
+				</tbody></table>
+				<a href="#paymentmethodname" id="paymentmethodname" style="color: inherit; text-decoration: none;">
+					<h4>PaymentMethodName</h4>
+				</a>
+				<p>▪ <code>Const</code> <strong><a href="https://distributhor.github.io/paygate-sdk/modules/_types_.html#paymentmethodname">PaymentMethodName</a></strong>: object</p>
+				<a href="#properties-5" id="properties-5" style="color: inherit; text-decoration: none;">
+					<h4>Properties:</h4>
+				</a>
+				<table>
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Type</th>
+							<th>Value</th>
+						</tr>
+					</thead>
+					<tbody><tr>
+							<td><code>BT</code></td>
+							<td>string</td>
+							<td>&quot;Bank Transfer&quot;</td>
+						</tr>
+						<tr>
+							<td><code>CC</code></td>
+							<td>string</td>
+							<td>&quot;Credit Card&quot;</td>
+						</tr>
+						<tr>
+							<td><code>CV</code></td>
+							<td>string</td>
+							<td>&quot;Cash Voucher&quot;</td>
+						</tr>
+						<tr>
+							<td><code>DC</code></td>
+							<td>string</td>
+							<td>&quot;Debit Card&quot;</td>
+						</tr>
+						<tr>
+							<td><code>EW</code></td>
+							<td>string</td>
+							<td>&quot;E-Wallet&quot;</td>
+						</tr>
+						<tr>
+							<td><code>PC</code></td>
+							<td>string</td>
+							<td>&quot;Pre-Paid Card&quot;</td>
+						</tr>
+				</tbody></table>
+				<a href="#paygatetestcards" id="paygatetestcards" style="color: inherit; text-decoration: none;">
+					<h4>PayGateTestCards</h4>
+				</a>
+				<p>▪ <code>Const</code> <strong><a href="https://distributhor.github.io/paygate-sdk/modules/_types_.html#paygatetestcards">PayGateTestCards</a></strong>: object</p>
+				<a href="#properties-6" id="properties-6" style="color: inherit; text-decoration: none;">
+					<h4>Properties:</h4>
+				</a>
+				<table>
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Type</th>
+							<th>Value</th>
+						</tr>
+					</thead>
+					<tbody><tr>
+							<td><code>Approved</code></td>
+							<td>object</td>
+							<td>{ MasterCard: string = &quot;5200000000000015&quot;; Visa: string = &quot;4000000000000002&quot; }</td>
+						</tr>
+						<tr>
+							<td><code>Declined</code></td>
+							<td>object</td>
+							<td>{ MasterCard: string = &quot;4000000000000036&quot;; Visa: string = &quot;5200000000000049&quot; }</td>
+						</tr>
+						<tr>
+							<td><code>InsufficientFunds</code></td>
+							<td>object</td>
+							<td>{ MasterCard: string = &quot;5200000000000023&quot;; Visa: string = &quot;4000000000000028&quot; }</td>
+						</tr>
+						<tr>
+							<td><code>NotProcessed</code></td>
+							<td>object</td>
+							<td>{ MasterCard: string = &quot;5200000000000064&quot; }</td>
+						</tr>
+				</tbody></table>
 			</div>
-			<!--{&quot;options&quot;:&quot;/Volumes/HDX/project/distributhor/paygate-sdk&quot;,&quot;tsconfig&quot;:&quot;./tsconfig.json&quot;,&quot;inputFiles&quot;:[&quot;/Volumes/HDX/project/distributhor/paygate-sdk/src/browser.ts&quot;,&quot;/Volumes/HDX/project/distributhor/paygate-sdk/src/client.ts&quot;,&quot;/Volumes/HDX/project/distributhor/paygate-sdk/src/index.ts&quot;,&quot;/Volumes/HDX/project/distributhor/paygate-sdk/src/middleware.ts&quot;,&quot;/Volumes/HDX/project/distributhor/paygate-sdk/src/types.ts&quot;,&quot;/Volumes/HDX/project/distributhor/paygate-sdk/src/util.ts&quot;],&quot;mode&quot;:1,&quot;includeDeclarations&quot;:false,&quot;entryPoint&quot;:&quot;&quot;,&quot;exclude&quot;:[],&quot;externalPattern&quot;:[],&quot;excludeExternals&quot;:false,&quot;excludeNotExported&quot;:false,&quot;excludeNotDocumented&quot;:false,&quot;excludePrivate&quot;:true,&quot;excludeProtected&quot;:false,&quot;ignoreCompilerErrors&quot;:false,&quot;disableSources&quot;:false,&quot;includes&quot;:&quot;&quot;,&quot;media&quot;:&quot;&quot;,&quot;out&quot;:&quot;docs&quot;,&quot;json&quot;:&quot;&quot;,&quot;theme&quot;:&quot;./node_modules/typedoc-neo-theme/bin/default&quot;,&quot;name&quot;:&quot;Documentation&quot;,&quot;includeVersion&quot;:false,&quot;excludeTags&quot;:[],&quot;readme&quot;:&quot;readme/doc.md&quot;,&quot;defaultCategory&quot;:&quot;Other&quot;,&quot;categoryOrder&quot;:[],&quot;categorizeByGroup&quot;:true,&quot;gitRevision&quot;:&quot;&quot;,&quot;gitRemote&quot;:&quot;origin&quot;,&quot;gaID&quot;:&quot;&quot;,&quot;gaSite&quot;:&quot;auto&quot;,&quot;hideGenerator&quot;:true,&quot;toc&quot;:[],&quot;disableOutputCheck&quot;:false,&quot;help&quot;:false,&quot;version&quot;:false,&quot;plugin&quot;:[&quot;typedoc-neo-theme&quot;],&quot;logger&quot;:&quot;console&quot;,&quot;listInvalidSymbolLinks&quot;:false,&quot;links&quot;:[{&quot;label&quot;:&quot;GitHub&quot;,&quot;url&quot;:&quot;https://github.com/distributhor/paygate-sdk&quot;}],&quot;outline&quot;:[{&quot;TS Typings&quot;:&quot;_types_&quot;,&quot;API Client&quot;:&quot;_client_&quot;,&quot;Express Middleware&quot;:&quot;_middleware_&quot;,&quot;Common Utils&quot;:&quot;_util_&quot;,&quot;Browser Lib&quot;:&quot;_browser_&quot;}]}-->
+			<!--{&quot;options&quot;:&quot;/Volumes/HDX/project/distributhor/paygate-sdk&quot;,&quot;tsconfig&quot;:&quot;./tsconfig.json&quot;,&quot;inputFiles&quot;:[&quot;/Volumes/HDX/project/distributhor/paygate-sdk/src/browser.ts&quot;,&quot;/Volumes/HDX/project/distributhor/paygate-sdk/src/client.ts&quot;,&quot;/Volumes/HDX/project/distributhor/paygate-sdk/src/index.ts&quot;,&quot;/Volumes/HDX/project/distributhor/paygate-sdk/src/middleware.ts&quot;,&quot;/Volumes/HDX/project/distributhor/paygate-sdk/src/types.ts&quot;,&quot;/Volumes/HDX/project/distributhor/paygate-sdk/src/util.ts&quot;],&quot;mode&quot;:1,&quot;includeDeclarations&quot;:false,&quot;entryPoint&quot;:&quot;&quot;,&quot;exclude&quot;:[],&quot;externalPattern&quot;:[],&quot;excludeExternals&quot;:false,&quot;excludeNotExported&quot;:false,&quot;excludeNotDocumented&quot;:false,&quot;excludePrivate&quot;:true,&quot;excludeProtected&quot;:false,&quot;ignoreCompilerErrors&quot;:false,&quot;disableSources&quot;:false,&quot;includes&quot;:&quot;&quot;,&quot;media&quot;:&quot;&quot;,&quot;out&quot;:&quot;docs&quot;,&quot;json&quot;:&quot;&quot;,&quot;theme&quot;:&quot;./node_modules/typedoc-neo-theme/bin/default&quot;,&quot;name&quot;:&quot;Documentation&quot;,&quot;includeVersion&quot;:false,&quot;excludeTags&quot;:[],&quot;readme&quot;:&quot;readme/documentation.md&quot;,&quot;defaultCategory&quot;:&quot;Other&quot;,&quot;categoryOrder&quot;:[],&quot;categorizeByGroup&quot;:true,&quot;gitRevision&quot;:&quot;&quot;,&quot;gitRemote&quot;:&quot;origin&quot;,&quot;gaID&quot;:&quot;&quot;,&quot;gaSite&quot;:&quot;auto&quot;,&quot;hideGenerator&quot;:true,&quot;toc&quot;:[],&quot;disableOutputCheck&quot;:false,&quot;help&quot;:false,&quot;version&quot;:false,&quot;plugin&quot;:[&quot;typedoc-neo-theme&quot;],&quot;logger&quot;:&quot;console&quot;,&quot;listInvalidSymbolLinks&quot;:false,&quot;links&quot;:[{&quot;label&quot;:&quot;GitHub&quot;,&quot;url&quot;:&quot;https://github.com/distributhor/paygate-sdk&quot;}],&quot;outline&quot;:[{&quot;TS Typings&quot;:&quot;_types_&quot;,&quot;API Client&quot;:&quot;_client_&quot;,&quot;Express Middleware&quot;:&quot;_middleware_&quot;,&quot;Common Utils&quot;:&quot;_util_&quot;,&quot;Browser Lib&quot;:&quot;_browser_&quot;}]}-->
 		</div>
 		<div class="col-2 col-menu secondary-menu">
 			<nav class="tsd-navigation secondary menu-sticky">

@@ -6,18 +6,18 @@ require("dotenv").config({ path: path.join(__dirname, ".env") });
 
 const server = express();
 
-let appUri = undefined;
-let serverUri = undefined;
+let appUrl = undefined;
+let serverUrl = undefined;
 
 (async function () {
   if (process.env.NGROK_AUTH_TOKEN) {
-    appUri = await ngrok.connect({
+    appUrl = await ngrok.connect({
       authtoken: process.env.NGROK_AUTH_TOKEN,
       addr: 8000,
       region: "eu",
     });
 
-    serverUri = await ngrok.connect({
+    serverUrl = await ngrok.connect({
       authtoken: process.env.NGROK_AUTH_TOKEN,
       addr: 7000,
       region: "eu",
@@ -32,12 +32,12 @@ let serverUri = undefined;
 
   const response = {};
 
-  if (appUri) {
-    response.appUri = appUri;
+  if (appUrl) {
+    response.appUrl = appUrl;
   }
 
-  if (serverUri) {
-    response.serverUri = serverUri;
+  if (serverUrl) {
+    response.serverUrl = serverUrl;
   }
 
   console.log(response);

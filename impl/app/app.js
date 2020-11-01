@@ -2,7 +2,7 @@ const path = require("path");
 const express = require("express");
 const nunjucks = require("nunjucks");
 const cookieParser = require("cookie-parser");
-const paygate = require("paygate-sdk");
+const { Util } = require("paygate-sdk");
 
 const app = express();
 
@@ -19,13 +19,13 @@ app.use(express.static(path.join(__dirname, "public")));
 app.get("/", function (req, res) {
   res.render("index.html", {
     title: "Payment Request",
-    testCards: paygate.util.getTestCards(),
+    testCards: Util.getTestCards(),
   });
 });
 
 app.post("/status", function (req, res) {
   const paymentStatus = req.body;
-  const transactionDescription = paygate.util.getTransactionDescription(paymentStatus);
+  const transactionDescription = Util.getTransactionDescription(paymentStatus);
   const transactionStatusStyle = transactionDescription.status == "Approved" ? "text-success" : "text-danger";
 
   const data = {

@@ -18,20 +18,23 @@ server.use(bodyParser.urlencoded({ extended: true }));
 const middlewareConfig = {
   payGateId: process.env.PAYGATE_ID,
   payGateKey: process.env.PAYGATE_SECRET,
-  returnUri: "https://www.aquarium.co.za",
-  notifyUri: "https://www.aquarium.co.za",
+  returnUrl: "http://localhost:8000",
+  notifyUrl: "http://localhost:7000",
+  autoTransactionDate: true,
+  autoPaymentReference: true,
+  fallbackToZA: true,
 };
 
 (async function () {
   try {
     const response = await superagent.get(`http://localhost:7500/proxy-info`);
 
-    if (response.body && response.body.appUri) {
-      middlewareConfig.returnUri = `${response.body.appUri}/status`;
+    if (response.body && response.body.appUrl) {
+      middlewareConfig.returnUrl = `${response.body.appUrl}/status`;
     }
 
-    if (response.body && response.body.serverUri) {
-      middlewareConfig.notifyUri = `${response.body.serverUri}/payment-notification`;
+    if (response.body && response.body.serverUrl) {
+      middlewareConfig.notifyUrl = `${response.body.serverUrl}/payment-notification`;
     }
   } catch (e) {
     debug("Proxy server is not running, no public URL's available");
