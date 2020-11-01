@@ -11,6 +11,8 @@
 
 In progress .... PayGateConfig options
 
+[Back to top](#table-of-contents)
+
 ## Reference Implementation
 
 There is a reference implementation available under the `impl` folder. It consists of an ExpressJS backend that exposes endpoints via the middleware functions (which in turn uses the TS/JS API client), and a very simple frontend with which to test payments. It should demonstrate how to use these components in your own project. The reference implementation can run in your local development environment in only a few easy steps.
@@ -32,6 +34,8 @@ If you have an Ngrok auth token and PayGate credentials configured, then you can
 
 Once they are all up and running, navigate to http://localhost:8000 to test payments.
 
+[Back to top](#table-of-contents)
+
 ## API Client
 
 Documentation in progress ...
@@ -52,6 +56,8 @@ Documentation in progress ...
 
 ▸ `Static`**getInstance**(`payGateId?`: string, `payGateKey?`: string): [PayGateClient](https://distributhor.github.io/paygate-sdk/classes/_client_.paygateclient.html)
 
+[Back to top](#table-of-contents)
+
 ## ExpressJS Middleware
 
 Documentation in progress ...
@@ -70,6 +76,8 @@ Documentation in progress ...
 ▸ **paymentRequestHandler**(`options`: [PayGateMiddlewareConfig](https://distributhor.github.io/paygate-sdk/interfaces/_middleware_.paygatemiddlewareconfig.html)): (Anonymous function)
 
 ▸ **paymentStatusHandler**(`options`: [PayGateMiddlewareConfig](https://distributhor.github.io/paygate-sdk/interfaces/_middleware_.paygatemiddlewareconfig.html)): (Anonymous function)
+
+[Back to top](#table-of-contents)
 
 ## Common Utility Functions
 
@@ -106,6 +114,8 @@ PayGateTestCards;
 ▸ **removeAllNonValuedProperties**(`obj`: [UntypedObject](https://distributhor.github.io/paygate-sdk/interfaces/_types_.untypedobject.html)): void
 
 ▸ **toCentAmount**(`amount`: string \| number): string
+
+[Back to top](#table-of-contents)
 
 ## Types
 
