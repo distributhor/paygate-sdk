@@ -30,8 +30,8 @@ Features to be worked on next:
 
 - [Reference Implementation](#reference-implementation)
 - [Configuration](#configuration)
+- [Middleware](#expressjs-middleware)
 - [API Client](#api-client)
-- [Express Middleware](#expressjs-middleware)
 - [Common Utils](#common-utility-functions)
 - [Types](#types)
 
@@ -59,21 +59,21 @@ Once they are all up and running, navigate to http://localhost:8000 to test paym
 
 ## Configuration
 
-Both the API Client as well as the ExpressJS middleware are configured via a [PayGateConfig](https://distributhor.github.io/paygate-sdk/interfaces/_types_.paygateconfig.html) object, described by the properties below. The `payGateId` and `payGateKey` properties are required, all the rest is optional. Where optional properties or default configuration values are not specified, those values will **have** to be explicitly passed in with each [PaymentRequest](https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentrequest.html). For example, you would typically have to set the `RETURN_URL` and a unique `TRANSACTION_DATE` on the `PaymentRequest`, as per the [PayGate Specification](https://docs.paygate.co.za/?shell#request). But if you were to specify a `returnUrl` on the configuration, and set `autoTransactionDate` to true, then you don't have to supply those values with the `PaymentRequest`, as they will be set automatically by the client and middleware. _Values explicitly found on the `PaymentRequest` will always take precedence over default values_.
+Both the API Client as well as the ExpressJS middleware are configured via a [PayGateConfig](https://distributhor.github.io/paygate-sdk/interfaces/_types_.paygateconfig.html) object, described by the properties below. The `payGateId` and `payGateKey` properties are required, all the rest is optional. Where optional properties or default configuration values are not specified, those values will **have** to be explicitly passed in with each [PaymentRequest](https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentrequest.html). For example, you would typically have to set the `RETURN_URL` and a unique `TRANSACTION_DATE` on the `PaymentRequest`, as per the [PayGate Specification](https://docs.paygate.co.za/?shell#request). But if you were to specify a `returnUrl` on the configuration, and set `autoTransactionDate` to true, then you don't have to supply those values with the `PaymentRequest`, as they will be set automatically by the client and middleware. _Values explicitly found on the `PaymentRequest` will always take precedence over default configuration values_.
 
-All fields in BOLD, such as those found on `PaymentRequest` are values as specified by PayGate. Please refer to the [PayGate Specification](https://docs.paygate.co.za/?shell#request) for details and requirements on those.
+For all of this README documentation, all fields in `CAPS`, such as those found on `PaymentRequest`, are values specified and required by PayGate. Please refer to [the PayGate specification](https://docs.paygate.co.za/?shell#request) for the details and requirements on those.
 
 ### payGateId
 
 • `Required`**payGateId**: string
 
-Your PayGate account ID credential
+Your PayGate account ID
 
 ### payGateKey
 
 • `Required`**payGateKey**: string
 
-Your PayGate password/secret credential
+Your PayGate password/secret
 
 ### returnUrl
 
@@ -103,13 +103,13 @@ A transaction date has to be passed in with each [PaymentRequest](https://distri
 
 • `Optional` **defaultCountry**: [CountryCode](https://distributhor.github.io/paygate-sdk/enums/_types_.countrycode.html)
 
-A country code has to be passed in with each [PaymentRequest](https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentrequest.html) on the `COUNTRY` property. If no value is set on the `PaymentRequest` and a `defaultCountry` is configured, then the default value will be used.
+A country code has to be passed in with each [PaymentRequest](https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentrequest.html) on the `COUNTRY` property. If no value is set on the `PaymentRequest` and a `defaultCountry` is configured, then the default value will be used. If a `COUNTRY` value is present on the `PaymentRequest`, it will be used instead.
 
 ### defaultCurrency
 
 • `Optional` **defaultCurrency**: [CurrencyCode](https://distributhor.github.io/paygate-sdk/enums/_types_.currencycode.html)
 
-A currency code has to be passed in with each [PaymentRequest](https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentrequest.html) on the `CURRENCY` property. If no value is set on the `PaymentRequest` and a `defaultCurrency` is configured, then the default value will be used.
+A currency code has to be passed in with each [PaymentRequest](https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentrequest.html) on the `CURRENCY` property. If no value is set on the `PaymentRequest` and a `defaultCurrency` is configured, then the default value will be used. If a `CURRENCY` value is present on the `PaymentRequest`, it will be used instead.
 
 ### defaultLocale
 
@@ -128,6 +128,26 @@ The payment method is an optional value according to the PayGate specification. 
 • `Optional` **fallbackToZA**: boolean
 
 The `fallbackToZA` configuration option only affects `COUNTRY` and `CURRENCY` on the `PaymentRequest`. If it is set to `true`, and no value is expicitly set on the `PaymentRequest`, and furthermore no value is configured for `defaultCountry` and `defaultCurrency` respectively, then it will fallback to `ZAF` for country and `ZAR` for currency. If you are predominantly processing payments within South Africa, this can be a convenient option to set.
+
+[Back to top](#table-of-contents)
+
+## ExpressJS Middleware
+
+Documentation in progress ...
+
+### Interfaces
+
+- [PayGateMiddlewarePaymentResult](https://distributhor.github.io/paygate-sdk/interfaces/_middleware_.paygatemiddlewarepaymentresult.html)
+- [PayGateMiddlewarePaymentStatus](https://distributhor.github.io/paygate-sdk/interfaces/_middleware_.paygatemiddlewarepaymentstatus.html)
+- [PayGateMiddlewareResult](https://distributhor.github.io/paygate-sdk/interfaces/_middleware_.paygatemiddlewareresult.html)
+
+### Functions
+
+▸ **paymentNotificationHandler**(`options`: [PayGateMiddlewareConfig](https://distributhor.github.io/paygate-sdk/interfaces/_middleware_.paygatemiddlewareconfig.html)): (Anonymous function)
+
+▸ **paymentRequestHandler**(`options`: [PayGateMiddlewareConfig](https://distributhor.github.io/paygate-sdk/interfaces/_middleware_.paygatemiddlewareconfig.html)): (Anonymous function)
+
+▸ **paymentStatusHandler**(`options`: [PayGateMiddlewareConfig](https://distributhor.github.io/paygate-sdk/interfaces/_middleware_.paygatemiddlewareconfig.html)): (Anonymous function)
 
 [Back to top](#table-of-contents)
 
@@ -150,27 +170,6 @@ Documentation in progress ...
 ▸ `Static`**generateChecksum**(`data`: [UntypedObject](https://distributhor.github.io/paygate-sdk/interfaces/_types_.untypedobject.html), `encryptionKey`: string): string
 
 ▸ `Static`**getInstance**(`payGateId?`: string, `payGateKey?`: string): [PayGateClient](https://distributhor.github.io/paygate-sdk/classes/_client_.paygateclient.html)
-
-[Back to top](#table-of-contents)
-
-## ExpressJS Middleware
-
-Documentation in progress ...
-
-### Interfaces
-
-- [PayGateMiddlewareConfig](https://distributhor.github.io/paygate-sdk/interfaces/_middleware_.paygatemiddlewareconfig.html)
-- [PayGateMiddlewarePaymentResult](https://distributhor.github.io/paygate-sdk/interfaces/_middleware_.paygatemiddlewarepaymentresult.html)
-- [PayGateMiddlewarePaymentStatus](https://distributhor.github.io/paygate-sdk/interfaces/_middleware_.paygatemiddlewarepaymentstatus.html)
-- [PayGateMiddlewareResult](https://distributhor.github.io/paygate-sdk/interfaces/_middleware_.paygatemiddlewareresult.html)
-
-### Functions
-
-▸ **paymentNotificationHandler**(`options`: [PayGateMiddlewareConfig](https://distributhor.github.io/paygate-sdk/interfaces/_middleware_.paygatemiddlewareconfig.html)): (Anonymous function)
-
-▸ **paymentRequestHandler**(`options`: [PayGateMiddlewareConfig](https://distributhor.github.io/paygate-sdk/interfaces/_middleware_.paygatemiddlewareconfig.html)): (Anonymous function)
-
-▸ **paymentStatusHandler**(`options`: [PayGateMiddlewareConfig](https://distributhor.github.io/paygate-sdk/interfaces/_middleware_.paygatemiddlewareconfig.html)): (Anonymous function)
 
 [Back to top](#table-of-contents)
 

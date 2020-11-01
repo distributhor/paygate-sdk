@@ -2,8 +2,8 @@
 
 - [Reference Implementation](#reference-implementation)
 - [Configuration](#configuration)
+- [Middleware](#expressjs-middleware)
 - [API Client](#api-client)
-- [Express Middleware](#expressjs-middleware)
 - [Common Utils](#common-utility-functions)
 - [Types](#types)
 
@@ -15,11 +15,11 @@
 
 [Back to top](#table-of-contents)
 
-#include "readme/api-client.md"
+#include "readme/middleware.md"
 
 [Back to top](#table-of-contents)
 
-#include "readme/middleware.md"
+#include "readme/api-client.md"
 
 [Back to top](#table-of-contents)
 
