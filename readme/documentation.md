@@ -107,7 +107,7 @@ The `fallbackToZA` configuration option only affects `COUNTRY` and `CURRENCY` on
 
 ## ExpressJS Middleware
 
-Documentaion in progress ...
+TODO: notes on caching, urlencoded body parser requirement
 
 The middleware module exposes 3 functions that can be used in your existing [ExpressJS](https://expressjs.com) application.
 
@@ -148,6 +148,7 @@ The `paymentNotificationHandler` can to be used on an endpoint of your choice, e
 This endpoint will only receive such notifications, and by default does nothing else. You will typically use this endpoint to persist payment notifications or trigger any other event driven processing that needs to happen on receiving payment notifications.
 
 TODO: must return OK according to PayGate spec
+
 TODO: notes on caching
 
 After receiving the request, whether an error occurred or not, the result will be available on a `paygate` property on the ExpressJS request inside your endpoint function, from where you can do further processing.
@@ -160,21 +161,27 @@ The `paygate` property will contain a [PayGateMiddlewarePaymentStatus](https://d
 
 If the payment notification was received, then the `paymentStatus` property will be set with the result. Note that this does not indicate whether the payment itself was successfull, or declined etc. The `paymentStatus` has to be consulted to see the status of the actual payment. The fact that this property is set only means that the payment notification was received, ie, there was no errors in providing the service.
 
-**badRequest**
-
-Same as above
-
-**serviceError**
-
-Same as above
+**badRequest** and **serviceError** is same as above
 
 ### paymentStatusHandler
 
-In progress
+The `paymentStatusHandler` can to be used on an endpoint of your choice, exposed as a `GET` request, and expects to receive either one of, or both, of the request parameters `PAY_REQUEST_ID` and `REFERENCE`. It must be configured using a `PayGateConfig`. This handler will query PayGate for the status of a payment. After handling the request, whether an error occurred or not, the result will be available on a `paygate` property on the ExpressJS request inside your endpoint function, from where you can do further processing.
+
+The `paygate` property will contain a [PayGateMiddlewarePaymentStatus](https://distributhor.github.io/paygate-sdk/interfaces/_middleware_.paygatemiddlewarepaymentstatus.html), which has the following properties:
+
+**paymentStatus**
+
+• `Optional` **paymentStatus**: [PaymentStatus](https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentstatus.html)
+
+If the payment status was queried, then the `paymentStatus` property will be set with the result. You will usually want to return this payment status to the caller, but can handle it any way. If a failure occurred, then either of `badRequest` or `serviceError` will be set.
+
+TODO: notes on caching and both fields required if not quering from the cache, ie, query directly with payagte
+
+**badRequest** and **serviceError** is same as above
 
 ### Example
 
-An example showing how to use this ...
+Below is example showing how to use these middleware handlers in an ExpressJS environment. Not that the `urlencoded` body parser is required, since PayGate sends responses as that.
 
 ```javascript
 const express = require("express");
@@ -206,7 +213,24 @@ server.post("/payment-request", paymentRequestHandler(middlewareConfig), async (
     return res.sendStatus(500);
   }
 
+  // send the response back to the caller
   res.send(req.paygate.paymentResponse);
+});
+
+server.post("/payment-notification", paymentNotificationHandler(middlewareConfig), async (req, res) => {
+  if (req.paygate.badRequest) {
+    return res.status(400).send({ message: req.paygate.badRequest });
+  }
+
+  if (req.paygate.serviceError) {
+    return res.sendStatus(500);
+  }
+
+  // persist  the payment status available on req.paygate.paymentStatus,
+  // or trigger other payment notification events
+
+  // must send back text with "OK"
+  res.send("OK");
 });
 ```
 
