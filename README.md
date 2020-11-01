@@ -209,7 +209,7 @@ TODO: notes on caching and both fields required if not quering from the cache, i
 
 ### Example
 
-Below is example showing how to use these middleware handlers in an ExpressJS environment. Not that the `urlencoded` body parser is required, since PayGate sends responses as that.
+Below is example showing how to use these middleware handlers in an ExpressJS environment. Note that the `urlencoded` body parser is required, since PayGate sends responses as that, and that the `paymentNotificationHandler` returns the text "OK" as required by PayGate.
 
 ```javascript
 const express = require("express");
