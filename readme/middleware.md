@@ -4,11 +4,17 @@ The middleware module exposes 3 functions that can be used in your existing [Exp
 
 • **paymentRequestHandler**(`config`: [PayGateConfig](https://distributhor.github.io/paygate-sdk/interfaces/_types_.paygateconfig.html)): (void)
 
+• **paymentNotificationHandler**(`config`: [PayGateConfig](https://distributhor.github.io/paygate-sdk/interfaces/_types_.paygateconfig.html)): (void)
+
+• **paymentStatusHandler**(`config`: [PayGateConfig](https://distributhor.github.io/paygate-sdk/interfaces/_types_.paygateconfig.html)): (void)
+
+### paymentRequestHandler
+
 The `paymentRequestHandler` will process a [PaymentRequest](https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentrequest.html) on and endpoint of your choice, using the `PayGateConfig` provided. After handling the request, whether an error occurred or not, the result will be available on a `paygate` property on the ExpressJS request inside your endpoint function, from where you can do further processing.
 
 The `paygate` property will contain a [PayGateMiddlewarePaymentResult](https://distributhor.github.io/paygate-sdk/interfaces/_middleware_.paygatemiddlewarepaymentresult.html), which has the following properties:
 
-### paymentResponse
+**paymentResponse**
 
 • `Optional` **paymentResponse**: [PaymentResponse](https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentresponse.html)
 
@@ -25,10 +31,6 @@ If there was an issue with the data provided, such as required fields missing on
 • `Optional` **serviceError**: any
 
 If there was an internal error, or a caught exception, and the service could not be provided due to it, then the low level error or exception will be set on this property, and no `paymentResponse` or `badRequest` will be available. This should usually result in an `HTTP 500` or `Internal Server Error`, but you can deal with any way you want.
-
-• **paymentNotificationHandler**(`config`: [PayGateConfig](https://distributhor.github.io/paygate-sdk/interfaces/_types_.paygateconfig.html)): (void)
-
-• **paymentStatusHandler**(`config`: [PayGateConfig](https://distributhor.github.io/paygate-sdk/interfaces/_types_.paygateconfig.html)): (void)
 
 ```javascript
 const express = require("express");
@@ -63,11 +65,3 @@ server.post("/payment-request", paymentRequestHandler(middlewareConfig), async (
   res.send(req.paygate.paymentResponse);
 });
 ```
-
-### Interfaces
-
-- [PayGateMiddlewarePaymentResult](https://distributhor.github.io/paygate-sdk/interfaces/_middleware_.paygatemiddlewarepaymentresult.html)
-- [PayGateMiddlewarePaymentStatus](https://distributhor.github.io/paygate-sdk/interfaces/_middleware_.paygatemiddlewarepaymentstatus.html)
-- [PayGateMiddlewareResult](https://distributhor.github.io/paygate-sdk/interfaces/_middleware_.paygatemiddlewareresult.html)
-
-### Functions
