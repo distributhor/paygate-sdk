@@ -10,7 +10,7 @@ The middleware module exposes 3 functions that can be used in your existing [Exp
 
 ▸ **paymentStatusHandler**(`config`: [PayGateConfig](https://distributhor.github.io/paygate-sdk/interfaces/_types_.paygateconfig.html)): (void)
 
-### paymentRequestHandler
+### ▸ paymentRequestHandler
 
 The `paymentRequestHandler` can to be used on an endpoint of your choice, exposed as a `POST` request, and expects a request body that conforms to a [PaymentRequest](https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentrequest.html). It must be configured using a `PayGateConfig`. After handling the request, whether an error occurred or not, the result will be available on a `paygate` property on the ExpressJS request inside your endpoint function, from where you can do further processing.
 
@@ -28,7 +28,7 @@ If there was an issue with the data provided, such as required fields missing on
 
 If there was an internal error, or a caught exception, and the service could not be provided due to it, then the low level error or exception will be set on this property, and no other properties will be set. This should usually result in an `HTTP 500` or `Internal Server Error`, but you can deal with any way you want.
 
-### paymentNotificationHandler
+### ▸ paymentNotificationHandler
 
 The `paymentNotificationHandler` can to be used on an endpoint of your choice, exposed as a `POST` request, and expects a request body that conforms to a [PaymentStatus](https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentstatus.html). It must be configured using a `PayGateConfig`. This endpoint can therefore be used as the URI where PayGate sends payment notifications, as per the `NOTIFY_URL`.
 
@@ -48,7 +48,7 @@ If the payment notification was received, then the `paymentStatus` property will
 
 • **badRequest** and **serviceError** is same as above
 
-### paymentStatusHandler
+### ▸ paymentStatusHandler
 
 The `paymentStatusHandler` can to be used on an endpoint of your choice, exposed as a `GET` request, and expects to receive either one of, or both, of the request parameters `PAY_REQUEST_ID` and `REFERENCE`. It must be configured using a `PayGateConfig`. This handler will query PayGate for the status of a payment. After handling the request, whether an error occurred or not, the result will be available on a `paygate` property on the ExpressJS request inside your endpoint function, from where you can do further processing.
 
