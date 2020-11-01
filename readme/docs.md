@@ -4,7 +4,7 @@
 - [Configuration](#configuration)
 - [Middleware](#expressjs-middleware)
 - [API Client](#api-client)
-- [Common Utils](#common-utility-functions)
+- [Utils](#common-utility-functions)
 - [Types](#types)
 
 #include "readme/reference-impl.md"
@@ -23,7 +23,7 @@
 
 [Back to top](#table-of-contents)
 
-#include "readme/common-utils.md"
+#include "readme/utils.md"
 
 [Back to top](#table-of-contents)
 
