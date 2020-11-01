@@ -1,6 +1,6 @@
 ## Reference Implementation
 
-In addition to the reference documentation, there is also a reference implementation available under the `impl` folder, which you can run in your local development environment (using a PayGate demo account) in a few simple steps. It serves as an example of how to use the various modules, and also as a playground where one can easily test an implementation. It consists of an ExpressJS backend that exposes endpoints via the middleware functions (which in turn uses the TS/JS API client), and a very simple frontend with which to test payments. To run the implementation, follow the steps below.
+In addition to the reference documentation, there is also a reference implementation available under the `impl` folder, which you can run in your local development environment (which will use a PayGate demo account) in a few simple steps. It serves as an example of how to use the various modules, and also as a playground where one can easily test an implementation. It consists of an ExpressJS backend that exposes endpoints via the middleware functions (which in turn uses the TS/JS API client), and a very simple frontend with which to test payments. To run the implementation, follow the steps below.
 
 ### Ngrok Token
 
