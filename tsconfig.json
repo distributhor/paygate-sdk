@@ -33,9 +33,8 @@
       {
         "TS Typings": "_types_",
         "API Client": "_client_",
-        "Express Middleware": "_middleware_",
         "Common Utils": "_util_",
-        "Browser Lib": "_browser_"
+        "Express Middleware": "_middleware_"
       }
     ]
   },
