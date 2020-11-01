@@ -7,6 +7,8 @@
 
 ## Introduction
 
+**Please note, this documentation is currently in the process of being written and refined. It is not in a final state yet.**
+
 This project is made up of a few parts which can be used seperately or in combination, to aid with building an integration to the South African payment provider [PayGate](https://www.paygate.co.za).
 
 Reference documentation can be found at https://distributhor.github.io/paygate-sdk/
@@ -18,6 +20,11 @@ The main components are:
 - A utility module which can help with common PayGate tasks, such as generating a payload checksum, or extracting a friendly transaction summary messages from a PayGate payment status response. This module is also available a plain JS file which can be included in HTML via a `<script>` tag.
 
 Only pick what you need in order to help with your specific integration requirements. For example, if you are already using ExpressJS and want to easily enable endpoints that can handle payment processing, then it's likely that the only thing you need from this project is the ExpressJS middleware functions. Or, perhaps more likely, you want to use the TS/JS client in a Node based project so that you don't have to deal directly with the PayGate HTTP API. In this case the utility module and typings may also be helpful.
+
+Features to be worked on next:
+
+- Locales
+- Support for custom payment reference ID generation
 
 #include "readme/docs.md"
 
