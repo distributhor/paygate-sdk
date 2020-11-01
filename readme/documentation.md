@@ -111,11 +111,11 @@ TODO: notes on caching, urlencoded body parser requirement
 
 The middleware module exposes 3 functions that can be used in your existing [ExpressJS](https://expressjs.com) application.
 
-• **paymentRequestHandler**(`config`: [PayGateConfig](https://distributhor.github.io/paygate-sdk/interfaces/_types_.paygateconfig.html)): (void)
+▸ **paymentRequestHandler**(`config`: [PayGateConfig](https://distributhor.github.io/paygate-sdk/interfaces/_types_.paygateconfig.html)): (void)
 
-• **paymentNotificationHandler**(`config`: [PayGateConfig](https://distributhor.github.io/paygate-sdk/interfaces/_types_.paygateconfig.html)): (void)
+▸ **paymentNotificationHandler**(`config`: [PayGateConfig](https://distributhor.github.io/paygate-sdk/interfaces/_types_.paygateconfig.html)): (void)
 
-• **paymentStatusHandler**(`config`: [PayGateConfig](https://distributhor.github.io/paygate-sdk/interfaces/_types_.paygateconfig.html)): (void)
+▸ **paymentStatusHandler**(`config`: [PayGateConfig](https://distributhor.github.io/paygate-sdk/interfaces/_types_.paygateconfig.html)): (void)
 
 ### paymentRequestHandler
 
@@ -125,19 +125,19 @@ The `paygate` property will contain a [PayGateMiddlewarePaymentResult](https://d
 
 **paymentResponse**
 
-• `Optional` **paymentResponse**: [PaymentResponse](https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentresponse.html)
+• **paymentResponse**: [PaymentResponse](https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentresponse.html)
 
 If the payment was processed, then the `paymentResponse` property will be set with the result. Note that this does not indicate whether the payment itself was successfull, or declined etc. The `PaymentResponse` has to be consulted to see the status of the actual payment. The fact that this property is set only means that the payment was processed (or handled), ie, there was no errors in providing the service.
 
 **badRequest**
 
-• `Optional` **badRequest**: string
+• **badRequest**: string
 
 If there was an issue with the data provided, such as required fields missing on the `PaymentRequest` or any other issue that can/should be rectified by the service that uses this endpoint, then an appropriate message will be set on this property, and no other properties will be set. This should usually result in an `HTTP 400` or `Bad Request`, but you can can deal with it any way you want.
 
 **serviceError**
 
-• `Optional` **serviceError**: any
+• **serviceError**: any
 
 If there was an internal error, or a caught exception, and the service could not be provided due to it, then the low level error or exception will be set on this property, and no other properties will be set. This should usually result in an `HTTP 500` or `Internal Server Error`, but you can deal with any way you want.
 
@@ -157,7 +157,7 @@ The `paygate` property will contain a [PayGateMiddlewarePaymentStatus](https://d
 
 **paymentStatus**
 
-• `Optional` **paymentStatus**: [PaymentStatus](https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentstatus.html)
+• **paymentStatus**: [PaymentStatus](https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentstatus.html)
 
 If the payment notification was received, then the `paymentStatus` property will be set with the result. Note that this does not indicate whether the payment itself was successfull, or declined etc. The `paymentStatus` has to be consulted to see the status of the actual payment. The fact that this property is set only means that the payment notification was received, ie, there was no errors in providing the service.
 
@@ -171,7 +171,7 @@ The `paygate` property will contain a [PayGateMiddlewarePaymentStatus](https://d
 
 **paymentStatus**
 
-• `Optional` **paymentStatus**: [PaymentStatus](https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentstatus.html)
+• **paymentStatus**: [PaymentStatus](https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentstatus.html)
 
 If the payment status was queried, then the `paymentStatus` property will be set with the result. You will usually want to return this payment status to the caller, but can handle it any way. If a failure occurred, then either of `badRequest` or `serviceError` will be set.
 
@@ -238,7 +238,7 @@ server.post("/payment-notification", paymentNotificationHandler(middlewareConfig
 
 ## API Client
 
-Documentation in progress ...
+The PayGate API client is the core component of the SDK, and what most developers will use to build a PayGate integration. It is a Typescript API, but the compiled Javascript client can also be used in the the same fashion. The Typescript reference documentation can be found here: https://distributhor.github.io/paygate-sdk/index.html
 
 ### Constructor
 

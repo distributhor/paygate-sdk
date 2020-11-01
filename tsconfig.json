@@ -17,6 +17,7 @@
     "mode": "modules",
     "name": "Documentation",
     "readme": "readme/documentation.md",
+    "exclude": "src/browser.ts",
     "includeVersion": false,
     "excludePrivate": true,
     "stripInternal": true,

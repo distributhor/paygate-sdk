@@ -76,27 +76,21 @@
 					<h3>Table Of Contents</h3>
 				</a>
 				<ul>
-					<li><a href="#configuration">Configuration</a></li>
 					<li><a href="#reference-implementation">Reference Implementation</a></li>
+					<li><a href="#configuration">Configuration</a></li>
+					<li><a href="#expressjs-middleware">Middleware</a></li>
 					<li><a href="#api-client">API Client</a></li>
-					<li><a href="#expressjs-middleware">Express Middleware</a></li>
-					<li><a href="#common-utility-functions">Common Utils</a></li>
+					<li><a href="#common-utility-functions">Utils</a></li>
 					<li><a href="#types">Types</a></li>
 				</ul>
-				<a href="#configuration" id="configuration" style="color: inherit; text-decoration: none;">
-					<h2>Configuration</h2>
-				</a>
-				<p>In progress .... PayGateConfig options</p>
-				<p><a href="#table-of-contents">Back to top</a></p>
 				<a href="#reference-implementation" id="reference-implementation" style="color: inherit; text-decoration: none;">
 					<h2>Reference Implementation</h2>
 				</a>
-				<p>There is a reference implementation available under the <code>impl</code> folder. It consists of an ExpressJS backend that exposes endpoints via the middleware functions (which in turn uses the TS/JS API client), and a very simple frontend with which to test payments. It should demonstrate how to use these components in your own project. The reference implementation can run in your local development environment in only a few easy steps.
-				There is a reference implementation available under the <code>impl</code> folder. It consists of an ExpressJS backend that exposes endpoints via the middleware functions (which in turn uses the TS/JS API client), and a very simple frontend with which to test payments. It should demonstrate how to use these components in your own project. The reference implementation can run in your local development environment in only a few easy steps.</p>
+				<p>In addition to the reference documentation, there is also a reference implementation available under the <code>impl</code> folder, which you can run in your local development environment (which will use a PayGate demo account) in a few simple steps. It serves as an example of how to use the various modules, and also as a playground where one can easily test an implementation. It consists of an ExpressJS backend that exposes endpoints via the middleware functions (which in turn uses the TS/JS API client), and a very simple frontend with which to test payments. To run the implementation, follow the steps below.</p>
 				<a href="#ngrok-token" id="ngrok-token" style="color: inherit; text-decoration: none;">
 					<h3>Ngrok Token</h3>
 				</a>
-				<p>In order to run the reference implementation locally, you will need to have an account with Ngrok <a href="https://ngrok.com/">https://ngrok.com/</a>. A basic account is free and quick to set up. Ngrok, if you don&#39;t already know, is a service that can make your local development server available on a public URL via a secure tunnel. This is needed because PayGate needs to return to a URL that is publically available, after processing a payment. So we use Ngrok to expose the frontend app to the web.</p>
+				<p>In order to run the reference implementation locally, you will need to have an account with <a href="https://ngrok.com">Ngrok</a>. A basic account is free and quick to set up. Ngrok, if you don&#39;t already know, is a service that can make your local development server available on a public URL via a secure tunnel. This is needed because PayGate needs to return to a URL that is publically available, after processing a payment. So we use Ngrok to expose the frontend app to the web.</p>
 				<p>Once you have an Ngrok authentication token, copy the file <code>impl/proxy/.env.sample</code> to <code>impl/proxy/.env</code> and replace the fake value with your authentication token. This is all that will be required to configure the tunelling environment.</p>
 				<a href="#paygate-credentials" id="paygate-credentials" style="color: inherit; text-decoration: none;">
 					<h3>PayGate Credentials</h3>
@@ -108,10 +102,150 @@
 				<p>If you have an Ngrok auth token and PayGate credentials configured, then you can simply run <code>yarn install</code> and <code>yarn develop</code> in each of the folders <code>impl/proxy</code>, <code>impl/server</code> and <code>impl/app</code>, and the proxy needs to be the first one to run. This (the fact that 3 different instance are running in 3 consoles) may be improved later to allow for a somewhat better development experience.</p>
 				<p>Once they are all up and running, navigate to <a href="http://localhost:8000">http://localhost:8000</a> to test payments.</p>
 				<p><a href="#table-of-contents">Back to top</a></p>
+				<a href="#configuration" id="configuration" style="color: inherit; text-decoration: none;">
+					<h2>Configuration</h2>
+				</a>
+				<p>Both the API Client as well as the ExpressJS middleware are configured via a <a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.paygateconfig.html">PayGateConfig</a> object, described by the properties below. The <code>payGateId</code> and <code>payGateKey</code> properties are required, all the rest is optional. Where optional properties or default configuration values are not specified, those values will <strong>have</strong> to be explicitly passed in with each <a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentrequest.html">PaymentRequest</a>. For example, you would typically have to set the <code>RETURN_URL</code> and a unique <code>TRANSACTION_DATE</code> on the <code>PaymentRequest</code>, as per the <a href="https://docs.paygate.co.za/?shell#request">PayGate Specification</a>. But if you were to specify a <code>returnUrl</code> on the configuration, and set <code>autoTransactionDate</code> to true, then you don&#39;t have to supply those values with the <code>PaymentRequest</code>, as they will be set automatically by the client and middleware. <em>Values explicitly found on the <code>PaymentRequest</code> will always take precedence over default configuration values</em>.</p>
+				<p>For all of this README documentation, all fields in <code>CAPS</code>, such as those found on <code>PaymentRequest</code>, are values specified and required by PayGate. Please refer to <a href="https://docs.paygate.co.za/?shell#request">the PayGate specification</a> for the details and requirements on those.</p>
+				<a href="#properties" id="properties" style="color: inherit; text-decoration: none;">
+					<h3>Properties</h3>
+				</a>
+				<p><strong>payGateId</strong></p>
+				<p>• <code>Required</code><strong>payGateId</strong>: string</p>
+				<p>Your PayGate account ID</p>
+				<p><strong>payGateKey</strong></p>
+				<p>• <code>Required</code><strong>payGateKey</strong>: string</p>
+				<p>Your PayGate password/secret</p>
+				<p><strong>returnUrl</strong></p>
+				<p>• <code>Optional</code> <strong>returnUrl</strong>: string</p>
+				<p>A default URL that PayGate should return to after processing a payment. If you set a <code>RETURN_URL</code> with an individual <a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentrequest.html">PaymentRequest</a>, then that value will take precedence over this one.</p>
+				<p><strong>notifyUrl</strong></p>
+				<p>• <code>Optional</code> <strong>notifyUrl</strong>: string</p>
+				<p>A default URL that PayGate should post payment notifications to. If you set a <code>NOTIFY_URL</code> with an individual <a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentrequest.html">PaymentRequest</a>, then that value will take precedence over this one. If no value is found on either, then PayGate will not post payment notification data back.</p>
+				<p><strong>autoPaymentReference</strong></p>
+				<p>• <code>Optional</code> <strong>autoPaymentReference</strong>: boolean</p>
+				<p>A unique payment reference (ID) has to be passed in with each <a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentrequest.html">PaymentRequest</a> on the <code>REFERENCE</code> property. If you prefer to have control over that ID generation, then leave this value unset or false and set it on the <code>PaymentRequest</code>. But if you prefer to have a payment reference auto generated for you, then set this configuration value to <code>true</code>, and don&#39;t specify anything on the <code>REFERENCE</code> property of the <code>PaymentRequest</code> itself. If a value is found on the <code>PaymentRequest</code>, even with <code>autoPaymentReference</code> enabled, then the value on the payment request would take precedence over an auto generated one. Currently the unique ID being generated is a UUID4 string. An option may exist in the future to configure your own custom ID generator.</p>
+				<p><strong>autoTransactionDate</strong></p>
+				<p>• <code>Optional</code> <strong>autoTransactionDate</strong>: boolean</p>
+				<p>A transaction date has to be passed in with each <a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentrequest.html">PaymentRequest</a> on the <code>TRANSACTION_DATE</code> property. If you prefer to have control over the date generation, then leave this value unset or false and set it on the <code>PaymentRequest</code>. But if you prefer to have a date auto generated for you (at the time the request is invoked), then set this configuration value to <code>true</code>, and don&#39;t specify anything on the <code>TRANSACTION_DATE</code> property of the <code>PaymentRequest</code> itself. If a value is found on the <code>PaymentRequest</code>, even with <code>autoTransactionDate</code> enabled, then the value on the payment request would take precedence over an auto generated one.</p>
+				<p><strong>defaultCountry</strong></p>
+				<p>• <code>Optional</code> <strong>defaultCountry</strong>: <a href="https://distributhor.github.io/paygate-sdk/enums/_types_.countrycode.html">CountryCode</a></p>
+				<p>A country code has to be passed in with each <a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentrequest.html">PaymentRequest</a> on the <code>COUNTRY</code> property. If no value is set on the <code>PaymentRequest</code> and a <code>defaultCountry</code> is configured, then the default value will be used. If a <code>COUNTRY</code> value is present on the <code>PaymentRequest</code>, it will be used instead.</p>
+				<p><strong>defaultCurrency</strong></p>
+				<p>• <code>Optional</code> <strong>defaultCurrency</strong>: <a href="https://distributhor.github.io/paygate-sdk/enums/_types_.currencycode.html">CurrencyCode</a></p>
+				<p>A currency code has to be passed in with each <a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentrequest.html">PaymentRequest</a> on the <code>CURRENCY</code> property. If no value is set on the <code>PaymentRequest</code> and a <code>defaultCurrency</code> is configured, then the default value will be used. If a <code>CURRENCY</code> value is present on the <code>PaymentRequest</code>, it will be used instead.</p>
+				<p><strong>defaultLocale</strong></p>
+				<p>• <code>Optional</code> <strong>defaultLocale</strong>: <a href="https://distributhor.github.io/paygate-sdk/enums/_types_.paygatelocale.html">PayGateLocale</a></p>
+				<p>A locale code has to be passed in with each <a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentrequest.html">PaymentRequest</a> on the <code>LOCALE</code> property. If no value is set on the <code>PaymentRequest</code> and a <code>defaultLocale</code> is configured, then the default value will be used. If no value is found anywhere, then an english locale will be returned. This value is only relevant for the PayGate UI, and is not used for anything related to currency and country when processing payments.</p>
+				<p><strong>defaultPaymentMethod</strong></p>
+				<p>• <code>Optional</code> <strong>defaultPaymentMethod</strong>: <a href="https://distributhor.github.io/paygate-sdk/enums/_types_.paymentmethod.html">PaymentMethod</a></p>
+				<p>The payment method is an optional value according to the PayGate specification. However, if no value is set on the <code>PaymentRequest</code> and a <code>defaultPaymentMethod</code> is configured, then the default value will be used.</p>
+				<p><strong>fallbackToZA</strong></p>
+				<p>• <code>Optional</code> <strong>fallbackToZA</strong>: boolean</p>
+				<p>The <code>fallbackToZA</code> configuration option only affects <code>COUNTRY</code> and <code>CURRENCY</code> on the <code>PaymentRequest</code>. If it is set to <code>true</code>, and no value is expicitly set on the <code>PaymentRequest</code>, and furthermore no value is configured for <code>defaultCountry</code> and <code>defaultCurrency</code> respectively, then it will fallback to <code>ZAF</code> for country and <code>ZAR</code> for currency. If you are predominantly processing payments within South Africa, this can be a convenient option to set.</p>
+				<p><a href="#table-of-contents">Back to top</a></p>
+				<a href="#expressjs-middleware" id="expressjs-middleware" style="color: inherit; text-decoration: none;">
+					<h2>ExpressJS Middleware</h2>
+				</a>
+				<p>TODO: notes on caching, urlencoded body parser requirement</p>
+				<p>The middleware module exposes 3 functions that can be used in your existing <a href="https://expressjs.com">ExpressJS</a> application.</p>
+				<p>▸ <strong>paymentRequestHandler</strong>(<code>config</code>: <a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.paygateconfig.html">PayGateConfig</a>): (void)</p>
+				<p>▸ <strong>paymentNotificationHandler</strong>(<code>config</code>: <a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.paygateconfig.html">PayGateConfig</a>): (void)</p>
+				<p>▸ <strong>paymentStatusHandler</strong>(<code>config</code>: <a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.paygateconfig.html">PayGateConfig</a>): (void)</p>
+				<a href="#paymentrequesthandler" id="paymentrequesthandler" style="color: inherit; text-decoration: none;">
+					<h3>paymentRequestHandler</h3>
+				</a>
+				<p>The <code>paymentRequestHandler</code> can to be used on an endpoint of your choice, exposed as a <code>POST</code> request, and expects a request body that conforms to a <a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentrequest.html">PaymentRequest</a>. It must be configured using a <code>PayGateConfig</code>. After handling the request, whether an error occurred or not, the result will be available on a <code>paygate</code> property on the ExpressJS request inside your endpoint function, from where you can do further processing.</p>
+				<p>The <code>paygate</code> property will contain a <a href="https://distributhor.github.io/paygate-sdk/interfaces/_middleware_.paygatemiddlewarepaymentresult.html">PayGateMiddlewarePaymentResult</a>, which has the following properties:</p>
+				<p><strong>paymentResponse</strong></p>
+				<p>• <strong>paymentResponse</strong>: <a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentresponse.html">PaymentResponse</a></p>
+				<p>If the payment was processed, then the <code>paymentResponse</code> property will be set with the result. Note that this does not indicate whether the payment itself was successfull, or declined etc. The <code>PaymentResponse</code> has to be consulted to see the status of the actual payment. The fact that this property is set only means that the payment was processed (or handled), ie, there was no errors in providing the service.</p>
+				<p><strong>badRequest</strong></p>
+				<p>• <strong>badRequest</strong>: string</p>
+				<p>If there was an issue with the data provided, such as required fields missing on the <code>PaymentRequest</code> or any other issue that can/should be rectified by the service that uses this endpoint, then an appropriate message will be set on this property, and no other properties will be set. This should usually result in an <code>HTTP 400</code> or <code>Bad Request</code>, but you can can deal with it any way you want.</p>
+				<p><strong>serviceError</strong></p>
+				<p>• <strong>serviceError</strong>: any</p>
+				<p>If there was an internal error, or a caught exception, and the service could not be provided due to it, then the low level error or exception will be set on this property, and no other properties will be set. This should usually result in an <code>HTTP 500</code> or <code>Internal Server Error</code>, but you can deal with any way you want.</p>
+				<a href="#paymentnotificationhandler" id="paymentnotificationhandler" style="color: inherit; text-decoration: none;">
+					<h3>paymentNotificationHandler</h3>
+				</a>
+				<p>The <code>paymentNotificationHandler</code> can to be used on an endpoint of your choice, exposed as a <code>POST</code> request, and expects a request body that conforms to a <a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentstatus.html">PaymentStatus</a>. It must be configured using a <code>PayGateConfig</code>. This endpoint can therefore be used as the URI where PayGate sends payment notifications, as per the <code>NOTIFY_URL</code>.</p>
+				<p>This endpoint will only receive such notifications, and by default does nothing else. You will typically use this endpoint to persist payment notifications or trigger any other event driven processing that needs to happen on receiving payment notifications.</p>
+				<p>TODO: must return OK according to PayGate spec</p>
+				<p>TODO: notes on caching</p>
+				<p>After receiving the request, whether an error occurred or not, the result will be available on a <code>paygate</code> property on the ExpressJS request inside your endpoint function, from where you can do further processing.</p>
+				<p>The <code>paygate</code> property will contain a <a href="https://distributhor.github.io/paygate-sdk/interfaces/_middleware_.paygatemiddlewarepaymentstatus.html">PayGateMiddlewarePaymentStatus</a>, which has the following properties:</p>
+				<p><strong>paymentStatus</strong></p>
+				<p>• <strong>paymentStatus</strong>: <a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentstatus.html">PaymentStatus</a></p>
+				<p>If the payment notification was received, then the <code>paymentStatus</code> property will be set with the result. Note that this does not indicate whether the payment itself was successfull, or declined etc. The <code>paymentStatus</code> has to be consulted to see the status of the actual payment. The fact that this property is set only means that the payment notification was received, ie, there was no errors in providing the service.</p>
+				<p><strong>badRequest</strong> and <strong>serviceError</strong> is same as above</p>
+				<a href="#paymentstatushandler" id="paymentstatushandler" style="color: inherit; text-decoration: none;">
+					<h3>paymentStatusHandler</h3>
+				</a>
+				<p>The <code>paymentStatusHandler</code> can to be used on an endpoint of your choice, exposed as a <code>GET</code> request, and expects to receive either one of, or both, of the request parameters <code>PAY_REQUEST_ID</code> and <code>REFERENCE</code>. It must be configured using a <code>PayGateConfig</code>. This handler will query PayGate for the status of a payment. After handling the request, whether an error occurred or not, the result will be available on a <code>paygate</code> property on the ExpressJS request inside your endpoint function, from where you can do further processing.</p>
+				<p>The <code>paygate</code> property will contain a <a href="https://distributhor.github.io/paygate-sdk/interfaces/_middleware_.paygatemiddlewarepaymentstatus.html">PayGateMiddlewarePaymentStatus</a>, which has the following properties:</p>
+				<p><strong>paymentStatus</strong></p>
+				<p>• <strong>paymentStatus</strong>: <a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentstatus.html">PaymentStatus</a></p>
+				<p>If the payment status was queried, then the <code>paymentStatus</code> property will be set with the result. You will usually want to return this payment status to the caller, but can handle it any way. If a failure occurred, then either of <code>badRequest</code> or <code>serviceError</code> will be set.</p>
+				<p>TODO: notes on caching and both fields required if not quering from the cache, ie, query directly with payagte</p>
+				<p><strong>badRequest</strong> and <strong>serviceError</strong> is same as above</p>
+				<a href="#example" id="example" style="color: inherit; text-decoration: none;">
+					<h3>Example</h3>
+				</a>
+				<p>Below is example showing how to use these middleware handlers in an ExpressJS environment. Note that the <code>urlencoded</code> body parser is required, since PayGate sends responses as that, and that the <code>paymentNotificationHandler</code> returns the text &quot;OK&quot; as required by PayGate.</p>
+				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;express&quot;</span>);
+<span class="hljs-keyword">const</span> bodyParser = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;body-parser&quot;</span>);
+
+<span class="hljs-keyword">const</span> { paymentRequestHandler, paymentNotificationHandler, paymentStatusHandler } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;paygate-sdk&quot;</span>);
+
+<span class="hljs-keyword">const</span> server = express();
+
+server.use(bodyParser.json());
+server.use(bodyParser.urlencoded({ <span class="hljs-attr">extended</span>: <span class="hljs-literal">true</span> }));
+
+<span class="hljs-keyword">const</span> middlewareConfig = {
+  <span class="hljs-attr">payGateId</span>: process.env.PAYGATE_ID,
+  <span class="hljs-attr">payGateKey</span>: process.env.PAYGATE_SECRET,
+  <span class="hljs-attr">returnUrl</span>: <span class="hljs-string">&quot;https://your.return.url&quot;</span>,
+  <span class="hljs-attr">notifyUrl</span>: <span class="hljs-string">&quot;https://your.notify.url&quot;</span>,
+  <span class="hljs-attr">autoTransactionDate</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">autoPaymentReference</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">fallbackToZA</span>: <span class="hljs-literal">true</span>,
+};
+
+server.post(<span class="hljs-string">&quot;/payment-request&quot;</span>, paymentRequestHandler(middlewareConfig), <span class="hljs-keyword">async</span> (req, res) =&gt; {
+  <span class="hljs-keyword">if</span> (req.paygate.badRequest) {
+    <span class="hljs-keyword">return</span> res.status(<span class="hljs-number">400</span>).send({ <span class="hljs-attr">message</span>: req.paygate.badRequest });
+  }
+
+  <span class="hljs-keyword">if</span> (req.paygate.serviceError) {
+    <span class="hljs-keyword">return</span> res.sendStatus(<span class="hljs-number">500</span>);
+  }
+
+  <span class="hljs-comment">// send the response back to the caller</span>
+  res.send(req.paygate.paymentResponse);
+});
+
+server.post(<span class="hljs-string">&quot;/payment-notification&quot;</span>, paymentNotificationHandler(middlewareConfig), <span class="hljs-keyword">async</span> (req, res) =&gt; {
+  <span class="hljs-keyword">if</span> (req.paygate.badRequest) {
+    <span class="hljs-keyword">return</span> res.status(<span class="hljs-number">400</span>).send({ <span class="hljs-attr">message</span>: req.paygate.badRequest });
+  }
+
+  <span class="hljs-keyword">if</span> (req.paygate.serviceError) {
+    <span class="hljs-keyword">return</span> res.sendStatus(<span class="hljs-number">500</span>);
+  }
+
+  <span class="hljs-comment">// persist  the payment status available on req.paygate.paymentStatus,</span>
+  <span class="hljs-comment">// or trigger other payment notification events</span>
+
+  <span class="hljs-comment">// must send back text with &quot;OK&quot;</span>
+  res.send(<span class="hljs-string">&quot;OK&quot;</span>);
+});</code></pre>
+				<p><a href="#table-of-contents">Back to top</a></p>
 				<a href="#api-client" id="api-client" style="color: inherit; text-decoration: none;">
 					<h2>API Client</h2>
 				</a>
-				<p>Documentation in progress ...</p>
+				<p>The PayGate API client is the core component of the SDK, and what most developers will use to build a PayGate integration. It is a Typescript API, but the compiled Javascript client can also be used in the the same fashion. The Typescript reference documentation can be found here: <a href="https://distributhor.github.io/paygate-sdk/index.html">https://distributhor.github.io/paygate-sdk/index.html</a></p>
 				<a href="#constructor" id="constructor" style="color: inherit; text-decoration: none;">
 					<h3>Constructor</h3>
 				</a>
@@ -124,26 +258,6 @@
 				<p>▸ <strong>requestPayment</strong>(<code>paymentRequest</code>: <a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentrequest.html">PaymentRequest</a>): Promise&lt;<a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentresponse.html">PaymentResponse</a>&gt;</p>
 				<p>▸ <code>Static</code><strong>generateChecksum</strong>(<code>data</code>: <a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.untypedobject.html">UntypedObject</a>, <code>encryptionKey</code>: string): string</p>
 				<p>▸ <code>Static</code><strong>getInstance</strong>(<code>payGateId?</code>: string, <code>payGateKey?</code>: string): <a href="https://distributhor.github.io/paygate-sdk/classes/_client_.paygateclient.html">PayGateClient</a></p>
-				<p><a href="#table-of-contents">Back to top</a></p>
-				<a href="#expressjs-middleware" id="expressjs-middleware" style="color: inherit; text-decoration: none;">
-					<h2>ExpressJS Middleware</h2>
-				</a>
-				<p>Documentation in progress ...</p>
-				<a href="#interfaces" id="interfaces" style="color: inherit; text-decoration: none;">
-					<h3>Interfaces</h3>
-				</a>
-				<ul>
-					<li><a href="https://distributhor.github.io/paygate-sdk/interfaces/_middleware_.paygatemiddlewareconfig.html">PayGateMiddlewareConfig</a></li>
-					<li><a href="https://distributhor.github.io/paygate-sdk/interfaces/_middleware_.paygatemiddlewarepaymentresult.html">PayGateMiddlewarePaymentResult</a></li>
-					<li><a href="https://distributhor.github.io/paygate-sdk/interfaces/_middleware_.paygatemiddlewarepaymentstatus.html">PayGateMiddlewarePaymentStatus</a></li>
-					<li><a href="https://distributhor.github.io/paygate-sdk/interfaces/_middleware_.paygatemiddlewareresult.html">PayGateMiddlewareResult</a></li>
-				</ul>
-				<a href="#functions" id="functions" style="color: inherit; text-decoration: none;">
-					<h3>Functions</h3>
-				</a>
-				<p>▸ <strong>paymentNotificationHandler</strong>(<code>options</code>: <a href="https://distributhor.github.io/paygate-sdk/interfaces/_middleware_.paygatemiddlewareconfig.html">PayGateMiddlewareConfig</a>): (Anonymous function)</p>
-				<p>▸ <strong>paymentRequestHandler</strong>(<code>options</code>: <a href="https://distributhor.github.io/paygate-sdk/interfaces/_middleware_.paygatemiddlewareconfig.html">PayGateMiddlewareConfig</a>): (Anonymous function)</p>
-				<p>▸ <strong>paymentStatusHandler</strong>(<code>options</code>: <a href="https://distributhor.github.io/paygate-sdk/interfaces/_middleware_.paygatemiddlewareconfig.html">PayGateMiddlewareConfig</a>): (Anonymous function)</p>
 				<p><a href="#table-of-contents">Back to top</a></p>
 				<a href="#common-utility-functions" id="common-utility-functions" style="color: inherit; text-decoration: none;">
 					<h2>Common Utility Functions</h2>
@@ -162,7 +276,7 @@ TransactionCode;
 TransactionStatus;
 TransactionResultCodes;
 PayGateTestCards;</code></pre>
-				<a href="#functions-1" id="functions-1" style="color: inherit; text-decoration: none;">
+				<a href="#functions" id="functions" style="color: inherit; text-decoration: none;">
 					<h3>Functions</h3>
 				</a>
 				<p>▸ <strong>generatePayGateChecksum</strong>(<code>data</code>: <a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.untypedobject.html">UntypedObject</a>, <code>encryptionKey</code>: string): string</p>
@@ -186,7 +300,7 @@ PayGateTestCards;</code></pre>
 					<li><a href="https://distributhor.github.io/paygate-sdk/enums/_types_.transactioncode.html">TransactionCode</a></li>
 					<li><a href="https://distributhor.github.io/paygate-sdk/enums/_types_.paygatelocale.html">PayGateLocale</a></li>
 				</ul>
-				<a href="#interfaces-1" id="interfaces-1" style="color: inherit; text-decoration: none;">
+				<a href="#interfaces" id="interfaces" style="color: inherit; text-decoration: none;">
 					<h3>Interfaces</h3>
 				</a>
 				<ul>
@@ -208,7 +322,7 @@ PayGateTestCards;</code></pre>
 					<h4>PayGateEndpoints</h4>
 				</a>
 				<p>▪ <code>Const</code> <strong><a href="https://distributhor.github.io/paygate-sdk/modules/_types_.html#paygateendpoints">PayGateEndpoints</a></strong>: object</p>
-				<a href="#properties" id="properties" style="color: inherit; text-decoration: none;">
+				<a href="#properties-1" id="properties-1" style="color: inherit; text-decoration: none;">
 					<h4>Properties:</h4>
 				</a>
 				<table>
@@ -239,7 +353,7 @@ PayGateTestCards;</code></pre>
 					<h4>TransactionStatus</h4>
 				</a>
 				<p>▪ <code>Const</code> <strong><a href="https://distributhor.github.io/paygate-sdk/modules/_types_.html#transactionstatus">TransactionStatus</a></strong>: object</p>
-				<a href="#properties-1" id="properties-1" style="color: inherit; text-decoration: none;">
+				<a href="#properties-2" id="properties-2" style="color: inherit; text-decoration: none;">
 					<h4>Properties:</h4>
 				</a>
 				<table>
@@ -290,7 +404,7 @@ PayGateTestCards;</code></pre>
 					<h4>PayGateErrorCodes</h4>
 				</a>
 				<p>▪ <code>Const</code> <strong><a href="https://distributhor.github.io/paygate-sdk/modules/_types_.html#paygateerrorcodes">PayGateErrorCodes</a></strong>: object</p>
-				<a href="#properties-2" id="properties-2" style="color: inherit; text-decoration: none;">
+				<a href="#properties-3" id="properties-3" style="color: inherit; text-decoration: none;">
 					<h4>Properties:</h4>
 				</a>
 				<table>
@@ -431,7 +545,7 @@ PayGateTestCards;</code></pre>
 					<h4>CreditCardResultCodes</h4>
 				</a>
 				<p>▪ <code>Const</code> <strong><a href="https://distributhor.github.io/paygate-sdk/modules/_types_.html#creditcardresultcodes">CreditCardResultCodes</a></strong>: object</p>
-				<a href="#properties-3" id="properties-3" style="color: inherit; text-decoration: none;">
+				<a href="#properties-4" id="properties-4" style="color: inherit; text-decoration: none;">
 					<h4>Properties:</h4>
 				</a>
 				<table>
@@ -547,7 +661,7 @@ PayGateTestCards;</code></pre>
 					<h4>CommunicationAndDataResultCodes</h4>
 				</a>
 				<p>▪ <code>Const</code> <strong><a href="https://distributhor.github.io/paygate-sdk/modules/_types_.html#communicationanddataresultcodes">CommunicationAndDataResultCodes</a></strong>: object</p>
-				<a href="#properties-4" id="properties-4" style="color: inherit; text-decoration: none;">
+				<a href="#properties-5" id="properties-5" style="color: inherit; text-decoration: none;">
 					<h4>Properties:</h4>
 				</a>
 				<table>
@@ -614,7 +728,7 @@ PayGateTestCards;</code></pre>
 							<td>&quot;Error processing transaction&quot;</td>
 						</tr>
 				</tbody></table>
-				<a href="#properties-5" id="properties-5" style="color: inherit; text-decoration: none;">
+				<a href="#properties-6" id="properties-6" style="color: inherit; text-decoration: none;">
 					<h4>Properties:</h4>
 				</a>
 				<table>
@@ -660,7 +774,7 @@ PayGateTestCards;</code></pre>
 					<h4>PaymentMethodName</h4>
 				</a>
 				<p>▪ <code>Const</code> <strong><a href="https://distributhor.github.io/paygate-sdk/modules/_types_.html#paymentmethodname">PaymentMethodName</a></strong>: object</p>
-				<a href="#properties-6" id="properties-6" style="color: inherit; text-decoration: none;">
+				<a href="#properties-7" id="properties-7" style="color: inherit; text-decoration: none;">
 					<h4>Properties:</h4>
 				</a>
 				<table>
@@ -706,7 +820,7 @@ PayGateTestCards;</code></pre>
 					<h4>PayGateTestCards</h4>
 				</a>
 				<p>▪ <code>Const</code> <strong><a href="https://distributhor.github.io/paygate-sdk/modules/_types_.html#paygatetestcards">PayGateTestCards</a></strong>: object</p>
-				<a href="#properties-7" id="properties-7" style="color: inherit; text-decoration: none;">
+				<a href="#properties-8" id="properties-8" style="color: inherit; text-decoration: none;">
 					<h4>Properties:</h4>
 				</a>
 				<table>
@@ -739,7 +853,7 @@ PayGateTestCards;</code></pre>
 						</tr>
 				</tbody></table>
 			</div>
-			<!--{&quot;options&quot;:&quot;/Volumes/HDX/project/distributhor/paygate-sdk&quot;,&quot;tsconfig&quot;:&quot;./tsconfig.json&quot;,&quot;inputFiles&quot;:[&quot;/Volumes/HDX/project/distributhor/paygate-sdk/src/browser.ts&quot;,&quot;/Volumes/HDX/project/distributhor/paygate-sdk/src/client.ts&quot;,&quot;/Volumes/HDX/project/distributhor/paygate-sdk/src/index.ts&quot;,&quot;/Volumes/HDX/project/distributhor/paygate-sdk/src/middleware.ts&quot;,&quot;/Volumes/HDX/project/distributhor/paygate-sdk/src/types.ts&quot;,&quot;/Volumes/HDX/project/distributhor/paygate-sdk/src/util.ts&quot;],&quot;mode&quot;:1,&quot;includeDeclarations&quot;:false,&quot;entryPoint&quot;:&quot;&quot;,&quot;exclude&quot;:[],&quot;externalPattern&quot;:[],&quot;excludeExternals&quot;:false,&quot;excludeNotExported&quot;:false,&quot;excludeNotDocumented&quot;:false,&quot;excludePrivate&quot;:true,&quot;excludeProtected&quot;:false,&quot;ignoreCompilerErrors&quot;:false,&quot;disableSources&quot;:false,&quot;includes&quot;:&quot;&quot;,&quot;media&quot;:&quot;&quot;,&quot;out&quot;:&quot;docs&quot;,&quot;json&quot;:&quot;&quot;,&quot;theme&quot;:&quot;./node_modules/typedoc-neo-theme/bin/default&quot;,&quot;name&quot;:&quot;Documentation&quot;,&quot;includeVersion&quot;:false,&quot;excludeTags&quot;:[],&quot;readme&quot;:&quot;readme/documentation.md&quot;,&quot;defaultCategory&quot;:&quot;Other&quot;,&quot;categoryOrder&quot;:[],&quot;categorizeByGroup&quot;:true,&quot;gitRevision&quot;:&quot;&quot;,&quot;gitRemote&quot;:&quot;origin&quot;,&quot;gaID&quot;:&quot;&quot;,&quot;gaSite&quot;:&quot;auto&quot;,&quot;hideGenerator&quot;:true,&quot;toc&quot;:[],&quot;disableOutputCheck&quot;:false,&quot;help&quot;:false,&quot;version&quot;:false,&quot;plugin&quot;:[&quot;typedoc-neo-theme&quot;],&quot;logger&quot;:&quot;console&quot;,&quot;listInvalidSymbolLinks&quot;:false,&quot;links&quot;:[{&quot;label&quot;:&quot;GitHub&quot;,&quot;url&quot;:&quot;https://github.com/distributhor/paygate-sdk&quot;}],&quot;outline&quot;:[{&quot;TS Typings&quot;:&quot;_types_&quot;,&quot;API Client&quot;:&quot;_client_&quot;,&quot;Express Middleware&quot;:&quot;_middleware_&quot;,&quot;Common Utils&quot;:&quot;_util_&quot;,&quot;Browser Lib&quot;:&quot;_browser_&quot;}]}-->
+			<!--{&quot;options&quot;:&quot;/Volumes/HDX/project/distributhor/paygate-sdk&quot;,&quot;tsconfig&quot;:&quot;./tsconfig.json&quot;,&quot;inputFiles&quot;:[&quot;/Volumes/HDX/project/distributhor/paygate-sdk/src/browser.ts&quot;,&quot;/Volumes/HDX/project/distributhor/paygate-sdk/src/client.ts&quot;,&quot;/Volumes/HDX/project/distributhor/paygate-sdk/src/index.ts&quot;,&quot;/Volumes/HDX/project/distributhor/paygate-sdk/src/middleware.ts&quot;,&quot;/Volumes/HDX/project/distributhor/paygate-sdk/src/types.ts&quot;,&quot;/Volumes/HDX/project/distributhor/paygate-sdk/src/util.ts&quot;],&quot;mode&quot;:1,&quot;includeDeclarations&quot;:false,&quot;entryPoint&quot;:&quot;&quot;,&quot;exclude&quot;:[&quot;src/browser.ts&quot;],&quot;externalPattern&quot;:[],&quot;excludeExternals&quot;:false,&quot;excludeNotExported&quot;:false,&quot;excludeNotDocumented&quot;:false,&quot;excludePrivate&quot;:true,&quot;excludeProtected&quot;:false,&quot;ignoreCompilerErrors&quot;:false,&quot;disableSources&quot;:false,&quot;includes&quot;:&quot;&quot;,&quot;media&quot;:&quot;&quot;,&quot;out&quot;:&quot;docs&quot;,&quot;json&quot;:&quot;&quot;,&quot;theme&quot;:&quot;./node_modules/typedoc-neo-theme/bin/default&quot;,&quot;name&quot;:&quot;Documentation&quot;,&quot;includeVersion&quot;:false,&quot;excludeTags&quot;:[],&quot;readme&quot;:&quot;readme/documentation.md&quot;,&quot;defaultCategory&quot;:&quot;Other&quot;,&quot;categoryOrder&quot;:[],&quot;categorizeByGroup&quot;:true,&quot;gitRevision&quot;:&quot;&quot;,&quot;gitRemote&quot;:&quot;origin&quot;,&quot;gaID&quot;:&quot;&quot;,&quot;gaSite&quot;:&quot;auto&quot;,&quot;hideGenerator&quot;:true,&quot;toc&quot;:[],&quot;disableOutputCheck&quot;:false,&quot;help&quot;:false,&quot;version&quot;:false,&quot;plugin&quot;:[&quot;typedoc-neo-theme&quot;],&quot;logger&quot;:&quot;console&quot;,&quot;listInvalidSymbolLinks&quot;:false,&quot;links&quot;:[{&quot;label&quot;:&quot;GitHub&quot;,&quot;url&quot;:&quot;https://github.com/distributhor/paygate-sdk&quot;}],&quot;outline&quot;:[{&quot;TS Typings&quot;:&quot;_types_&quot;,&quot;API Client&quot;:&quot;_client_&quot;,&quot;Express Middleware&quot;:&quot;_middleware_&quot;,&quot;Common Utils&quot;:&quot;_util_&quot;,&quot;Browser Lib&quot;:&quot;_browser_&quot;}]}-->
 		</div>
 		<div class="col-2 col-menu secondary-menu">
 			<nav class="tsd-navigation secondary menu-sticky">

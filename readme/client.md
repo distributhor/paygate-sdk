@@ -1,6 +1,6 @@
 ## API Client
 
-Documentation in progress ...
+The PayGate API client is the core component of the SDK, and what most developers will use to build a PayGate integration. It is a Typescript API, but the compiled Javascript client can also be used in the the same fashion. The Typescript reference documentation can be found here: https://distributhor.github.io/paygate-sdk/index.html
 
 ### Constructor
 

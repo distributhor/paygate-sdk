@@ -19,7 +19,7 @@
 
 [Back to top](#table-of-contents)
 
-#include "readme/api-client.md"
+#include "readme/client.md"
 
 [Back to top](#table-of-contents)
 
