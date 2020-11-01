@@ -9,3 +9,5 @@ extraction:
     index:
       exclude:
         - impl
+        - resources
+        - scripts
