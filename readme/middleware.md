@@ -46,7 +46,7 @@ The `paygate` property will contain a [PayGateMiddlewarePaymentStatus](https://d
 
 If the payment notification was received, then the `paymentStatus` property will be set with the result. Note that this does not indicate whether the payment itself was successfull, or declined etc. The `paymentStatus` has to be consulted to see the status of the actual payment. The fact that this property is set only means that the payment notification was received, ie, there was no errors in providing the service.
 
-**badRequest** and **serviceError** is same as above
+• **badRequest** and **serviceError** is same as above
 
 ### paymentStatusHandler
 
@@ -60,7 +60,7 @@ If the payment status was queried, then the `paymentStatus` property will be set
 
 TODO: notes on caching and both fields required if not quering from the cache, ie, query directly with payagte
 
-**badRequest** and **serviceError** is same as above
+• **badRequest** and **serviceError** is same as above
 
 ### Example
 

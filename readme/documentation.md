@@ -37,47 +37,47 @@ For all of this README documentation, all fields in `CAPS`, such as those found 
 
 ### Configuration Properties
 
-• `Required`**payGateId**: string
+• **payGateId**: string `Required`
 
 Your PayGate account ID
 
-• `Required`**payGateKey**: string
+• **payGateKey**: string `Required`
 
 Your PayGate password/secret
 
-• `Optional` **returnUrl**: string
+• **returnUrl**: string `Optional`
 
 A default URL that PayGate should return to after processing a payment. If you set a `RETURN_URL` with an individual [PaymentRequest](https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentrequest.html), then that value will take precedence over this one.
 
-• `Optional` **notifyUrl**: string
+• **notifyUrl**: string `Optional`
 
 A default URL that PayGate should post payment notifications to. If you set a `NOTIFY_URL` with an individual [PaymentRequest](https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentrequest.html), then that value will take precedence over this one. If no value is found on either, then PayGate will not post payment notification data back.
 
-• `Optional` **autoPaymentReference**: boolean
+• **autoPaymentReference**: boolean `Optional`
 
 A unique payment reference (ID) has to be passed in with each [PaymentRequest](https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentrequest.html) on the `REFERENCE` property. If you prefer to have control over that ID generation, then leave this value unset or false and set it on the `PaymentRequest`. But if you prefer to have a payment reference auto generated for you, then set this configuration value to `true`, and don't specify anything on the `REFERENCE` property of the `PaymentRequest` itself. If a value is found on the `PaymentRequest`, even with `autoPaymentReference` enabled, then the value on the payment request would take precedence over an auto generated one. Currently the unique ID being generated is a UUID4 string. An option may exist in the future to configure your own custom ID generator.
 
-• `Optional` **autoTransactionDate**: boolean
+• **autoTransactionDate**: boolean `Optional`
 
 A transaction date has to be passed in with each [PaymentRequest](https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentrequest.html) on the `TRANSACTION_DATE` property. If you prefer to have control over the date generation, then leave this value unset or false and set it on the `PaymentRequest`. But if you prefer to have a date auto generated for you (at the time the request is invoked), then set this configuration value to `true`, and don't specify anything on the `TRANSACTION_DATE` property of the `PaymentRequest` itself. If a value is found on the `PaymentRequest`, even with `autoTransactionDate` enabled, then the value on the payment request would take precedence over an auto generated one.
 
-• `Optional` **defaultCountry**: [CountryCode](https://distributhor.github.io/paygate-sdk/enums/_types_.countrycode.html)
+• **defaultCountry**: [CountryCode](https://distributhor.github.io/paygate-sdk/enums/_types_.countrycode.html) `Optional`
 
 A country code has to be passed in with each [PaymentRequest](https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentrequest.html) on the `COUNTRY` property. If no value is set on the `PaymentRequest` and a `defaultCountry` is configured, then the default value will be used. If a `COUNTRY` value is present on the `PaymentRequest`, it will be used instead.
 
-• `Optional` **defaultCurrency**: [CurrencyCode](https://distributhor.github.io/paygate-sdk/enums/_types_.currencycode.html)
+• **defaultCurrency**: [CurrencyCode](https://distributhor.github.io/paygate-sdk/enums/_types_.currencycode.html) `Optional`
 
 A currency code has to be passed in with each [PaymentRequest](https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentrequest.html) on the `CURRENCY` property. If no value is set on the `PaymentRequest` and a `defaultCurrency` is configured, then the default value will be used. If a `CURRENCY` value is present on the `PaymentRequest`, it will be used instead.
 
-• `Optional` **defaultLocale**: [PayGateLocale](https://distributhor.github.io/paygate-sdk/enums/_types_.paygatelocale.html)
+• **defaultLocale**: [PayGateLocale](https://distributhor.github.io/paygate-sdk/enums/_types_.paygatelocale.html) `Optional`
 
 A locale code has to be passed in with each [PaymentRequest](https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentrequest.html) on the `LOCALE` property. If no value is set on the `PaymentRequest` and a `defaultLocale` is configured, then the default value will be used. If no value is found anywhere, then an english locale will be returned. This value is only relevant for the PayGate UI, and is not used for anything related to currency and country when processing payments.
 
-• `Optional` **defaultPaymentMethod**: [PaymentMethod](https://distributhor.github.io/paygate-sdk/enums/_types_.paymentmethod.html)
+• **defaultPaymentMethod**: [PaymentMethod](https://distributhor.github.io/paygate-sdk/enums/_types_.paymentmethod.html) `Optional`
 
 The payment method is an optional value according to the PayGate specification. However, if no value is set on the `PaymentRequest` and a `defaultPaymentMethod` is configured, then the default value will be used.
 
-• `Optional` **fallbackToZA**: boolean
+• **fallbackToZA**: boolean `Optional`
 
 The `fallbackToZA` configuration option only affects `COUNTRY` and `CURRENCY` on the `PaymentRequest`. If it is set to `true`, and no value is expicitly set on the `PaymentRequest`, and furthermore no value is configured for `defaultCountry` and `defaultCurrency` respectively, then it will fallback to `ZAF` for country and `ZAR` for currency. If you are predominantly processing payments within South Africa, this can be a convenient option to set.
 
@@ -131,7 +131,7 @@ The `paygate` property will contain a [PayGateMiddlewarePaymentStatus](https://d
 
 If the payment notification was received, then the `paymentStatus` property will be set with the result. Note that this does not indicate whether the payment itself was successfull, or declined etc. The `paymentStatus` has to be consulted to see the status of the actual payment. The fact that this property is set only means that the payment notification was received, ie, there was no errors in providing the service.
 
-**badRequest** and **serviceError** is same as above
+• **badRequest** and **serviceError** is same as above
 
 ### paymentStatusHandler
 
@@ -145,7 +145,7 @@ If the payment status was queried, then the `paymentStatus` property will be set
 
 TODO: notes on caching and both fields required if not quering from the cache, ie, query directly with payagte
 
-**badRequest** and **serviceError** is same as above
+• **badRequest** and **serviceError** is same as above
 
 ### Example
 
