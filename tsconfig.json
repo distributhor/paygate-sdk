@@ -31,7 +31,7 @@
     ],
     "outline": [
       {
-        "TS Typings": "_types_",
+        "Types": "_types_",
         "API Client": "_client_",
         "Common Utils": "_util_",
         "Express Middleware": "_middleware_"

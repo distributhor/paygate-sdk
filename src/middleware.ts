@@ -15,10 +15,12 @@ export interface PayGateMiddlewarePaymentStatus extends PayGateMiddlewareResult 
   paymentStatus?: PaymentStatus;
 }
 
+/** @internal */
 interface ExpressRequestWithPaymentResult extends Request {
   paygate: PayGateMiddlewarePaymentResult;
 }
 
+/** @internal */
 interface ExpressRequestWithPaymentStatus extends Request {
   paygate: PayGateMiddlewarePaymentStatus;
 }
