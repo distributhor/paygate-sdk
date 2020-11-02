@@ -7,13 +7,7 @@
 - [Utils](#common-utility-functions)
 - [Types](#types)
 
-![Process Diagram](https://raw.githubusercontent.com/distributhor/paygate-sdk/main/resources/process-diagram-1.png)
-
-![Process Diagram](https://raw.githubusercontent.com/distributhor/paygate-sdk/main/resources/process-diagram-2.png)
-
-![Process Diagram](https://raw.githubusercontent.com/distributhor/paygate-sdk/main/resources/process-diagram-svg-1.svg)
-
-![Process Diagram](https://raw.githubusercontent.com/distributhor/paygate-sdk/main/resources/process-diagram-svg-2.svg)
+![Process Diagram](https://raw.githubusercontent.com/distributhor/paygate-sdk/main/resources/process-diagram.svg)
 
 ## Reference Implementation
 
