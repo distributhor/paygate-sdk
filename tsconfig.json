@@ -16,7 +16,7 @@
   "typedocOptions": {
     "mode": "modules",
     "name": "Documentation",
-    "readme": "docs/documentation.md",
+    "readme": "md/documentation.md",
     "exclude": "src/browser.ts",
     "includeVersion": false,
     "excludePrivate": true,
@@ -39,5 +39,5 @@
     ]
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules", "lib", "dist", "test", "impl", "scripts"]
+  "exclude": ["node_modules", "lib", "dist", "test", "impl", "scripts", "docs", "md"]
 }

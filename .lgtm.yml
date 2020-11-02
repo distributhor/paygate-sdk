@@ -2,12 +2,12 @@ path_classifiers:
   test:
     - test
   docs:
+    - md
     - docs
-    - typedoc
 extraction:
   javascript:
     index:
       exclude:
         - impl
-        - resources
         - scripts
+        - resources
