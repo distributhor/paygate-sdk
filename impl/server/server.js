@@ -5,7 +5,7 @@ const bodyParser = require("body-parser");
 const superagent = require("superagent");
 const debug = require("debug")("paygate-sdk:server");
 
-const { paymentRequestHandler, paymentNotificationHandler, paymentStatusHandler } = require("../../dist/index.js");
+const { paymentRequestHandler, paymentNotificationHandler, paymentStatusHandler } = require("../../lib/index.js");
 
 require("dotenv").config({ path: path.join(__dirname, ".env") });
 

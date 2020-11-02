@@ -1,6 +1,6 @@
 {
   "ext": "js",
-  "watch": ["server.js", "../../dist/client.js", "../../dist/types.js"],
+  "watch": ["server.js", "../../lib/client.js", "../../lib/types.js"],
   "ignore": ["node_modules", "test"],
   "exec": "node server.js"
 }

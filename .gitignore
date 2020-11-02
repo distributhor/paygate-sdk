@@ -2,8 +2,8 @@ script.ts
 script.js
 .env
 .cache
-/dist
 /lib
+/dist
 /archive
 node_modules
 
