@@ -7,35 +7,67 @@
 
 ## Introduction
 
-**Please note, this documentation is currently in the process of being written and refined. It is not in a final state yet.**
+**This documentation is currently in the process of being written and refined, and is not in a final state.**
 
 This project is made up of a few parts which can be used seperately or in combination, to aid with building an integration to the South African payment provider [PayGate](https://www.paygate.co.za).
 
-Reference documentation can be found at https://distributhor.github.io/paygate-sdk/
-
 The main components are:
 
-- A standalone Typescript and Javascript client to interface with the PayGate API, usable in Typescript or NodeJS projects. There are also Typescript typings available for the PayGate data types.
-- ExpressJS middleware which can be used to configure custom endpoints for payment processing
-- A utility module which can help with common PayGate tasks, such as generating a payload checksum, or extracting a friendly transaction summary messages from a PayGate payment status response. This module is also available a plain JS file which can be included in HTML via a `<script>` tag.
+- A standalone Typescript and Javascript (NodeJS) client to interface with the PayGate API
+- ExpressJS middleware which can be used to rapidly create endpoints for payment processing
+- A utility module, also available in a browser friendly version, which can help with common PayGate tasks, such as generating a payload checksum, or extracting a transaction summary message from a payment status response
 
 Only pick what you need in order to help with your specific integration requirements. For example, if you are already using ExpressJS and want to easily enable endpoints that can handle payment processing, then it's likely that the only thing you need from this project is the ExpressJS middleware functions. Or, perhaps more likely, you want to use the TS/JS client in a Node based project so that you don't have to deal directly with the PayGate HTTP API. In this case the utility module and typings may also be helpful.
 
-Features to be worked on next:
+Important links:
 
-- Locales
-- Support for custom payment reference ID generation
+- The official [PayGate Documentation](https://docs.paygate.co.za/?shell#payweb-3)
+- Typescript [API reference](https://distributhor.github.io/paygate-sdk/) for this SDK
+
+### Quick Start
+
+```typescript
+import { PayGateClient } from "paygate-sdk";
+```
+
+or alternatively, for a NodeJS/Javascript project ..
+
+```javascript
+const { PayGateClient } = require("paygate-sdk");
+```
+
+and then you can use the client ...
+
+```javascript
+const client = new PayGateClient({
+  payGateId: "id",
+  payGateSecret: "secret",
+  returnUrl: "http://app.ui/payment-status",
+  notifyUrl: "http://backend/handle-payment-notification",
+  autoTransactionDate: true,
+  autoPaymentReference: true,
+  fallbackToZA: true,
+});
+
+const paymentResponse = await client.requestPayment({
+  AMOUNT: 100.0,
+  EMAIL: "client@email.com",
+});
+
+console.log(paymentResponse.paymentRef);
+```
+
+There is plenty more available, all of which is covered in the relevant sections below.
 
 ### Table Of Contents
 
 - [Reference Implementation](#reference-implementation)
+- [Process Flow](#process-flow)
 - [Configuration](#configuration)
-- [Middleware](#expressjs-middleware)
 - [API Client](#api-client)
+- [Middleware](#expressjs-middleware)
 - [Utils](#common-utility-functions)
 - [Types](#types)
-
-![Process Diagram](https://raw.githubusercontent.com/distributhor/paygate-sdk/main/resources/process-diagram.svg)
 
 ## Reference Implementation
 
@@ -56,6 +88,16 @@ The backend server implementation needs to know which PayGate credentials to use
 If you have an Ngrok auth token and PayGate credentials configured, then you can simply run `yarn install` and `yarn develop` in each of the folders `impl/proxy`, `impl/server` and `impl/app`, and the proxy needs to be the first one to run. This (the fact that 3 different instance are running in 3 consoles) may be improved later to allow for a somewhat better development experience.
 
 Once they are all up and running, navigate to http://localhost:8000 to test payments.
+
+[Back to top](#table-of-contents)
+
+## Process Flow
+
+If you are not already familiar with the PayGate payment flow, it's best to first [familiarize yourself with it](https://docs.paygate.co.za/?shell#process-flow), since this implementation is heavily influenced by it, and it will be easier to get going. A high level overview is provided below.
+
+![Process Diagram](https://raw.githubusercontent.com/distributhor/paygate-sdk/main/resources/process-diagram.svg)
+
+TODO: complete this overview
 
 [Back to top](#table-of-contents)
 
@@ -110,6 +152,60 @@ The payment method is an optional value according to the PayGate specification. 
 • **fallbackToZA**: boolean `Optional`
 
 The `fallbackToZA` configuration option only affects `COUNTRY` and `CURRENCY` on the `PaymentRequest`. If it is set to `true`, and no value is expicitly set on the `PaymentRequest`, and furthermore no value is configured for `defaultCountry` and `defaultCurrency` respectively, then it will fallback to `ZAF` for country and `ZAR` for currency. If you are predominantly processing payments within South Africa, this can be a convenient option to set.
+
+[Back to top](#table-of-contents)
+
+## API Client
+
+Documentation in progress ...
+
+Make sure you are familiar with the [PayGate process flow](https://docs.paygate.co.za/?shell#process-flow) before continuing.
+
+The PayGate API client is the core component of the SDK, and what most developers will use to build a PayGate integration. It is a Typescript API, but the compiled Javascript client can also be used in a NodeJS application. The TS reference documentation [is available here](https://distributhor.github.io/paygate-sdk/index.html), but an introduction is provided below.
+
+For Typescript projects ...
+
+```typescript
+import { PayGateClient } from "paygate-sdk";
+```
+
+For a NodeJS/Javascript project ..
+
+```javascript
+const { PayGateClient } = require("paygate-sdk");
+```
+
+### Constructor
+
+\+ **new PayGateClient**(`payGateIdOrConfig`: string | [PayGateConfig](https://distributhor.github.io/paygate-sdk/interfaces/_types_.paygateconfig.html), `payGateKey?`: string): [PayGateClient](https://distributhor.github.io/paygate-sdk/classes/_client_.paygateclient.html)
+
+The constructor expects **either** a [PayGateConfig](<(https://distributhor.github.io/paygate-sdk/interfaces/_types_.paygateconfig.html)>) object **or** a `payGateId` and `payGateKey` as parameters. If it's a `PayGateConfig`, then it's assumed that the `payGateId` and `payGateKey` properties will be set on the config, as they are required. Thus, the 2nd constructor parameter is ignored. However, if the first constructor parameter is a `string`, then **it's assumed that no configuration object** is provided, and therefore both the parameters `payGateId` and `payGateKey` are required.
+
+### Methods
+
+▸ `static` **getInstance**(`payGateIdOrConfig`: string | [PayGateConfig](https://distributhor.github.io/paygate-sdk/interfaces/_types_.paygateconfig.html), `payGateKey?`: string): [PayGateClient](https://distributhor.github.io/paygate-sdk/classes/_client_.paygateclient.html)
+
+In addition to the regular constructor, a static singleton method is also provided, which will return the same client instance every time it's called. Once it has been invoked with arguments, it can subsequently be invoked with no arguments to return the same instance. If the same `payGateId` and `payGateSecret` is specified in the arguments or config of subsequent invocations, then it will also provide the same instance as that which already exists. If, however, a different `payGateId` and `payGateSecret` is specified, then it will **replace the existing instance with a new one**, using the new values and configuration.
+
+▸ **requestPayment**(`paymentRequest`: [PaymentRequest](https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentrequest.html)): Promise\<[PaymentResponse](https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentresponse.html)>
+
+Will issue a payment request to PayGate. To understand what is expected from all the properties available on the `PaymentRequest`, as well as which properties are required or optional, [consult the PayGate documentation](https://docs.paygate.co.za/?shell#request). By using a [PayGateConfig](https://distributhor.github.io/paygate-sdk/interfaces/_types_.paygateconfig.html) with the client, some of the required properies can be turned into _optional_ ones, by virtue of the fact that they can either be assigned default values or auto generated. Have a look at the [Configuration](#configuration) section at the top for more details on how the configuration can be used.
+
+▸ **handlePaymentNotification**(`paymentStatus`: [PaymentStatus](https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentstatus.html)): Promise\<[SuccessIndicator](https://distributhor.github.io/paygate-sdk/interfaces/_types_.successindicator.html)>
+
+TODO: notes on caching
+
+▸ **queryPaymentStatus**(`paymentRef`: [PaymentReference](https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentreference.html)): Promise\<[PaymentStatus](https://distributhor.github.io/paygate-sdk/classes/_client_.paygateclient.html)>
+
+TODO: finish documenting the function
+
+Will issue a query to PayGate for the status of a payment.
+
+▸ `Static` **generateChecksum**(`data`: [UntypedObject](https://distributhor.github.io/paygate-sdk/interfaces/_types_.untypedobject.html), `encryptionKey`: string): string
+
+TODO: finish documenting the function
+
+Will generate a checksum for a given object, according to the specification required by PayGate
 
 [Back to top](#table-of-contents)
 
@@ -233,60 +329,6 @@ server.post("/payment-notification", paymentNotificationHandler(middlewareConfig
   res.send("OK");
 });
 ```
-
-[Back to top](#table-of-contents)
-
-## API Client
-
-Documentation in progress ...
-
-Make sure you are familiar with the [PayGate process flow](https://docs.paygate.co.za/?shell#process-flow) before continuing.
-
-The PayGate API client is the core component of the SDK, and what most developers will use to build a PayGate integration. It is a Typescript API, but the compiled Javascript client can also be used in a NodeJS application. The TS reference documentation [is available here](https://distributhor.github.io/paygate-sdk/index.html), but an introduction is provided below.
-
-For Typescript projects ...
-
-```typescript
-import { PayGateClient } from "paygate-sdk";
-```
-
-For a NodeJS/Javascript project ..
-
-```javascript
-const { PayGateClient } = require("paygate-sdk");
-```
-
-### Constructor
-
-\+ **new PayGateClient**(`payGateIdOrConfig`: string | [PayGateConfig](https://distributhor.github.io/paygate-sdk/interfaces/_types_.paygateconfig.html), `payGateKey?`: string): [PayGateClient](https://distributhor.github.io/paygate-sdk/classes/_client_.paygateclient.html)
-
-The constructor expects **either** a [PayGateConfig](<(https://distributhor.github.io/paygate-sdk/interfaces/_types_.paygateconfig.html)>) object **or** a `payGateId` and `payGateKey` as parameters. If it's a `PayGateConfig`, then it's assumed that the `payGateId` and `payGateKey` properties will be set on the config, as they are required. Thus, the 2nd constructor parameter is ignored. However, if the first constructor parameter is a `string`, then **it's assumed that no configuration object** is provided, and therefore both the parameters `payGateId` and `payGateKey` are required.
-
-### Methods
-
-▸ `static` **getInstance**(`payGateIdOrConfig`: string | [PayGateConfig](https://distributhor.github.io/paygate-sdk/interfaces/_types_.paygateconfig.html), `payGateKey?`: string): [PayGateClient](https://distributhor.github.io/paygate-sdk/classes/_client_.paygateclient.html)
-
-In addition to the regular constructor, a static singleton method is also provided, which will return the same client instance every time it's called. Once it has been invoked with arguments, it can subsequently be invoked with no arguments to return the same instance. If the same `payGateId` and `payGateSecret` is specified in the arguments or config of subsequent invocations, then it will also provide the same instance as that which already exists. If, however, a different `payGateId` and `payGateSecret` is specified, then it will **replace the existing instance with a new one**, using the new values and configuration.
-
-▸ **requestPayment**(`paymentRequest`: [PaymentRequest](https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentrequest.html)): Promise\<[PaymentResponse](https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentresponse.html)>
-
-Will issue a payment request to PayGate. To understand what is expected from all the properties available on the `PaymentRequest`, as well as which properties are required or optional, [consult the PayGate documentation](https://docs.paygate.co.za/?shell#request). By using a [PayGateConfig](https://distributhor.github.io/paygate-sdk/interfaces/_types_.paygateconfig.html) with the client, some of the required properies can be turned into _optional_ ones, by virtue of the fact that they can either be assigned default values or auto generated. Have a look at the [Configuration](#configuration) section at the top for more details on how the configuration can be used.
-
-▸ **handlePaymentNotification**(`paymentStatus`: [PaymentStatus](https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentstatus.html)): Promise\<[SuccessIndicator](https://distributhor.github.io/paygate-sdk/interfaces/_types_.successindicator.html)>
-
-TODO: notes on caching
-
-▸ **queryPaymentStatus**(`paymentRef`: [PaymentReference](https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentreference.html)): Promise\<[PaymentStatus](https://distributhor.github.io/paygate-sdk/classes/_client_.paygateclient.html)>
-
-TODO: finish documenting the function
-
-Will issue a query to PayGate for the status of a payment.
-
-▸ `Static` **generateChecksum**(`data`: [UntypedObject](https://distributhor.github.io/paygate-sdk/interfaces/_types_.untypedobject.html), `encryptionKey`: string): string
-
-TODO: finish documenting the function
-
-Will generate a checksum for a given object, according to the specification required by PayGate
 
 [Back to top](#table-of-contents)
 

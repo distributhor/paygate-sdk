@@ -77,13 +77,13 @@
 				</a>
 				<ul>
 					<li><a href="#reference-implementation">Reference Implementation</a></li>
+					<li><a href="#process-flow">Process Flow</a></li>
 					<li><a href="#configuration">Configuration</a></li>
-					<li><a href="#expressjs-middleware">Middleware</a></li>
 					<li><a href="#api-client">API Client</a></li>
+					<li><a href="#expressjs-middleware">Middleware</a></li>
 					<li><a href="#common-utility-functions">Utils</a></li>
 					<li><a href="#types">Types</a></li>
 				</ul>
-				<p><img src="https://raw.githubusercontent.com/distributhor/paygate-sdk/main/resources/process-diagram.svg" alt="Process Diagram"></p>
 				<a href="#reference-implementation" id="reference-implementation" style="color: inherit; text-decoration: none;">
 					<h2>Reference Implementation</h2>
 				</a>
@@ -102,6 +102,13 @@
 				</a>
 				<p>If you have an Ngrok auth token and PayGate credentials configured, then you can simply run <code>yarn install</code> and <code>yarn develop</code> in each of the folders <code>impl/proxy</code>, <code>impl/server</code> and <code>impl/app</code>, and the proxy needs to be the first one to run. This (the fact that 3 different instance are running in 3 consoles) may be improved later to allow for a somewhat better development experience.</p>
 				<p>Once they are all up and running, navigate to <a href="http://localhost:8000">http://localhost:8000</a> to test payments.</p>
+				<p><a href="#table-of-contents">Back to top</a></p>
+				<a href="#process-flow" id="process-flow" style="color: inherit; text-decoration: none;">
+					<h2>Process Flow</h2>
+				</a>
+				<p>If you are not already familiar with the PayGate payment flow, it&#39;s best to first <a href="https://docs.paygate.co.za/?shell#process-flow">familiarize yourself with it</a>, since this implementation is heavily influenced by it, and it will be easier to get going. A high level overview is provided below.</p>
+				<p><img src="https://raw.githubusercontent.com/distributhor/paygate-sdk/main/resources/process-diagram.svg" alt="Process Diagram"></p>
+				<p>TODO: complete this overview</p>
 				<p><a href="#table-of-contents">Back to top</a></p>
 				<a href="#configuration" id="configuration" style="color: inherit; text-decoration: none;">
 					<h2>Configuration</h2>
@@ -133,6 +140,37 @@
 				<p>The payment method is an optional value according to the PayGate specification. However, if no value is set on the <code>PaymentRequest</code> and a <code>defaultPaymentMethod</code> is configured, then the default value will be used.</p>
 				<p>• <strong>fallbackToZA</strong>: boolean <code>Optional</code></p>
 				<p>The <code>fallbackToZA</code> configuration option only affects <code>COUNTRY</code> and <code>CURRENCY</code> on the <code>PaymentRequest</code>. If it is set to <code>true</code>, and no value is expicitly set on the <code>PaymentRequest</code>, and furthermore no value is configured for <code>defaultCountry</code> and <code>defaultCurrency</code> respectively, then it will fallback to <code>ZAF</code> for country and <code>ZAR</code> for currency. If you are predominantly processing payments within South Africa, this can be a convenient option to set.</p>
+				<p><a href="#table-of-contents">Back to top</a></p>
+				<a href="#api-client" id="api-client" style="color: inherit; text-decoration: none;">
+					<h2>API Client</h2>
+				</a>
+				<p>Documentation in progress ...</p>
+				<p>Make sure you are familiar with the <a href="https://docs.paygate.co.za/?shell#process-flow">PayGate process flow</a> before continuing.</p>
+				<p>The PayGate API client is the core component of the SDK, and what most developers will use to build a PayGate integration. It is a Typescript API, but the compiled Javascript client can also be used in a NodeJS application. The TS reference documentation <a href="https://distributhor.github.io/paygate-sdk/index.html">is available here</a>, but an introduction is provided below.</p>
+				<p>For Typescript projects ...</p>
+				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { PayGateClient } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;paygate-sdk&quot;</span>;</code></pre>
+				<p>For a NodeJS/Javascript project ..</p>
+				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> { PayGateClient } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;paygate-sdk&quot;</span>);</code></pre>
+				<a href="#constructor" id="constructor" style="color: inherit; text-decoration: none;">
+					<h3>Constructor</h3>
+				</a>
+				<p>+ <strong>new PayGateClient</strong>(<code>payGateIdOrConfig</code>: string | <a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.paygateconfig.html">PayGateConfig</a>, <code>payGateKey?</code>: string): <a href="https://distributhor.github.io/paygate-sdk/classes/_client_.paygateclient.html">PayGateClient</a></p>
+				<p>The constructor expects <strong>either</strong> a <a href="(https://distributhor.github.io/paygate-sdk/interfaces/_types_.paygateconfig.html)">PayGateConfig</a> object <strong>or</strong> a <code>payGateId</code> and <code>payGateKey</code> as parameters. If it&#39;s a <code>PayGateConfig</code>, then it&#39;s assumed that the <code>payGateId</code> and <code>payGateKey</code> properties will be set on the config, as they are required. Thus, the 2nd constructor parameter is ignored. However, if the first constructor parameter is a <code>string</code>, then <strong>it&#39;s assumed that no configuration object</strong> is provided, and therefore both the parameters <code>payGateId</code> and <code>payGateKey</code> are required.</p>
+				<a href="#methods" id="methods" style="color: inherit; text-decoration: none;">
+					<h3>Methods</h3>
+				</a>
+				<p>▸ <code>static</code> <strong>getInstance</strong>(<code>payGateIdOrConfig</code>: string | <a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.paygateconfig.html">PayGateConfig</a>, <code>payGateKey?</code>: string): <a href="https://distributhor.github.io/paygate-sdk/classes/_client_.paygateclient.html">PayGateClient</a></p>
+				<p>In addition to the regular constructor, a static singleton method is also provided, which will return the same client instance every time it&#39;s called. Once it has been invoked with arguments, it can subsequently be invoked with no arguments to return the same instance. If the same <code>payGateId</code> and <code>payGateSecret</code> is specified in the arguments or config of subsequent invocations, then it will also provide the same instance as that which already exists. If, however, a different <code>payGateId</code> and <code>payGateSecret</code> is specified, then it will <strong>replace the existing instance with a new one</strong>, using the new values and configuration.</p>
+				<p>▸ <strong>requestPayment</strong>(<code>paymentRequest</code>: <a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentrequest.html">PaymentRequest</a>): Promise&lt;<a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentresponse.html">PaymentResponse</a>&gt;</p>
+				<p>Will issue a payment request to PayGate. To understand what is expected from all the properties available on the <code>PaymentRequest</code>, as well as which properties are required or optional, <a href="https://docs.paygate.co.za/?shell#request">consult the PayGate documentation</a>. By using a <a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.paygateconfig.html">PayGateConfig</a> with the client, some of the required properies can be turned into <em>optional</em> ones, by virtue of the fact that they can either be assigned default values or auto generated. Have a look at the <a href="#configuration">Configuration</a> section at the top for more details on how the configuration can be used.</p>
+				<p>▸ <strong>handlePaymentNotification</strong>(<code>paymentStatus</code>: <a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentstatus.html">PaymentStatus</a>): Promise&lt;<a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.successindicator.html">SuccessIndicator</a>&gt;</p>
+				<p>TODO: notes on caching</p>
+				<p>▸ <strong>queryPaymentStatus</strong>(<code>paymentRef</code>: <a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentreference.html">PaymentReference</a>): Promise&lt;<a href="https://distributhor.github.io/paygate-sdk/classes/_client_.paygateclient.html">PaymentStatus</a>&gt;</p>
+				<p>TODO: finish documenting the function</p>
+				<p>Will issue a query to PayGate for the status of a payment.</p>
+				<p>▸ <code>Static</code> <strong>generateChecksum</strong>(<code>data</code>: <a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.untypedobject.html">UntypedObject</a>, <code>encryptionKey</code>: string): string</p>
+				<p>TODO: finish documenting the function</p>
+				<p>Will generate a checksum for a given object, according to the specification required by PayGate</p>
 				<p><a href="#table-of-contents">Back to top</a></p>
 				<a href="#expressjs-middleware" id="expressjs-middleware" style="color: inherit; text-decoration: none;">
 					<h2>ExpressJS Middleware</h2>
@@ -227,37 +265,6 @@ server.post(<span class="hljs-string">&quot;/payment-notification&quot;</span>, 
   <span class="hljs-comment">// must send back text with &quot;OK&quot;</span>
   res.send(<span class="hljs-string">&quot;OK&quot;</span>);
 });</code></pre>
-				<p><a href="#table-of-contents">Back to top</a></p>
-				<a href="#api-client" id="api-client" style="color: inherit; text-decoration: none;">
-					<h2>API Client</h2>
-				</a>
-				<p>Documentation in progress ...</p>
-				<p>Make sure you are familiar with the <a href="https://docs.paygate.co.za/?shell#process-flow">PayGate process flow</a> before continuing.</p>
-				<p>The PayGate API client is the core component of the SDK, and what most developers will use to build a PayGate integration. It is a Typescript API, but the compiled Javascript client can also be used in a NodeJS application. The TS reference documentation <a href="https://distributhor.github.io/paygate-sdk/index.html">is available here</a>, but an introduction is provided below.</p>
-				<p>For Typescript projects ...</p>
-				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { PayGateClient } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;paygate-sdk&quot;</span>;</code></pre>
-				<p>For a NodeJS/Javascript project ..</p>
-				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> { PayGateClient } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;paygate-sdk&quot;</span>);</code></pre>
-				<a href="#constructor" id="constructor" style="color: inherit; text-decoration: none;">
-					<h3>Constructor</h3>
-				</a>
-				<p>+ <strong>new PayGateClient</strong>(<code>payGateIdOrConfig</code>: string | <a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.paygateconfig.html">PayGateConfig</a>, <code>payGateKey?</code>: string): <a href="https://distributhor.github.io/paygate-sdk/classes/_client_.paygateclient.html">PayGateClient</a></p>
-				<p>The constructor expects <strong>either</strong> a <a href="(https://distributhor.github.io/paygate-sdk/interfaces/_types_.paygateconfig.html)">PayGateConfig</a> object <strong>or</strong> a <code>payGateId</code> and <code>payGateKey</code> as parameters. If it&#39;s a <code>PayGateConfig</code>, then it&#39;s assumed that the <code>payGateId</code> and <code>payGateKey</code> properties will be set on the config, as they are required. Thus, the 2nd constructor parameter is ignored. However, if the first constructor parameter is a <code>string</code>, then <strong>it&#39;s assumed that no configuration object</strong> is provided, and therefore both the parameters <code>payGateId</code> and <code>payGateKey</code> are required.</p>
-				<a href="#methods" id="methods" style="color: inherit; text-decoration: none;">
-					<h3>Methods</h3>
-				</a>
-				<p>▸ <code>static</code> <strong>getInstance</strong>(<code>payGateIdOrConfig</code>: string | <a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.paygateconfig.html">PayGateConfig</a>, <code>payGateKey?</code>: string): <a href="https://distributhor.github.io/paygate-sdk/classes/_client_.paygateclient.html">PayGateClient</a></p>
-				<p>In addition to the regular constructor, a static singleton method is also provided, which will return the same client instance every time it&#39;s called. Once it has been invoked with arguments, it can subsequently be invoked with no arguments to return the same instance. If the same <code>payGateId</code> and <code>payGateSecret</code> is specified in the arguments or config of subsequent invocations, then it will also provide the same instance as that which already exists. If, however, a different <code>payGateId</code> and <code>payGateSecret</code> is specified, then it will <strong>replace the existing instance with a new one</strong>, using the new values and configuration.</p>
-				<p>▸ <strong>requestPayment</strong>(<code>paymentRequest</code>: <a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentrequest.html">PaymentRequest</a>): Promise&lt;<a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentresponse.html">PaymentResponse</a>&gt;</p>
-				<p>Will issue a payment request to PayGate. To understand what is expected from all the properties available on the <code>PaymentRequest</code>, as well as which properties are required or optional, <a href="https://docs.paygate.co.za/?shell#request">consult the PayGate documentation</a>. By using a <a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.paygateconfig.html">PayGateConfig</a> with the client, some of the required properies can be turned into <em>optional</em> ones, by virtue of the fact that they can either be assigned default values or auto generated. Have a look at the <a href="#configuration">Configuration</a> section at the top for more details on how the configuration can be used.</p>
-				<p>▸ <strong>handlePaymentNotification</strong>(<code>paymentStatus</code>: <a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentstatus.html">PaymentStatus</a>): Promise&lt;<a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.successindicator.html">SuccessIndicator</a>&gt;</p>
-				<p>TODO: notes on caching</p>
-				<p>▸ <strong>queryPaymentStatus</strong>(<code>paymentRef</code>: <a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentreference.html">PaymentReference</a>): Promise&lt;<a href="https://distributhor.github.io/paygate-sdk/classes/_client_.paygateclient.html">PaymentStatus</a>&gt;</p>
-				<p>TODO: finish documenting the function</p>
-				<p>Will issue a query to PayGate for the status of a payment.</p>
-				<p>▸ <code>Static</code> <strong>generateChecksum</strong>(<code>data</code>: <a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.untypedobject.html">UntypedObject</a>, <code>encryptionKey</code>: string): string</p>
-				<p>TODO: finish documenting the function</p>
-				<p>Will generate a checksum for a given object, according to the specification required by PayGate</p>
 				<p><a href="#table-of-contents">Back to top</a></p>
 				<a href="#common-utility-functions" id="common-utility-functions" style="color: inherit; text-decoration: none;">
 					<h2>Common Utility Functions</h2>

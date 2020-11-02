@@ -7,26 +7,93 @@
 
 ## Introduction
 
-**Please note, this documentation is currently in the process of being written and refined. It is not in a final state yet.**
+**This documentation is currently in the process of being written and refined, and is not in a final state.**
 
 This project is made up of a few parts which can be used seperately or in combination, to aid with building an integration to the South African payment provider [PayGate](https://www.paygate.co.za).
 
-Reference documentation can be found at https://distributhor.github.io/paygate-sdk/
-
 The main components are:
 
-- A standalone Typescript and Javascript client to interface with the PayGate API, usable in Typescript or NodeJS projects. There are also Typescript typings available for the PayGate data types.
-- ExpressJS middleware which can be used to configure custom endpoints for payment processing
-- A utility module which can help with common PayGate tasks, such as generating a payload checksum, or extracting a friendly transaction summary messages from a PayGate payment status response. This module is also available a plain JS file which can be included in HTML via a `<script>` tag.
+- A standalone Typescript and Javascript (NodeJS) client to interface with the PayGate API
+- ExpressJS middleware which can be used to rapidly create endpoints for payment processing
+- A utility module, also available in a browser friendly version, which can help with common PayGate tasks, such as generating a payload checksum, or extracting a transaction summary message from a payment status response
 
 Only pick what you need in order to help with your specific integration requirements. For example, if you are already using ExpressJS and want to easily enable endpoints that can handle payment processing, then it's likely that the only thing you need from this project is the ExpressJS middleware functions. Or, perhaps more likely, you want to use the TS/JS client in a Node based project so that you don't have to deal directly with the PayGate HTTP API. In this case the utility module and typings may also be helpful.
 
-Features to be worked on next:
+Important links:
 
-- Locales
-- Support for custom payment reference ID generation
+- The official [PayGate Documentation](https://docs.paygate.co.za/?shell#payweb-3)
+- Typescript [API reference](https://distributhor.github.io/paygate-sdk/) for this SDK
 
-#include "md/main.md"
+### Quick Start
+
+```typescript
+import { PayGateClient } from "paygate-sdk";
+```
+
+or alternatively, for  a NodeJS/Javascript project ..
+
+```javascript
+const { PayGateClient } = require("paygate-sdk");
+```
+
+and then you can use the client ...
+
+```javascript
+const client = new PayGateClient({
+    payGateId: "id",
+    payGateSecret: "secret",
+    returnUrl: "http://app.ui/payment-status",
+    notifyUrl: "http://backend/handle-payment-notification",
+    autoTransactionDate: true,
+    autoPaymentReference: true,
+    fallbackToZA: true,
+});
+
+const paymentResponse = await client.requestPayment({
+    AMOUNT: 100.00,
+    EMAIL: "client@email.com"
+});
+
+console.log(paymentResponse.paymentRef);
+```
+
+There is plenty more available, all of which is covered in the relevant sections below.
+
+### Table Of Contents
+
+- [Reference Implementation](#reference-implementation)
+- [Process Flow](#process-flow)
+- [Configuration](#configuration)
+- [API Client](#api-client)
+- [Middleware](#expressjs-middleware)
+- [Utils](#common-utility-functions)
+- [Types](#types)
+
+#include "md/reference-impl.md"
+
+[Back to top](#table-of-contents)
+
+#include "md/process.md"
+
+[Back to top](#table-of-contents)
+
+#include "md/config.md"
+
+[Back to top](#table-of-contents)
+
+#include "md/client.md"
+
+[Back to top](#table-of-contents)
+
+#include "md/middleware.md"
+
+[Back to top](#table-of-contents)
+
+#include "md/utils.md"
+
+[Back to top](#table-of-contents)
+
+#include "md/types.md"
 
 ## License
 

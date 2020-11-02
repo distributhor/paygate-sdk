@@ -1,27 +1,30 @@
 ### Table Of Contents
 
 - [Reference Implementation](#reference-implementation)
+- [Process Flow](#process-flow)
 - [Configuration](#configuration)
-- [Middleware](#expressjs-middleware)
 - [API Client](#api-client)
+- [Middleware](#expressjs-middleware)
 - [Utils](#common-utility-functions)
 - [Types](#types)
-
-![Process Diagram](https://raw.githubusercontent.com/distributhor/paygate-sdk/main/resources/process-diagram.svg)
 
 #include "md/reference-impl.md"
 
 [Back to top](#table-of-contents)
 
-#include "md/configuration.md"
+#include "md/process.md"
 
 [Back to top](#table-of-contents)
 
-#include "md/middleware.md"
+#include "md/config.md"
 
 [Back to top](#table-of-contents)
 
 #include "md/client.md"
+
+[Back to top](#table-of-contents)
+
+#include "md/middleware.md"
 
 [Back to top](#table-of-contents)
 
