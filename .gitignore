@@ -1,10 +1,11 @@
-script.ts
-script.js
-.env
-.cache
 /lib
 /dist
-/archive
+/script.ts
+/script.js
+
+.env
+.cache
+
 node_modules
 
 package-lock.json

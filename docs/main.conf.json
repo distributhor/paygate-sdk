@@ -1,0 +1,4 @@
+{
+  "build": "docs/documentation.md",
+  "files": ["docs/main.md"]
+}
