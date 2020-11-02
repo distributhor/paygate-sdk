@@ -22,7 +22,7 @@ const { generatePayGateChecksum } = require("paygate-sdk/lib/util");
 Also available for the browser ...
 
 ```html
-<script src="https://unpkg.com/paygate-sdk@1.0.3/dist/paygate.js"></script>
+<script src="https://unpkg.com/paygate-sdk@1.0.4/dist/paygate.js"></script>
 <script>
   Paygate.Util.toCentAmount(123.45);
   Paygate.Util.redirectBrowser(redirectUrl, redirectParams);
