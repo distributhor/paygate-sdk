@@ -1,5 +1,6 @@
 ### Table Of Contents
 
+- [Quick Start](#quick-start)
 - [Reference Implementation](#reference-implementation)
 - [Process Flow](#process-flow)
 - [Configuration](#configuration)
@@ -7,6 +8,10 @@
 - [Middleware](#expressjs-middleware)
 - [Utils](#common-utility-functions)
 - [Types](#types)
+
+#include "md/quickstart.md"
+
+[Back to top](#table-of-contents)
 
 #include "md/reference-impl.md"
 

@@ -22,15 +22,28 @@ Only pick what you need in order to help with your specific integration requirem
 Important links:
 
 - The official [PayGate Documentation](https://docs.paygate.co.za/?shell#payweb-3)
-- Typescript [API reference](https://distributhor.github.io/paygate-sdk/) for this SDK
+- The Typescript [API reference](https://distributhor.github.io/paygate-sdk/) for this SDK
 
-### Quick Start
+## Table Of Contents
+
+- [Quick Start](#quick-start)
+- [Reference Implementation](#reference-implementation)
+- [Process Flow](#process-flow)
+- [Configuration](#configuration)
+- [API Client](#api-client)
+- [Middleware](#expressjs-middleware)
+- [Utils](#common-utility-functions)
+- [Types](#types)
+
+## Quick Start
+
+For `Typescript` ...
 
 ```typescript
 import { PayGateClient } from "paygate-sdk";
 ```
 
-or alternatively, for a NodeJS/Javascript project ..
+or alternatively, for `NodeJS/Javascript` ...
 
 ```javascript
 const { PayGateClient } = require("paygate-sdk");
@@ -59,15 +72,7 @@ console.log(paymentResponse.paymentRef);
 
 There is plenty more available, all of which is covered in the relevant sections below.
 
-### Table Of Contents
-
-- [Reference Implementation](#reference-implementation)
-- [Process Flow](#process-flow)
-- [Configuration](#configuration)
-- [API Client](#api-client)
-- [Middleware](#expressjs-middleware)
-- [Utils](#common-utility-functions)
-- [Types](#types)
+[Back to top](#table-of-contents)
 
 ## Reference Implementation
 
