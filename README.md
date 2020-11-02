@@ -35,6 +35,14 @@ Features to be worked on next:
 - [Utils](#common-utility-functions)
 - [Types](#types)
 
+![Process Diagram](https://github.com/distributhor/paygate-sdk/tree/main/resources/process-diagram-1.png)
+
+![Process Diagram](https://github.com/distributhor/paygate-sdk/tree/main/resources/process-diagram-2.png)
+
+![Process Diagram](https://github.com/distributhor/paygate-sdk/tree/main/resources/process-diagram-svg-1.svg)
+
+![Process Diagram](https://github.com/distributhor/paygate-sdk/tree/main/resources/process-diagram-svg-2.svg)
+
 ## Reference Implementation
 
 In addition to the reference documentation, there is also a reference implementation available under the `impl` folder, which you can run in your local development environment (which will use a PayGate demo account) in a few simple steps. It serves as an example of how to use the various modules, and also as a playground where one can easily test an implementation. It consists of an ExpressJS backend that exposes endpoints via the middleware functions (which in turn uses the TS/JS API client), and a very simple frontend with which to test payments. To run the implementation, follow the steps below.
@@ -312,7 +320,7 @@ const { generatePayGateChecksum } = require("paygate-sdk/lib/util");
 Also available for the browser ...
 
 ```html
-<script src="https://unpkg.com/paygate-sdk@1.0.3/dist/paygate.js"></script>
+<script src="https://unpkg.com/paygate-sdk@1.0.4/dist/paygate.js"></script>
 <script>
   Paygate.Util.toCentAmount(123.45);
   Paygate.Util.redirectBrowser(redirectUrl, redirectParams);
