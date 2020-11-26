@@ -6,11 +6,11 @@ import {
   PayGateEndpoint,
   PayGateErrorCode,
   PaymentMethod,
-  TransactionStatus,
   TransactionCode,
   PaymentMethodName,
   PayGateTestCards,
   TransactionResultCode,
+  TransactionStatus,
 } from "./types";
 
 export * as Util from "./util";

@@ -22,12 +22,12 @@
 
 {% if isPost %}
 <div class="row justify-content-md-center">
-    <h5><span class="{{ transactionStatusStyle }}">{{ transactionDescription.status }}</span></h5>
+    <h5><span class="{{ transactionStatusStyle }}">{{ transactionInfo.status }}</span></h5>
 </div>
 
-{% if transactionDescription.detail %}
+{% if transactionInfo.detail %}
     <div class="row justify-content-md-center">
-        {{ transactionDescription.detail }}    
+        {{ transactionInfo.detail }}    
     </div>
 {% endif %}
 

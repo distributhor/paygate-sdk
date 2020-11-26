@@ -25,14 +25,14 @@ app.get("/", function (req, res) {
 
 app.post("/status", function (req, res) {
   const paymentStatus = req.body;
-  const transactionDescription = Util.getTransactionDescription(paymentStatus);
-  const transactionStatusStyle = transactionDescription.status == "Approved" ? "text-success" : "text-danger";
+  const transactionInfo = Util.getTransactionInfo(paymentStatus);
+  const transactionStatusStyle = transactionInfo.status == "Approved" ? "text-success" : "text-danger";
 
   const data = {
     isPost: true,
     title: "Payment Status",
     paymentStatus,
-    transactionDescription,
+    transactionInfo,
     transactionStatusStyle,
   };
 

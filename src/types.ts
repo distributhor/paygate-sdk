@@ -49,24 +49,6 @@ export interface PayGateConfig {
   fallbackToZA?: boolean;
 }
 
-export const enum PaymentMethod {
-  CREDIT_CARD = "CC",
-  DEBIT_CARD = "DC",
-  E_WALLET = "EW",
-  BANK_TRANSFER = "BT",
-  CASH_VOUCHER = "CV",
-  PREPAID_CARD = "PC",
-}
-
-export const PaymentMethodName = {
-  CC: "Credit Card",
-  DC: "Debit Card",
-  EW: "E-Wallet",
-  BT: "Bank Transfer",
-  CV: "Cash Voucher",
-  PC: "Pre-Paid Card",
-};
-
 export interface PaymentRequest {
   PAYGATE_ID?: string;
   REFERENCE?: string;
@@ -124,15 +106,39 @@ export interface PaymentStatus {
   CHECKSUM?: string;
 }
 
-export const TransactionStatus = {
-  "0": "Not Done",
-  "1": "Approved",
-  "2": "Declined",
-  "3": "Cancelled",
-  "4": "User Cancelled",
-  "5": "Received by PayGate",
-  "7": "Settlement Voided",
+export const enum PaymentMethod {
+  CREDIT_CARD = "CC",
+  DEBIT_CARD = "DC",
+  E_WALLET = "EW",
+  BANK_TRANSFER = "BT",
+  CASH_VOUCHER = "CV",
+  PREPAID_CARD = "PC",
+}
+
+export const PaymentMethodName = {
+  CC: "Credit Card",
+  DC: "Debit Card",
+  EW: "E-Wallet",
+  BT: "Bank Transfer",
+  CV: "Cash Voucher",
+  PC: "Pre-Paid Card",
+  CREDIT_CARD: "Credit Card",
+  DEBIT_CARD: "Debit Card",
+  E_WALLET: "E-Wallet",
+  BANK_TRANSFER: "Bank Transfer",
+  CASH_VOUCHER: "Cash Voucher",
+  PREPAID_CARD: "Pre-Paid Card",
 };
+
+export const enum TransactionStatusText {
+  NOT_DONE = "Not Done",
+  APPROVED = "Approved",
+  DECLINED = "Declined",
+  CANCELLED = "Cancelled",
+  USER_CANCELLED = "User Cancelled",
+  RECEIVED_BY_PAYGATE = "Received by PayGate",
+  SETTLEMENT_VOIDED = "Settlement Voided",
+}
 
 export const enum TransactionCode {
   NOT_DONE = "0",
@@ -144,8 +150,9 @@ export const enum TransactionCode {
   SETTLEMENT_VOIDED = "7",
 }
 
-export interface TransactionDescription {
-  status: string;
+export interface TransactionStatus {
+  code?: TransactionCode;
+  status?: TransactionStatusText;
   detail?: string;
 }
 

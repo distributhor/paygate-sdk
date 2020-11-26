@@ -83,10 +83,17 @@
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_util_.html#generatepaygatechecksum" class="tsd-kind-icon">generatePayGateChecksum</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_util_.html#gettestcards" class="tsd-kind-icon">getTestCards</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_util_.html#gettestcardsbytransactiontype" class="tsd-kind-icon">getTestCardsByTransactionType</a></li>
-								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_util_.html#gettransactiondescription" class="tsd-kind-icon">getTransactionDescription</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_util_.html#gettransactioninfo" class="tsd-kind-icon">getTransactionInfo</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_util_.html#redirectbrowser" class="tsd-kind-icon">redirectBrowser</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_util_.html#removeallnonvaluedproperties" class="tsd-kind-icon">removeAllNonValuedProperties</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_util_.html#tocentamount" class="tsd-kind-icon">toCentAmount</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section tsd-is-not-exported">
+							<h3>Object literals</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-object-literal tsd-parent-kind-module tsd-is-not-exported"><a href="_util_.html#transactioncodemap" class="tsd-kind-icon">TransactionCodeMap</a></li>
+								<li class="tsd-kind-object-literal tsd-parent-kind-module tsd-is-not-exported"><a href="_util_.html#transactionstatusmap" class="tsd-kind-icon">TransactionStatusMap</a></li>
 							</ul>
 						</section>
 					</div>
@@ -130,7 +137,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/util.ts:110</li>
+									<li>Defined in src/util.ts:101</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_types_.creditcard.html" class="tsd-signature-type">CreditCard</a><span class="tsd-signature-symbol">[]</span></h4>
@@ -147,7 +154,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/util.ts:129</li>
+									<li>Defined in src/util.ts:120</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_types_.creditcard.html" class="tsd-signature-type">CreditCard</a><span class="tsd-signature-symbol">[]</span></h4>
@@ -155,16 +162,16 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
-					<a name="gettransactiondescription" class="tsd-anchor"></a>
-					<h3>get<wbr>Transaction<wbr>Description</h3>
+					<a name="gettransactioninfo" class="tsd-anchor"></a>
+					<h3>get<wbr>Transaction<wbr>Info</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Transaction<wbr>Description<span class="tsd-signature-symbol">(</span>paymentStatus<span class="tsd-signature-symbol">: </span><a href="../interfaces/_types_.paymentstatus.html" class="tsd-signature-type">PaymentStatus</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_types_.transactiondescription.html" class="tsd-signature-type">TransactionDescription</a></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Transaction<wbr>Info<span class="tsd-signature-symbol">(</span>paymentStatus<span class="tsd-signature-symbol">: </span><a href="../interfaces/_types_.paymentstatus.html" class="tsd-signature-type">PaymentStatus</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_types_.transactionstatus.html" class="tsd-signature-type">TransactionStatus</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/util.ts:34</li>
+									<li>Defined in src/util.ts:54</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -173,7 +180,7 @@
 									<h5>paymentStatus: <a href="../interfaces/_types_.paymentstatus.html" class="tsd-signature-type">PaymentStatus</a></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_types_.transactiondescription.html" class="tsd-signature-type">TransactionDescription</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_types_.transactionstatus.html" class="tsd-signature-type">TransactionStatus</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -187,7 +194,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/util.ts:82</li>
+									<li>Defined in src/util.ts:73</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -250,6 +257,169 @@
 					</ul>
 				</section>
 			</section>
+			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
+				<h2>Object literals</h2>
+				<section class="tsd-panel tsd-member tsd-kind-object-literal tsd-parent-kind-module tsd-is-not-exported">
+					<a name="transactioncodemap" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> Transaction<wbr>Code<wbr>Map</h3>
+					<div class="tsd-signature tsd-kind-icon">Transaction<wbr>Code<wbr>Map<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/util.ts:44</li>
+						</ul>
+					</aside>
+					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-is-not-exported">
+						<a name="transactioncodemap.0" class="tsd-anchor"></a>
+						<h3>0</h3>
+						<div class="tsd-signature tsd-kind-icon">0<span class="tsd-signature-symbol">:</span> <a href="../enums/_types_.transactioncode.html" class="tsd-signature-type">TransactionCode</a><span class="tsd-signature-symbol"> = TransactionCode.NOT_DONE</span></div>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in src/util.ts:45</li>
+							</ul>
+						</aside>
+					</section>
+					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-is-not-exported">
+						<a name="transactioncodemap.1" class="tsd-anchor"></a>
+						<h3>1</h3>
+						<div class="tsd-signature tsd-kind-icon">1<span class="tsd-signature-symbol">:</span> <a href="../enums/_types_.transactioncode.html" class="tsd-signature-type">TransactionCode</a><span class="tsd-signature-symbol"> = TransactionCode.APPROVED</span></div>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in src/util.ts:46</li>
+							</ul>
+						</aside>
+					</section>
+					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-is-not-exported">
+						<a name="transactioncodemap.2" class="tsd-anchor"></a>
+						<h3>2</h3>
+						<div class="tsd-signature tsd-kind-icon">2<span class="tsd-signature-symbol">:</span> <a href="../enums/_types_.transactioncode.html" class="tsd-signature-type">TransactionCode</a><span class="tsd-signature-symbol"> = TransactionCode.DECLINED</span></div>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in src/util.ts:47</li>
+							</ul>
+						</aside>
+					</section>
+					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-is-not-exported">
+						<a name="transactioncodemap.3" class="tsd-anchor"></a>
+						<h3>3</h3>
+						<div class="tsd-signature tsd-kind-icon">3<span class="tsd-signature-symbol">:</span> <a href="../enums/_types_.transactioncode.html" class="tsd-signature-type">TransactionCode</a><span class="tsd-signature-symbol"> = TransactionCode.CANCELLED</span></div>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in src/util.ts:48</li>
+							</ul>
+						</aside>
+					</section>
+					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-is-not-exported">
+						<a name="transactioncodemap.4" class="tsd-anchor"></a>
+						<h3>4</h3>
+						<div class="tsd-signature tsd-kind-icon">4<span class="tsd-signature-symbol">:</span> <a href="../enums/_types_.transactioncode.html" class="tsd-signature-type">TransactionCode</a><span class="tsd-signature-symbol"> = TransactionCode.USER_CANCELLED</span></div>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in src/util.ts:49</li>
+							</ul>
+						</aside>
+					</section>
+					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-is-not-exported">
+						<a name="transactioncodemap.5" class="tsd-anchor"></a>
+						<h3>5</h3>
+						<div class="tsd-signature tsd-kind-icon">5<span class="tsd-signature-symbol">:</span> <a href="../enums/_types_.transactioncode.html" class="tsd-signature-type">TransactionCode</a><span class="tsd-signature-symbol"> = TransactionCode.RECEIVED_BY_PAYGATE</span></div>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in src/util.ts:50</li>
+							</ul>
+						</aside>
+					</section>
+					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-is-not-exported">
+						<a name="transactioncodemap.7" class="tsd-anchor"></a>
+						<h3>7</h3>
+						<div class="tsd-signature tsd-kind-icon">7<span class="tsd-signature-symbol">:</span> <a href="../enums/_types_.transactioncode.html" class="tsd-signature-type">TransactionCode</a><span class="tsd-signature-symbol"> = TransactionCode.SETTLEMENT_VOIDED</span></div>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in src/util.ts:51</li>
+							</ul>
+						</aside>
+					</section>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-object-literal tsd-parent-kind-module tsd-is-not-exported">
+					<a name="transactionstatusmap" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> Transaction<wbr>Status<wbr>Map</h3>
+					<div class="tsd-signature tsd-kind-icon">Transaction<wbr>Status<wbr>Map<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/util.ts:34</li>
+						</ul>
+					</aside>
+					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-is-not-exported">
+						<a name="transactionstatusmap.0-1" class="tsd-anchor"></a>
+						<h3>0</h3>
+						<div class="tsd-signature tsd-kind-icon">0<span class="tsd-signature-symbol">:</span> <a href="../enums/_types_.transactionstatustext.html" class="tsd-signature-type">TransactionStatusText</a><span class="tsd-signature-symbol"> = TransactionStatusText.NOT_DONE</span></div>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in src/util.ts:35</li>
+							</ul>
+						</aside>
+					</section>
+					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-is-not-exported">
+						<a name="transactionstatusmap.1-1" class="tsd-anchor"></a>
+						<h3>1</h3>
+						<div class="tsd-signature tsd-kind-icon">1<span class="tsd-signature-symbol">:</span> <a href="../enums/_types_.transactionstatustext.html" class="tsd-signature-type">TransactionStatusText</a><span class="tsd-signature-symbol"> = TransactionStatusText.APPROVED</span></div>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in src/util.ts:36</li>
+							</ul>
+						</aside>
+					</section>
+					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-is-not-exported">
+						<a name="transactionstatusmap.2-1" class="tsd-anchor"></a>
+						<h3>2</h3>
+						<div class="tsd-signature tsd-kind-icon">2<span class="tsd-signature-symbol">:</span> <a href="../enums/_types_.transactionstatustext.html" class="tsd-signature-type">TransactionStatusText</a><span class="tsd-signature-symbol"> = TransactionStatusText.DECLINED</span></div>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in src/util.ts:37</li>
+							</ul>
+						</aside>
+					</section>
+					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-is-not-exported">
+						<a name="transactionstatusmap.3-1" class="tsd-anchor"></a>
+						<h3>3</h3>
+						<div class="tsd-signature tsd-kind-icon">3<span class="tsd-signature-symbol">:</span> <a href="../enums/_types_.transactionstatustext.html" class="tsd-signature-type">TransactionStatusText</a><span class="tsd-signature-symbol"> = TransactionStatusText.CANCELLED</span></div>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in src/util.ts:38</li>
+							</ul>
+						</aside>
+					</section>
+					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-is-not-exported">
+						<a name="transactionstatusmap.4-1" class="tsd-anchor"></a>
+						<h3>4</h3>
+						<div class="tsd-signature tsd-kind-icon">4<span class="tsd-signature-symbol">:</span> <a href="../enums/_types_.transactionstatustext.html" class="tsd-signature-type">TransactionStatusText</a><span class="tsd-signature-symbol"> = TransactionStatusText.USER_CANCELLED</span></div>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in src/util.ts:39</li>
+							</ul>
+						</aside>
+					</section>
+					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-is-not-exported">
+						<a name="transactionstatusmap.5-1" class="tsd-anchor"></a>
+						<h3>5</h3>
+						<div class="tsd-signature tsd-kind-icon">5<span class="tsd-signature-symbol">:</span> <a href="../enums/_types_.transactionstatustext.html" class="tsd-signature-type">TransactionStatusText</a><span class="tsd-signature-symbol"> = TransactionStatusText.RECEIVED_BY_PAYGATE</span></div>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in src/util.ts:40</li>
+							</ul>
+						</aside>
+					</section>
+					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-is-not-exported">
+						<a name="transactionstatusmap.7-1" class="tsd-anchor"></a>
+						<h3>7</h3>
+						<div class="tsd-signature tsd-kind-icon">7<span class="tsd-signature-symbol">:</span> <a href="../enums/_types_.transactionstatustext.html" class="tsd-signature-type">TransactionStatusText</a><span class="tsd-signature-symbol"> = TransactionStatusText.SETTLEMENT_VOIDED</span></div>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in src/util.ts:41</li>
+							</ul>
+						</aside>
+					</section>
+				</section>
+			</section>
 			<!--{&quot;options&quot;:&quot;/Volumes/HDX/project/distributhor/paygate-sdk&quot;,&quot;tsconfig&quot;:&quot;./tsconfig.json&quot;,&quot;inputFiles&quot;:[&quot;/Volumes/HDX/project/distributhor/paygate-sdk/src/browser.ts&quot;,&quot;/Volumes/HDX/project/distributhor/paygate-sdk/src/client.ts&quot;,&quot;/Volumes/HDX/project/distributhor/paygate-sdk/src/index.ts&quot;,&quot;/Volumes/HDX/project/distributhor/paygate-sdk/src/middleware.ts&quot;,&quot;/Volumes/HDX/project/distributhor/paygate-sdk/src/types.ts&quot;,&quot;/Volumes/HDX/project/distributhor/paygate-sdk/src/util.ts&quot;],&quot;mode&quot;:1,&quot;includeDeclarations&quot;:false,&quot;entryPoint&quot;:&quot;&quot;,&quot;exclude&quot;:[&quot;src/browser.ts&quot;],&quot;externalPattern&quot;:[],&quot;excludeExternals&quot;:false,&quot;excludeNotExported&quot;:false,&quot;excludeNotDocumented&quot;:false,&quot;excludePrivate&quot;:true,&quot;excludeProtected&quot;:false,&quot;ignoreCompilerErrors&quot;:false,&quot;disableSources&quot;:false,&quot;includes&quot;:&quot;&quot;,&quot;media&quot;:&quot;&quot;,&quot;out&quot;:&quot;docs&quot;,&quot;json&quot;:&quot;&quot;,&quot;theme&quot;:&quot;./node_modules/typedoc-neo-theme/bin/default&quot;,&quot;name&quot;:&quot;Documentation&quot;,&quot;includeVersion&quot;:false,&quot;excludeTags&quot;:[],&quot;readme&quot;:&quot;md/documentation.md&quot;,&quot;defaultCategory&quot;:&quot;Other&quot;,&quot;categoryOrder&quot;:[],&quot;categorizeByGroup&quot;:true,&quot;gitRevision&quot;:&quot;&quot;,&quot;gitRemote&quot;:&quot;origin&quot;,&quot;gaID&quot;:&quot;&quot;,&quot;gaSite&quot;:&quot;auto&quot;,&quot;hideGenerator&quot;:true,&quot;toc&quot;:[],&quot;disableOutputCheck&quot;:false,&quot;help&quot;:false,&quot;version&quot;:false,&quot;plugin&quot;:[&quot;typedoc-neo-theme&quot;],&quot;logger&quot;:&quot;console&quot;,&quot;listInvalidSymbolLinks&quot;:false,&quot;links&quot;:[{&quot;label&quot;:&quot;GitHub&quot;,&quot;url&quot;:&quot;https://github.com/distributhor/paygate-sdk&quot;}],&quot;outline&quot;:[{&quot;Types&quot;:&quot;_types_&quot;,&quot;API Client&quot;:&quot;_client_&quot;,&quot;Common Utils&quot;:&quot;_util_&quot;,&quot;Express Middleware&quot;:&quot;_middleware_&quot;}]}-->
 		</div>
 		<div class="col-2 col-menu secondary-menu">
@@ -265,7 +435,7 @@
 						<a href="_util_.html#gettestcardsbytransactiontype" class="tsd-kind-icon">get<wbr>Test<wbr>Cards<wbr>ByTransaction<wbr>Type</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module root">
-						<a href="_util_.html#gettransactiondescription" class="tsd-kind-icon">get<wbr>Transaction<wbr>Description</a>
+						<a href="_util_.html#gettransactioninfo" class="tsd-kind-icon">get<wbr>Transaction<wbr>Info</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module root">
 						<a href="_util_.html#redirectbrowser" class="tsd-kind-icon">redirect<wbr>Browser</a>
@@ -275,6 +445,12 @@
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module root">
 						<a href="_util_.html#tocentamount" class="tsd-kind-icon">to<wbr>Cent<wbr>Amount</a>
+					</li>
+					<li class=" tsd-kind-object-literal tsd-parent-kind-module tsd-is-not-exported root">
+						<a href="_util_.html#transactioncodemap" class="tsd-kind-icon">Transaction<wbr>Code<wbr>Map</a>
+					</li>
+					<li class=" tsd-kind-object-literal tsd-parent-kind-module tsd-is-not-exported root">
+						<a href="_util_.html#transactionstatusmap" class="tsd-kind-icon">Transaction<wbr>Status<wbr>Map</a>
 					</li>
 				</ul>
 			</nav>

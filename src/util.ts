@@ -4,11 +4,11 @@ import {
   UntypedObject,
   PaymentStatus,
   TransactionStatus,
-  TransactionDescription,
   TransactionResultCode,
   TransactionCode,
   PayGateTestCards,
   CreditCard,
+  TransactionStatusText,
 } from "./types";
 
 export function removeAllNonValuedProperties(obj: UntypedObject): void {
@@ -31,51 +31,42 @@ export function generatePayGateChecksum(data: UntypedObject, encryptionKey: stri
   );
 }
 
-export function getTransactionDescription(paymentStatus: PaymentStatus): TransactionDescription {
+const TransactionStatusMap = {
+  "0": TransactionStatusText.NOT_DONE,
+  "1": TransactionStatusText.APPROVED,
+  "2": TransactionStatusText.DECLINED,
+  "3": TransactionStatusText.CANCELLED,
+  "4": TransactionStatusText.USER_CANCELLED,
+  "5": TransactionStatusText.RECEIVED_BY_PAYGATE,
+  "7": TransactionStatusText.SETTLEMENT_VOIDED,
+};
+
+const TransactionCodeMap = {
+  "0": TransactionCode.NOT_DONE,
+  "1": TransactionCode.APPROVED,
+  "2": TransactionCode.DECLINED,
+  "3": TransactionCode.CANCELLED,
+  "4": TransactionCode.USER_CANCELLED,
+  "5": TransactionCode.RECEIVED_BY_PAYGATE,
+  "7": TransactionCode.SETTLEMENT_VOIDED,
+};
+
+export function getTransactionInfo(paymentStatus: PaymentStatus): TransactionStatus {
   if (!paymentStatus || paymentStatus.TRANSACTION_STATUS == undefined) {
     return {
-      status: "No transaction status found",
+      code: undefined,
+      status: undefined,
+      detail: "No transaction status found",
     };
   }
 
-  const status = paymentStatus.TRANSACTION_STATUS.toString();
-  const code = paymentStatus.RESULT_CODE ? paymentStatus.RESULT_CODE.toString() : undefined;
-
-  if (status && !code) {
-    return {
-      status: TransactionStatus[status],
-    };
-  }
-
-  if (status === TransactionCode.APPROVED) {
-    return {
-      status: TransactionStatus[status],
-    };
-  }
-
-  if (status === TransactionCode.NOT_DONE) {
-    return {
-      status: "Transaction not done (communication or data error)",
-      detail: TransactionResultCode[code] ? TransactionResultCode[code] : undefined,
-    };
-  }
-
-  if (status === TransactionCode.DECLINED) {
-    return {
-      status: "Transaction declined",
-      detail: TransactionResultCode[code] ? TransactionResultCode[code] : undefined,
-    };
-  }
-
-  if (status === TransactionCode.CANCELLED || status === TransactionCode.USER_CANCELLED) {
-    return {
-      status: "Transaction cancelled",
-      detail: TransactionResultCode[code] ? TransactionResultCode[code] : undefined,
-    };
-  }
+  const txCode = paymentStatus.TRANSACTION_STATUS.toString();
+  const rsCode = paymentStatus.RESULT_CODE ? paymentStatus.RESULT_CODE.toString() : undefined;
 
   return {
-    status: paymentStatus.TRANSACTION_STATUS,
+    code: TransactionCodeMap[txCode],
+    status: TransactionStatusMap[txCode],
+    detail: rsCode && TransactionResultCode[rsCode] ? TransactionResultCode[rsCode] : undefined,
   };
 }
 

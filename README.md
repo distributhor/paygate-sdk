@@ -56,7 +56,7 @@ const client = new PayGateClient({
   payGateId: "id",
   payGateSecret: "secret",
   returnUrl: "http://app.ui/payment-status",
-  notifyUrl: "http://backend/handle-payment-notification",
+  notifyUrl: "http://backend/api/handle-payment-notification",
   autoTransactionDate: true,
   autoPaymentReference: true,
   fallbackToZA: true,
@@ -70,7 +70,7 @@ const paymentResponse = await client.requestPayment({
 console.log(paymentResponse.paymentRef);
 ```
 
-There is plenty more available, all of which is covered in the relevant sections below.
+More detail is covered in the sections below.
 
 [Back to top](#table-of-contents)
 
@@ -375,7 +375,7 @@ Also available for the browser ...
 
 ▸ **generatePayGateChecksum**(`data`: [UntypedObject](https://distributhor.github.io/paygate-sdk/interfaces/_types_.untypedobject.html), `encryptionKey`: string): string
 
-▸ **getTransactionDescription**(`paymentStatus`: [PaymentStatus](https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentstatus.html)): [TransactionDescription](https://distributhor.github.io/paygate-sdk/interfaces/_types_.transactiondescription.html)
+▸ **getTransactionInfo**(`paymentStatus`: [PaymentStatus](https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentstatus.html)): [TransactionStatus](https://distributhor.github.io/paygate-sdk/interfaces/_types_.transactionstatus.html)
 
 ▸ **getTestCards**(): [CreditCard](https://distributhor.github.io/paygate-sdk/interfaces/_types_.creditcard.html)[]
 

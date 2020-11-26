@@ -97,7 +97,7 @@
     <span class="hljs-attr">payGateId</span>: <span class="hljs-string">&quot;id&quot;</span>,
     <span class="hljs-attr">payGateSecret</span>: <span class="hljs-string">&quot;secret&quot;</span>,
     <span class="hljs-attr">returnUrl</span>: <span class="hljs-string">&quot;http://app.ui/payment-status&quot;</span>,
-    <span class="hljs-attr">notifyUrl</span>: <span class="hljs-string">&quot;http://backend/handle-payment-notification&quot;</span>,
+    <span class="hljs-attr">notifyUrl</span>: <span class="hljs-string">&quot;http://backend/api/handle-payment-notification&quot;</span>,
     <span class="hljs-attr">autoTransactionDate</span>: <span class="hljs-literal">true</span>,
     <span class="hljs-attr">autoPaymentReference</span>: <span class="hljs-literal">true</span>,
     <span class="hljs-attr">fallbackToZA</span>: <span class="hljs-literal">true</span>,
@@ -109,7 +109,7 @@
 });
 
 <span class="hljs-built_in">console</span>.log(paymentResponse.paymentRef);</code></pre>
-				<p>There is plenty more available, all of which is covered in the relevant sections below.</p>
+				<p>More detail is covered in the sections below.</p>
 				<p><a href="#table-of-contents">Back to top</a></p>
 				<a href="#reference-implementation" id="reference-implementation" style="color: inherit; text-decoration: none;">
 					<h2>Reference Implementation</h2>
@@ -318,7 +318,7 @@ generatePayGateChecksum({ <span class="hljs-attr">prop</span>: <span class="hljs
 				</a>
 				<p>▸ <strong>toCentAmount</strong>(<code>amount</code>: string | number): string</p>
 				<p>▸ <strong>generatePayGateChecksum</strong>(<code>data</code>: <a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.untypedobject.html">UntypedObject</a>, <code>encryptionKey</code>: string): string</p>
-				<p>▸ <strong>getTransactionDescription</strong>(<code>paymentStatus</code>: <a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentstatus.html">PaymentStatus</a>): <a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.transactiondescription.html">TransactionDescription</a></p>
+				<p>▸ <strong>getTransactionInfo</strong>(<code>paymentStatus</code>: <a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.paymentstatus.html">PaymentStatus</a>): <a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.transactionstatus.html">TransactionStatus</a></p>
 				<p>▸ <strong>getTestCards</strong>(): <a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.creditcard.html">CreditCard</a>[]</p>
 				<p>▸ <strong>getTestCardsByTransactionType</strong>(): <a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.creditcard.html">CreditCard</a>[]</p>
 				<p>▸ <strong>removeAllNonValuedProperties</strong>(<code>obj</code>: <a href="https://distributhor.github.io/paygate-sdk/interfaces/_types_.untypedobject.html">UntypedObject</a>): void</p>
