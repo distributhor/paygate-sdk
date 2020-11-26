@@ -151,6 +151,7 @@ export const enum TransactionCode {
 }
 
 export interface TransactionStatus {
+  paymentReqId?: string;
   code?: TransactionCode;
   status?: TransactionStatusText;
   detail?: string;

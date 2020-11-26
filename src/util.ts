@@ -54,8 +54,6 @@ const TransactionCodeMap = {
 export function getTransactionInfo(paymentStatus: PaymentStatus): TransactionStatus {
   if (!paymentStatus || paymentStatus.TRANSACTION_STATUS == undefined) {
     return {
-      code: undefined,
-      status: undefined,
       detail: "No transaction status found",
     };
   }
@@ -64,6 +62,7 @@ export function getTransactionInfo(paymentStatus: PaymentStatus): TransactionSta
   const rsCode = paymentStatus.RESULT_CODE ? paymentStatus.RESULT_CODE.toString() : undefined;
 
   return {
+    paymentReqId: paymentStatus.PAY_REQUEST_ID || undefined,
     code: TransactionCodeMap[txCode],
     status: TransactionStatusMap[txCode],
     detail: rsCode && TransactionResultCode[rsCode] ? TransactionResultCode[rsCode] : undefined,
