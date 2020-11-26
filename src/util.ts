@@ -52,17 +52,15 @@ const TransactionCodeMap = {
 };
 
 export function getTransactionInfo(paymentStatus: PaymentStatus): TransactionStatus {
-  if (!paymentStatus || paymentStatus.TRANSACTION_STATUS == undefined) {
-    return {
-      detail: "No transaction status found",
-    };
+  if (!paymentStatus || paymentStatus.PAY_REQUEST_ID == undefined) {
+    return undefined;
   }
 
   const txCode = paymentStatus.TRANSACTION_STATUS.toString();
   const rsCode = paymentStatus.RESULT_CODE ? paymentStatus.RESULT_CODE.toString() : undefined;
 
   return {
-    paymentReqId: paymentStatus.PAY_REQUEST_ID || undefined,
+    paymentReqId: paymentStatus.PAY_REQUEST_ID,
     code: TransactionCodeMap[txCode],
     status: TransactionStatusMap[txCode],
     detail: rsCode && TransactionResultCode[rsCode] ? TransactionResultCode[rsCode] : undefined,
