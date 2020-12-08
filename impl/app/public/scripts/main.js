@@ -112,7 +112,7 @@ $(document).ready(function () {
     $("#error").hide();
 
     requestPayment({
-      AMOUNT: validation.amount,
+      AMOUNT: Paygate.Util.toCentAmount(validation.amount),
       EMAIL: email,
     });
   });

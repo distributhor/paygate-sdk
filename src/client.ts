@@ -135,7 +135,8 @@ const PayGateData = {
     const obj: PaymentRequest = {
       PAYGATE_ID: data.PAYGATE_ID || config.payGateId,
       REFERENCE: PayGateData.getPaymentReference(data, config),
-      AMOUNT: data.AMOUNT ? util.toCentAmount(data.AMOUNT) : undefined,
+      // AMOUNT: data.AMOUNT ? util.toCentAmount(data.AMOUNT) : undefined,
+      AMOUNT: data.AMOUNT || undefined,
       CURRENCY: PayGateData.getCurrency(data, config),
       RETURN_URL: data.RETURN_URL || config.returnUrl || undefined,
       TRANSACTION_DATE: PayGateData.getTransactionDate(data, config),
