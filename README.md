@@ -7,7 +7,7 @@
 
 ## Introduction
 
-**This documentation is currently in the process of being written and refined, and is not in a final state.**
+**This documentation is currently in the process of being written and refined, and is not in a final state. The current implementation may not yet support all the features that you need. If you are interested in using this, but would like additions, modifications or support for a wider feature set, either get in touch, or feel free to fork or contribute to the project.**
 
 This project is made up of a few parts which can be used seperately or in combination, to aid with building an integration to the South African payment provider [PayGate](https://www.paygate.co.za).
 
