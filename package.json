@@ -11,6 +11,9 @@
     "type": "git",
     "url": "https://github.com/distributhor/paygate-sdk.git"
   },
+  "contributors": [
+    "WK <wk@distributhor.com>"
+  ],
   "files": [
     "CHANGELOG.md",
     "LICENSE.md",
